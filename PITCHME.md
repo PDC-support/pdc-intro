@@ -3,7 +3,7 @@ marp: true
 style: |
   section h1 {
     text-align: center;
-    }git@github.com:johanhellsvik/pdc-intro-matlab.git
+    }
   .column {
     float: left;
     width: 50%;
