@@ -452,13 +452,13 @@ setfacl -x u:<uid> -R /cfs/klemming/home/u/user/test
 
 # How we run jobs on a Supercomputer
 
-![bg right:55% width:100%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
+![bg right:60% width:100%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
 
-- Edit files
-- Compile programs
-- Run light tasks
-- Submit jobs
-- Do not run parallel jobs
+* Edit files
+* Compile programs
+* Run light tasks
+* Submit jobs
+* Do not run parallel jobs
 
 
 ---
@@ -647,16 +647,81 @@ srun ./myexe > my_output_file
 
 ---
 
-# Exercise 1
+# Exercise 1: Basic SLURM commands
 
-Basic SLURM commands: submit a job, inspect the queue, partitions, etc.
+* In this exercise we are going to test some basic SLURM commands.
 
-You can find the exercise here:
+* You will:
+   - Create and compile a simple MPI program
+   - Submit it to the queues
+   - Inspect the queues
+   - Inspect the partitions
+   - Check the output of the job
 
-[Exercise 1](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/howto-run-ex1.md)
 
 ---
 
+# MPI Hello world
+
+```c
+#include <mpi.h>
+#include <stdio.h>
+
+int main(int argc, char** argv) {
+  int world_size,world_rank;
+
+  // Initialize the MPI environment
+  MPI_Init(NULL, NULL);
+  // Get the number of processes
+  MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+  // Get the rank of the process
+  MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+  // Print off a hello world message
+  printf("Hello world from rank %d out of %d process\n", world_rank, world_size);
+  // Finalize the MPI environment.
+  MPI_Finalize();
+  return 0;
+  }
+```
+
+---
+
+# Exercise 1
+
+* You can find the code from the previous slide [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/hello_mpi.c)
+
+* Save the file on Dardel, compile the code and generate a binary called *hello_mpi*
+
+---
+
+
+
+# Exercise 1
+
+* Take the job script that you can find [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise1.sh) and modify it accordingly to:
+   - Use the proper allocation required, for this course it is *edu2203.intropdc*
+   - Use one node for the job
+   - Use 4 cores from that node
+   - Add the command **srun -n 1 hostname** to the script (what this will do?)
+   - Add at the end of the script the command **sleep 60** to make the job "sleep" for 60 seconds
+
+
+---
+
+# Exercise 1
+
+* Submit this script using **sbatch**
+
+* Check the queue using **squeue -u $USER**
+   - What's the ID of the job?
+   - Is it already running?
+   - Which node was allocated for the job?
+
+* Try using **scontrol show job <job-id>** to see more info about the job
+
+* Once the job finishes check the output job. Where is it saved?
+
+---
 
 
 # Job arrays
@@ -761,12 +826,68 @@ source ~/.bash_profile
 
 # Exercise 2
 
-Advanced SLURM commands: submit a job, inspect what happened with the job, etc.
+* In this exercise we are going to use some more advanced SLURM commands to explore job performance. 
 
-You can find the exercise here:
+* You will:
+   - Create and compile a simple MPI program
+   - Submit it to the queues
+   - Check job data using sacct
+
 
 
 ---
+
+# Exercise 2
+
+* You can find the sample code for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/vector_mpi.c)
+
+* Compile the code and generate a binary called *vector_mpi*
+
+---
+
+
+# Exercise 2
+
+* You can find the job script for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise-2.sh)
+
+* Save the script on Dardel and submit the job. Once the job finishes check its output
+
+* What happened with the job?
+
+* Inspect the job data using **sacct**
+   - Use: JobID, JobName, Elapsed, Alloc, NTask, MaxRRS, ReqMem, State
+
+     **Tip**: use flag "--unit=M" to see memory units in MB
+
+* Can you see why the job failed?
+
+
+---
+
+# Exercise 2
+
+* Change the NROWS and NCOLS value to 4096 for example
+
+* Run again, and check the job with sacct
+
+* Try to use the **seff** command for another quick job efficiency report.  
+
+```
+Job ID: 211499
+Cluster: dardel
+User/Group: xaguilar/xaguilar
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 8
+CPU Utilized: 00:00:01
+CPU Efficiency: 0.37% of 00:04:32 core-walltime
+Job Wall-clock time: 00:00:34
+Memory Utilized: 549.25 MB (estimated maximum)
+Memory Efficiency: 7.73% of 6.94 GB (888.00 MB/core)
+```
+
+---
+
 
 # Good SLURM practices
 
