@@ -446,7 +446,395 @@ setfacl -x u:<uid> -R /cfs/klemming/home/u/user/test
 
 # Running jobs with efficient utilization of hardware
 
-### [name of lecturer]
+### Xavier Aguilar
+
+---
+
+# How we run jobs on a Supercomputer
+
+- Edit files
+- Compile programs
+- Run light tasks
+- Submit jobs
+- Do not run parallel jobs
+
+![bg right: 60%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
+
+---
+# What is SLURM ?
+## Simple Linux Utility for Resource Management
+
+* Open source, fault-tolerant, and highly scalable cluster management and job scheduling system
+  - Allocates access to resources
+  - Provides a framework for monitoring work on the set of allocated nodes
+  - Arbitrates contention for resources
+---
+
+# How is SLURM used at PDC?
+
+* Jobs can be run in two different ways:
+  - **Batch jobs**
+    - the user writes a job script indicating the number of nodes, cores, time needed, etc.
+    - the script is submitted to the batch queue. SLURM evaluates it, and starts the jobs when it reaches the front of the queue.
+    - The user retrieves the output files once the job is finished
+  - **Interactive jobs:**
+    - the user runs a command that allocate interactive resources on a number of cores
+    - the interactive job awaits in the queue as any other job
+    - when the job reaches the front of the queue, the user gets access to the resources and can run commands there
+
+---
+# Queing jobs
+<style scoped>
+section{
+  justify-content: flex-start;
+}
+</style>
+![bg right: 90%](https://pdc-web.eecs.kth.se/files/support/images/sbatchflow.PNG)
+
+---
+
+# How jobs are scheduled?
+
+* **Age**: the time the job has been in the queue
+* **Job size**: number of nodes or cores requested
+* **Partition**: a factor associated with each node partition
+* **Fair-share**: the difference between the computing resources promissed and the amount of resources computed
+
+
+---
+
+# SLURM basic commands
+
+### Submit a job to the queue:
+```
+sbatch <script>
+```
+
+### List queued/running jobs belonging to a user:
+```
+squeue -u <username>
+```
+
+### Cancel a job:
+```
+scancel <job-id>
+```
+
+---
+
+# SLURM advanced commands
+
+<!-- ### To get further information about a job:
+```
+scontrol show job <jobid>
+```
+-->
+
+### Get detailed information of a running job:
+```
+sstat --jobs=<your_job-id>
+```
+
+### Filter the information provided by sstat
+```
+sstat --jobs=your_job-id --format=JobID,aveCPU,MaxRRS,NTasks
+```
+---
+
+# SLURM advanced commands
+
+### To get information on past jobs:
+```
+sacct
+```
+
+### Get detailed information of a certain job:
+```
+sacct --jobs=<your_job-id> --starttime=YYYY-MM-DD
+```
+```
+sacct --starttime=2019-06-23 --format=JobName,CPUTime,NNodes,MaxRSS,Elapsed
+```
+
+---
+# Slurm advanced command
+### Information on partitions and nodes
+```
+sinfo
+```
+
+---
+# Job scripts (pure MPI)
+
+```
+#!/bin/bash -l
+# The -l above is required to get the full environment with modules
+
+# Set the allocation to be charged for this job
+# not required if you have set a default allocation
+#SBATCH -A snicYYYY-X-XX
+
+# The name of the script is myjob
+#SBATCH -J myjob
+
+# The partition
+#SBATCH -p main
+
+# 10 hours wall-clock time will be given to this job
+#SBATCH -t 10:00:00
+
+# Number of nodes
+#SBATCH --nodes=4
+
+# Number of MPI processes per node
+#SBATCH --ntasks-per-node=128
+
+# Loading modules needed by your job
+module add X
+module add Y
+
+# Run the executable named myexe
+# and write the output into my_output_file
+srun ./myexe > my_output_file
+```
+
+
+---
+# Partitions
+
+* Nodes are logically grouped into partitions
+* There are four partitions that can be used on Dardel
+  - **main**: Thin nodes (256 GB RAM), whole nodes, maximum 24 hours job time
+  - **long**: Thin nodes (256 GB RAM), whole nodes, maximum 7 days job time
+  - **shared**: Thin nodes (256 GB RAM), job shares node with other jobs, maximum 24 hours job time
+  - **memory**: Large/Huge/Giant nodes (512 Gb - 2 TB RAM), whole nodes, 24 hours job time
+
+---
+
+# Job scripts (MPI + OpenMP)
+
+```
+#!/bin/bash -l
+# The -l above is required to get the full environment with modules
+
+# Set the allocation to be charged for this job
+#SBATCH -A snicYYYY-X-XX
+
+# The name of the script is myjob
+#SBATCH -J myjob
+
+# The partition
+#SBATCH -p main
+
+# 10 hours wall-clock time will be given to this job
+#SBATCH -t 10:00:00
+
+# Number of Nodes
+#SBATCH --nodes=4
+
+# Number of MPI tasks per node
+#SBATCH --ntasks-per-node=16
+# Number of logical cores hosting OpenMP threads. Note that cpus-per-task is set as 2x OMP_NUM_THREADS
+#SBATCH --cpus-per-task=16
+
+# Number and placement of OpenMP threads
+export OMP_NUM_THREADS=8
+export OMP_PLACES=cores
+
+# Run the executable named myexe
+srun ./myexe > my_output_file
+```
+
+---
+
+# Exercise 1
+
+Basic SLURM commands: submit a job, inspect the queue, partitions, etc.
+
+You can find the exercise here:
+
+
+---
+
+
+
+# Job arrays
+
+* When we have several similar jobs that can be packed withtin a single job
+
+```
+#!/bin/bash -l
+#SBATCH -A project
+#SBATCH -N 1
+#SBATCH -t 00:10:00
+
+for i in $(seq 0 9); do
+        srun -n 1 myprog $i
+done
+```
+
+---
+# Job arrays
+```
+#!/bin/bash -l
+#SBATCH -A project
+#SBATCH -N 1
+#SBATCH -t 00:01:00
+#SBATCH -a 0-9
+
+srun -n 1 myprog $SLURM_ARRAY_TASK_ID
+```
+
+\$SLURM_ARRAY_TASK_ID contains a number 0-9 identifying each job in the array (defined with -a)
+
+**Note:** Too many short jobs is bad for performance and can slow down the whole queue system. Ideally each job should be at least 10 minutes long.
+
+---
+# Job arrays
+
+Once submitted, the job array gets a job id assigned that can be used to manipulate all jobs at once:
+```
+> sbatch job_array.sh
+Submitted batch job 6975769
+> scancel 6975769
+```
+
+For more info on job arrays check the SLURM website:
+https://slurm.schedmd.com/job_array.html
+
+---
+# Interactive jobs
+
+* Request an interactive allocation
+```
+salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes>
+```
+
+* Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
+```
+srun -n <number-of-processes> ./mybinary.x
+```
+
+---
+# Interactive jobs
+
+We can check what nodes have been granted with:
+
+```
+squeue -u $USER
+```
+
+or inspecting the environment variable:
+```
+SLURM_NODELIST
+```
+
+**Note:** In the future it will be possible to ssh to the allocated nodes as well
+
+---
+
+
+# Common reasons for inefficient jobs
+
+* Not all nodes allocated are used
+* Not all cores within a node are used (if it's not intentional)
+* Many more cores than the available are used
+* Inneficient use of the file system
+* Using the wrong partition
+
+---
+
+# Job inefficiencies, how to check them
+
+```
+sacct --format="JobID,JobName,Elapsed,AveCPU,MinCPU,TotalCPU,Alloc,MaxRSS,State" -j <jobid>
+```
+**Tip:** You can set your default sacct format in your bash profile
+```
+echo 'export SACCT_FORMAT="JobID,JobName,Elapsed,AveCPU,MinCPU,TotalCPU,NTask,MaxRSS,State"' >> ~/.bash_profile
+source ~/.bash_profile
+```
+
+
+---
+
+# Exercise 2
+
+Advanced SLURM commands: submit a job, inspect what happened with the job, etc.
+
+You can find the exercise here:
+
+
+---
+
+# Good SLURM practices
+
+* Avoid too many short jobs
+* Avoid massive output to STDOUT
+* Try to provide a good estimate of the job duration before submitting
+
+---
+
+# Packing short jobs
+
+* Several short jobs can be packed together into a single job where they run serially
+
+```
+#!/bin/bash -l
+#SBATCH -A project
+#SBATCH -N 1
+#SBATCH -t 00:10:00
+
+for arg in "$@"; do
+        srun -n 1 myprog $arg
+done
+```
+
+The job is submitted with:
+```
+sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
+```
+
+---
+# Using fewer cores
+
+* Reduce the number of cores used per job and run multiple instances of the job in a single node
+
+```
+#!/bin/bash -l
+#SBATCH -A project
+#SBATCH -N 1
+#SBATCH -t 00:01:00
+
+export OMP_NUM_THREADS=32
+
+srun myprog $1
+```
+
+---
+
+# Using fewer cores
+
+```
+#!/bin/bash -l
+#SBATCH -A project
+#SBATCH -N 1
+#SBATCH -t 00:08:00
+
+export OMP_NUM_THREADS=4
+
+srun ./inner.sh "$@"
+```
+
+```
+#!/bin/bash
+
+for arg in "$@"; do
+        myprog $arg &
+done
+
+wait
+```
 
 ---
 
