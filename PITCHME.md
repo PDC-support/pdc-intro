@@ -472,15 +472,14 @@ setfacl -x u:<uid> -R /cfs/klemming/home/u/user/test
 
 # How is SLURM used at PDC?
 
-* Jobs can be run in two different ways:
-  - **Batch jobs**
-    - the user writes a job script indicating the number of nodes, cores, time needed, etc.
-    - the script is submitted to the batch queue. SLURM evaluates it, and starts the jobs when it reaches the front of the queue.
-    - The user retrieves the output files once the job is finished
-  - **Interactive jobs:**
-    - the user runs a command that allocate interactive resources on a number of cores
-    - the interactive job awaits in the queue as any other job
-    - when the job reaches the front of the queue, the user gets access to the resources and can run commands there
+* **Batch jobs**
+  - the user writes a job script indicating the number of nodes, cores, time needed, etc.
+  - the script is submitted to the batch queue. SLURM evaluates it, and starts the jobs when it reaches the front of the queue.
+  - The user retrieves the output files once the job is finished
+* **Interactive jobs:**
+  - the user runs a command that allocate interactive resources on a number of cores
+  - the interactive job awaits in the queue as any other job
+  - when the job reaches the front of the queue, the user gets access to the resources and can run commands there
 
 ---
 # Queing jobs
@@ -661,7 +660,7 @@ You can find the exercise here:
 
 # Job arrays
 
-* When we have several similar jobs that can be packed withtin a single job
+When we have several similar jobs that can be packed withtin a single job
 
 ```
 #!/bin/bash -l
@@ -706,12 +705,12 @@ https://slurm.schedmd.com/job_array.html
 ---
 # Interactive jobs
 
-* Request an interactive allocation
+Request an interactive allocation
 ```
 salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes>
 ```
 
-* Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
+Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
 ```
 srun -n <number-of-processes> ./mybinary.x
 ```
@@ -778,7 +777,7 @@ You can find the exercise here:
 
 # Packing short jobs
 
-* Several short jobs can be packed together into a single job where they run serially
+Several short jobs can be packed together into a single job where they run serially
 
 ```
 #!/bin/bash -l
@@ -799,7 +798,7 @@ sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
 ---
 # Using fewer cores
 
-* Reduce the number of cores used per job and run multiple instances of the job in a single node
+Reduce the number of cores used per job and run multiple instances of the job in a single node
 
 ```
 #!/bin/bash -l
