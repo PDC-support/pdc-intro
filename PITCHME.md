@@ -3,7 +3,7 @@ marp: true
 style: |
   section h1 {
     text-align: center;
-    }
+    }git@github.com:johanhellsvik/pdc-intro-matlab.git
   .column {
     float: left;
     width: 50%;
@@ -450,11 +450,187 @@ setfacl -x u:<uid> -R /cfs/klemming/home/u/user/test
 
 ---
 
-# Using Matlab
+# Using MATLAB
 
-### [name of lecturer]
+![bg right:50% width:80%](https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/667px-Matlab_Logo.png)
+
+MATLAB is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks.
+
+MATLAB allows matrix manipulations, plotting of functions and data, implementation of algorithms, creation of user interfaces, and interfacing with programs written in other languages.
 
 ---
+
+# MATLAB at PDC
+
+## Licensing
+
+In order to use MATLAB you need to have a MATLAB license.
+
+KTH has a site-wide license for MATLAB which includes all MATLAB toolboxes.
+
+To access the installation of MATLAB on Dardel, please contact PDC support and request access.
+
+## Interactive and batch use of MATLAB
+
+MATLAB can be run on Dardel both in interactive sessions, with or without a graphical user interface, or in batch jobs.
+
+---
+
+# Running interactively
+
+Matlab can be run interactively on an allocated node. To book a single node for one hour
+
+```
+salloc -N 1 -t 1:00:00 -A pdc.staff -p main
+```
+
+Wait for a node to reserved
+
+```
+salloc: Granted job allocation 591571
+salloc: Waiting for resource configuration
+salloc: Nodes nid001015 are ready for job
+```
+
+Log in to the node
+
+```
+ssh -X nid00105
+```
+
+
+---
+and start MATLAB with graphical user interface
+
+```
+ml PDC/21.11
+ml matlab/r2021b
+matlab
+```
+
+Altenatively to a full node, request cores on the shared partition
+
+```
+salloc -n 24 -t 1:00:00 -A pdc.staff -p shared
+```
+
+---
+
+# Parallel computation with Matlab
+
+MATLAB implements a large set of solutions for parallel computing.
+
+* Vectorization
+* Automated pararalle computing support
+* Parallel execution of loops with ``parfor``
+* Running multiple serial batch jobs
+
+---
+
+# Parallel execution with ``parfor``
+
+Calculation of the spectral radius of a matrix
+
+Consider first serial code:
+
+```
+tic
+n = 500;
+A = 1000;
+a = zeros(n);
+for i = 1:n
+    a(i) = max(abs(eig(rand(A))));
+end
+toc
+```
+
+Execution time on one core: 297 s
+
+Can this be parallelized? How large is the overhead?
+
+---
+
+A ``parfor`` loop can be used to execute loop iterations in parallel on workers in a parallel pool.
+
+Replace `for` statements in earlier example with ``parfor``
+
+```
+tic
+ticBytes(gcp);
+n = 500;
+A = 1000;
+a = zeros(n);
+parfor i = 1:n
+    a(i) = max(abs(eig(rand(A))));
+end
+tocBytes(gcp)
+toc
+```
+
+Execution time on 24 cores: 30 s
+
+Speedup as compared to execution time on 1 core: 9.9
+
+---
+# Parallel execution of MATLAB in batch jobs`
+
+Also for batch job use of MATLAB, consider to use the shared partition of Dardel. Example job script
+
+
+```
+#!/bin/bash -l
+#SBATCH -A snicYYYY-X-XX
+#SBATCH -J myjob
+#SBATCH -p shared
+#SBATCH -n 16
+#SBATCH -t 10:00:00
+
+# Load the Matlab module
+ml add PDC/21.11
+ml matlab/r2021b
+
+# Run matlab taking your_matlab_program.m as input
+matlab -batch your_matlab_program.m > your_matlab_program.out
+```
+
+---
+
+# Running multiple serial batch jobs
+
+```
+#!/bin/bash -l
+#SBATCH -A snicYYYY-X-XX
+#SBATCH -J myjob
+#SBATCH -p shared
+#SBATCH -n 24
+#SBATCH -t 10:00:00
+
+# Load the Matlab module
+ml add PDC/21.11
+ml matlab/r2021b
+
+# Run matlab for 24 individual programs serial_program_1.m,
+# serial_program_2.m ... and print output in files logfile_1, logfile_2, ...
+# The input files must be in the directory where you submit this script.
+# This is also where the output will be created.
+
+for i in {1..24} ; do
+    matlab -nosplash -nodesktop -nodisplay < serial_program_${i}.m > logfile_$i &
+done
+# this wait command must be present since otherwise the job will terminate immediately
+wait
+```
+
+---
+
+# Exercise 1
+
+---
+
+# Exercise 2
+
+---
+
 
 # Using Python virtual environment
 
