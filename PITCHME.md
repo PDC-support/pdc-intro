@@ -653,6 +653,7 @@ Basic SLURM commands: submit a job, inspect the queue, partitions, etc.
 
 You can find the exercise here:
 
+[Exercise 1](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/howto-run-ex1.md)
 
 ---
 
