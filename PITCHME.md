@@ -872,19 +872,19 @@ source ~/.bash_profile
 
 * Try to use the **seff** command for another quick job efficiency report.  
 
-```
-Job ID: 211499
-Cluster: dardel
-User/Group: xaguilar/xaguilar
-State: COMPLETED (exit code 0)
-Nodes: 1
-Cores per node: 8
-CPU Utilized: 00:00:01
-CPU Efficiency: 0.37% of 00:04:32 core-walltime
-Job Wall-clock time: 00:00:34
-Memory Utilized: 549.25 MB (estimated maximum)
-Memory Efficiency: 7.73% of 6.94 GB (888.00 MB/core)
-```
+   ```
+   Job ID: 211499
+   Cluster: dardel
+   User/Group: xaguilar/xaguilar
+   State: COMPLETED (exit code 0)
+   Nodes: 1
+   Cores per node: 8
+   CPU Utilized: 00:00:01
+   CPU Efficiency: 0.37% of 00:04:32 core-walltime
+   Job Wall-clock time: 00:00:34
+   Memory Utilized: 549.25 MB (estimated maximum)
+   Memory Efficiency: 7.73% of 6.94 GB (888.00 MB/core)
+   ```
 
 ---
 
