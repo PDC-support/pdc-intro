@@ -452,13 +452,14 @@ setfacl -x u:<uid> -R /cfs/klemming/home/u/user/test
 
 # How we run jobs on a Supercomputer
 
+![bg right: 60%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
+
 - Edit files
 - Compile programs
 - Run light tasks
 - Submit jobs
 - Do not run parallel jobs
 
-![bg right: 60%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
 
 ---
 # What is SLURM ?
