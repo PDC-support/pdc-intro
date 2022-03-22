@@ -1141,13 +1141,58 @@ wait
 
 ---
 
-
 # Using Python virtual environment
-
-### [name of lecturer]
 
 ---
 
+# Why virtual environment?
+
+* We often need to install a number of Python packages
+* When working with multiple projects, it is not uncommon that different projects have conflicting requirements of packages
+* On HPC platform, different users may have conflicting needs of packages
+
+---
+
+# Why virtual environment?
+
+Without virtual environment, Python packages are installed
+
+* either in system site directory
+  ```
+  python3 -c 'import site; print(site.getsitepackages())'
+  ```
+* or in the so-called user base
+  ```
+  echo $HOME/.local
+  ```
+
+---
+
+# Exercise: Check python site directory
+
+```
+python3 -c 'import site; print(site.getsitepackages())'
+
+ml cray-python/3.9.4.2
+which python3
+python3 -c 'import site; print(site.getsitepackages())'
+
+ml PDC/21.11 Anaconda3/2021.05
+which python3
+python3 -c 'import site; print(site.getsitepackages())'
+```
+
+---
+
+# Python virtual environment
+
+* Isolated run-time environment
+* Install and execute Python packages without interfering with the outside world
+* Two ways of creating and managing virtual environment
+    - ``venv``
+    - ``conda``
+
+---
 
 # How to use EasyBuild on Dardel
 ![bg h:150 80% left](https://docs.easybuild.io/en/latest/_static/easybuild_logo_alpha.png)
