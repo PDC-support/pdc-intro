@@ -452,7 +452,7 @@ setfacl -x u:<uid> -R /cfs/klemming/home/u/user/test
 
 # How we run jobs on a Supercomputer
 
-![bg right: 60%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
+![bg right:55% width:100%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
 
 - Edit files
 - Compile programs
