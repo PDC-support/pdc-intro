@@ -743,7 +743,7 @@ chgrp group_name fileA (change group ownership)
 chown -R folder        (Change owner of folder)
 
 ```
-**NB: On Dardel, we mainly use ACLs instead (next slide)**
+**NB: On Dardel, we also use ACLs (next slide)**
 
 ---
 #### Access control lists (ACLs)
