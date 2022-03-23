@@ -844,7 +844,7 @@ tar -caf archive_name.tar.gz dir/
 tar -xaf archive_name.tar.gz -C /path/to/directory
 ```
 
-* *tar* is the standard tool to save many files or directories into a single archive file_example
+* *tar* is the standard tool to save many files or directories into a single archive
 * Archive files may have extensions .tar, .tar.gz etc depending on compression used.
 * "f" is for filename, "a" selects compression based on suffix
 * With no compression, files are simply packed
@@ -857,7 +857,6 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 * Make a tar.gz archive of shell-lesson-data
 * Make a tar archive, compare sizes
 * List the files inside the archive
-
 ```
 
 ---
