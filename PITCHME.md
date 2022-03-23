@@ -1448,7 +1448,7 @@ ml matlab/r2021b
 matlab
 ```
 
-Altenatively to a full node, request cores on the shared partition
+Alternatively to requesting a full node, request cores on the shared partition
 
 ```
 salloc -n 24 -t 1:00:00 -A pdc.staff -p shared
@@ -1461,7 +1461,7 @@ salloc -n 24 -t 1:00:00 -A pdc.staff -p shared
 MATLAB implements a large set of solutions for parallel computing.
 
 * Vectorization
-* Automated pararalle computing support
+* Automated parallel computing support
 * Parallel execution of loops with ``parfor``
 * Running multiple serial batch jobs
 
@@ -1471,7 +1471,7 @@ MATLAB implements a large set of solutions for parallel computing.
 
 Calculation of the spectral radius of a matrix
 
-Consider first serial code:
+Consider first serial code: [spectral_serial.m](https://github.com/PDC-support/pdc-intro/blob/master/MATLAB_exercises/spectral_serial.m)
 
 ```
 tic
@@ -1492,7 +1492,8 @@ Can this be parallelized? How large is the overhead?
 
 A ``parfor`` loop can be used to execute loop iterations in parallel on workers in a parallel pool.
 
-Replace `for` statements in earlier example with ``parfor``
+Replace `for` statements in serial code with ``parfor`` to obtain [spectral_parfor.m](https://github.com/PDC-support/pdc-intro/blob/master/MATLAB_exercises/spectral_parfor.m)
+
 
 ```
 tic
@@ -1512,9 +1513,9 @@ Execution time on 24 cores: 30 s
 Speedup as compared to execution time on 1 core: 9.9
 
 ---
-# Parallel execution of MATLAB in batch jobs`
+# Parallel execution of MATLAB in batch jobs
 
-Also for batch job use of MATLAB, consider to use the shared partition of Dardel. Example job script
+Also for batch job use of MATLAB, consider to use the shared partition of Dardel. Example job script [jobMATLABn16.sh](https://github.com/PDC-support/pdc-intro/blob/master/MATLAB_exercises/jobMATLABn16.sh)
 
 
 ```
@@ -1565,9 +1566,27 @@ wait
 
 # Exercise 1
 
+## Calculating spectral radius in interactive session
+
+* Request node / cores for interactive session
+* Log in to the node, and start MATLAB
+* Experiment with [spectral_serial.m](https://github.com/PDC-support/pdc-intro/blob/master/MATLAB_exercises/spectral_serial.m) and [spectral_parfor.m](https://github.com/PDC-support/pdc-intro/blob/master/MATLAB_exercises/spectral_parfor.m)
+  * Compare runtimes serial code vs parallel code for n = 200; A = 500;
+  * Change values of n and A. How does relative runtime change?
+
 ---
 
 # Exercise 2
+
+## Calculating spectral radius in batch job
+
+* Edit the template script [jobMATLABn16.sh](https://github.com/PDC-support/pdc-intro/blob/master/MATLAB_exercises/jobMATLABn16.sh). You will need to
+  * Specify allocation and reservation
+  * Change the name of the MATLAB program
+  * Consider to change the time for the job and number or cores
+
+* Launch jobs for both the serial and the parallel versions of the spectral radius code
+
 
 ---
 
