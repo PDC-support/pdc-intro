@@ -955,6 +955,9 @@ sstat --jobs=<your_job-id>
 ```
 sstat --jobs=your_job-id --format=JobID,aveCPU,MaxRRS,NTasks
 ```
+
+**Tip:** Use *sstat -e* to see all possible fields for the *format* flag
+
 ---
 
 # SLURM advanced commands
@@ -973,7 +976,7 @@ sacct --starttime=2019-06-23 --format=JobName,CPUTime,NNodes,MaxRSS,Elapsed
 ```
 
 ---
-# Slurm advanced command
+# SLURM advanced command
 ### Information on partitions and nodes
 ```
 sinfo
@@ -1139,10 +1142,35 @@ int main(int argc, char** argv) {
 
 ---
 
+**Note**:
+
+Notice that we run our program with just:
+
+```
+srun ./hello_mpi
+````
+
+It would be also possible to run our program with:
+```
+srun -N 1 -n 4 ./hello_mpi
+```
+
+However, we don't need to specify the flags because SLURM takes the *-N* and *-n* values from the script *BATCH* directives
+
+---
+
+# Exercise 1
+
+* Use **sinfo** to check the partitions
+  - How many different partitions are defined? What are their names?
+  - What's the partition with the highest number of nodes?
+  - Name 1-2 nodes included in that same partition
+
+---
 
 # Job arrays
 
-When we have several similar jobs that can be packed withtin a single job
+When we have several similar jobs that can be packed within a single job
 
 ```
 #!/bin/bash -l
@@ -1223,20 +1251,6 @@ SLURM_NODELIST
 * Many more cores than the available are used
 * Inneficient use of the file system
 * Using the wrong partition
-
----
-
-# Job inefficiencies, how to check them
-
-```
-sacct --format="JobID,JobName,Elapsed,AveCPU,MinCPU,TotalCPU,Alloc,MaxRSS,State" -j <jobid>
-```
-**Tip:** You can set your default sacct format in your bash profile
-```
-echo 'export SACCT_FORMAT="JobID,JobName,Elapsed,AveCPU,MinCPU,TotalCPU,NTask,MaxRSS,State"' >> ~/.bash_profile
-source ~/.bash_profile
-```
-
 
 ---
 
