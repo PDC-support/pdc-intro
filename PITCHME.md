@@ -493,9 +493,9 @@ https://carpentries.org/
 ---
 ### Exercise 1
 ```
-* Explore the contents of **shell-lesson-data**
+* Explore the contents of shell-lesson-data
 * Move back and forth into the subdirectories
-* Move into **exercise-data** and copy the file
+* Move into exercise-data and copy the file
  "numbers.txt" into a new file "numbers_copy.txt"
  by typing "cp numbers.txt numbers_copy.txt"
 ```
@@ -527,7 +527,7 @@ tail file_example (print last lines of file)
 * Copy an existing directory
 * Display "numbers_copy.txt" in some way
 * Print your command line history
-* Take a peek at the manual for command *ls*:
+* Take a peek at the manual for command ls:
 * Type man ls
 * Press up/down keys to scroll
 * Type / to start search mode
@@ -653,7 +653,7 @@ recursive search (adding the -R flag)
 
 find:
 * Type find . -name animals.csv.
-* Try to find all files ending with .pdb using the find command.
+* Type find . -name *.pdb
 
 ```
 ---
@@ -679,7 +679,7 @@ But we also want to run **programs.**
   * input and output, Return code (integer) when complete
   * Working directory, Environment variables
 * These concepts bind together all UNIX programs
-* To see some runnings processes, typ *top*
+* To see some runnings processes, type *top*
 
 ---
 ### Foreground and background processes
@@ -750,10 +750,10 @@ chown -R folder        (Change owner of folder)
 ```
 * On Lustre (Klemming) we use more advanced access permissions.
 
-* Normal unix permission have only one *owner* and *group*.
+* Normal unix permission have only one owner and group.
  With ACLs, this restriction is lifted.
 
-* ACLs are controlled via *getfacl* and *setfacl*
+* ACLs are controlled via getfacl and setfacl.
 
 * getfacl file                   (get current stage)
 * setfacl -m u:<user>:r file    (Allow read access for user)
@@ -846,11 +846,9 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 
 * *tar* is the standard tool to save many files or directories into a single archive file_example
 * Archive files may have extensions .tar, .tar.gz etc depending on compression used.
-* f is for filename
-* a selects compression based on suffix
+* "f" is for filename, "a" selects compression based on suffix
 * With no compression, files are simply packed
-* r will append files to end of archive
-* t will list archive
+* "r" will append files to end of archive, "t" will list archive
 * Individual files can be compressed directly with e.g. gzip. (gzip file, gunzip file.gz)
 
 ---
