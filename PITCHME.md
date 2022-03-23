@@ -1285,7 +1285,7 @@ SLURM_NODELIST
 * What happened with the job?
 
 * Inspect the job data using **sacct**
-   - Use: JobID, JobName, Elapsed, Alloc, NTask, MaxRRS, ReqMem, State
+   - Use: --format=JobID,JobName,Elapsed,Alloc,NTask,MaxRSS,ReqMem,State
 
      **Tip**: use flag "--unit=M" to see memory units in MB
 
