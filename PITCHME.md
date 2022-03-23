@@ -440,7 +440,7 @@ setfacl -x u:<uid> -R /cfs/klemming/home/u/user/test
 
 # Using Bash shell
 ## Introduction for beginners
-### [Tor Kjellsson Lindblom]
+### Tor Kjellsson Lindblom
 ---
 ### Content
 * Bash shell and basic commands
@@ -492,17 +492,18 @@ https://carpentries.org/
 
 ---
 ### Exercise 1
+```
 * Explore the contents of **shell-lesson-data**
 * Move back and forth into the subdirectories
-* Move into **exercise-data** and copy the file "numbers.txt" into a new file "numbers_copy.txt" by typing
-```
-cp numbers.txt numbers_copy.txt
+* Move into **exercise-data** and copy the file
+ "numbers.txt" into a new file "numbers_copy.txt"
+ by typing "cp numbers.txt numbers_copy.txt"
 ```
 verify that the new file was created.
  **NB! Do not use whitespace in file/folder names.**
 
-* Create a new directory with some name, and move this copy there
 ```
+* Create a new directory with some name, and move this copy there
 mv numbers_copy.txt your_new_folder/.
 ```
 ---
@@ -521,16 +522,17 @@ tail file_example (print last lines of file)
 ```
 ---
 ### Exercise 2
+
+```
 * Copy an existing directory
 * Display "numbers_copy.txt" in some way
 * Print your command line history
 * Take a peek at the manual for command *ls*:
-```
-Type man ls
-Press up/down keys to scroll
-Type / to start search mode
-Try to search for the flag: -F
-Type q to quit
+* Type man ls
+* Press up/down keys to scroll
+* Type / to start search mode
+* Try to search for the flag: -F
+* Type q to quit
 ```
 ---
 ### Relative vs. absolute paths
@@ -653,6 +655,10 @@ find:
 * Type find . -name animals.csv.
 * Try to find all files ending with .pdb using the find command.
 
+```
+---
+### Exercise 5 [cont]
+```
 grep + pipes:
 * Make a pipe that counts number of files/directories in the
  data-shell directory.
@@ -663,23 +669,17 @@ Tip: w or users gives you a list of all currently login users,
 many of them have several sessions open.
 Tip: You may have to use uniq, tr -s, cut -f 1 -d " ", and wc -l
 ```
-
 ---
 ### Processes
 Uptil now we only discussed files/folders.
 But we also want to run **programs.**
 * All running programs and commands are *processes*
 * Processes have:
-  * Process ID
-  * NAME
-  * Command line arguments
-  * input and output
-  * Return code (integer) when complete
-  * Working directory
-  * Environment variables
+  * Process ID, NAME, Command line arguments
+  * input and output, Return code (integer) when complete
+  * Working directory, Environment variables
 * These concepts bind together all UNIX programs
-
-To see some runnings processes, typ *top*
+* To see some runnings processes, typ *top*
 
 ---
 ### Foreground and background processes
@@ -697,6 +697,8 @@ To see some runnings processes, typ *top*
  * Add an *&* after a command to put it in background
  * To kill: use *kill* or *pkill*, or do it from within *top*
 
+---
+### Foreground and background processes [cont]
  ```
  Example:
  ./my_prog.ex
@@ -708,9 +710,7 @@ To see some runnings processes, typ *top*
 ---
 ### File/directory permissions
 #### The basics
-* Important to set access permission on shared objects
-* Permissions are a type of file metadata
-* Tell you who can: **r**ead, **w**rite and e**x**ecute a file/list a directory
+Important to set access permission on shared objects
 
 ```
 Example
@@ -723,8 +723,10 @@ drwxrwxr-x 2 tkl tkl 4096 sep 16  2021 creatures
 drwxrwxr-x 2 tkl tkl 4096 sep 28 12:23 writing
 
 ```
-* First character specific for object: *d* is for directory.
-* Then 3 groups of triple fields: user, group, others
+Tell you who can: **r**ead, **w**rite and e**x**ecute a file/list a directory
+
+*d* is for directory - then 3 groups of triple fields: user, group, others
+
 ---
 #### Basic file permission manipulation
 ```
@@ -745,18 +747,18 @@ chown -R folder        (Change owner of folder)
 
 ---
 #### Access control lists (ACLs)
-
+```
 * On Lustre (Klemming) we use more advanced access permissions.
 
-* Normal unix permission have only one *owner* and *group*. With ACLs, this restriction is lifted.
+* Normal unix permission have only one *owner* and *group*.
+ With ACLs, this restriction is lifted.
 
 * ACLs are controlled via *getfacl* and *setfacl*
 
+* getfacl file                   (get current stage)
+* setfacl -m u:<user>:r file    (Allow read access for user)
 ```
-getfacl file                   (get current stage)
-setfacl -m u:<user>:r file    (Allow read access for user)
 
-```
 In many support cases we ask users to apply the last line so we can access files.
 
 ---
@@ -786,24 +788,24 @@ We will here display contents of a file using its full path, but try to type as 
 
 First find your absolute path to "numbers.txt"
 ```
-Type find $HOME -name numbers.text
-```
+* Type find $HOME -name numbers.text
 Say the path was /home/tkl/shell-lesson-data/exercise-data/numbers.txt
-```
-Type cat /home/tk and then start hitting TAB. Add characters when needed to reach full path.
-```
+
+* Type cat /home/tk and then start hitting TAB.
+ Add characters when needed to reach full path.
 (use your own path)
+```
 
 ---
 ### Environment variables
 Defined text strings that your programs may use
 
+```
 * In the shell, these variables define your environment
 * Common practice: capital letters, e.g. $HOME, $PATH, $OMP_NUM_THREADS
-* List all defined variables with *printenv*
+* List all defined variables with printenv
 
 Try it:
-```
 * Type echo $HOME
 * Type echo $HOSTNAME
 * Type echo $PATH
@@ -821,8 +823,12 @@ Try it:
  * .bashrc
  * .bash_profile
 
+---
+
+### Initialization and configuration [cont]
+
+#### Example to try
 ```
-Example
 * Type history
 * Type HISTTIMEFORMAT="%d/%m/%y %T "
 * Type history
@@ -830,10 +836,6 @@ Example
 
 ---
 ### File archiving
-* *tar* is the standard tool to save many files or directories into a single archive file_example
-
-* Archive files may have extensions .tar, .tar.gz etc depending on compression used.
-
 ```
 # create tar archive gzipped on the way
 tar -caf archive_name.tar.gz dir/
@@ -841,12 +843,14 @@ tar -caf archive_name.tar.gz dir/
 # extract files
 tar -xaf archive_name.tar.gz -C /path/to/directory
 ```
+
+* *tar* is the standard tool to save many files or directories into a single archive file_example
+* Archive files may have extensions .tar, .tar.gz etc depending on compression used.
 * f is for filename
 * a selects compression based on suffix
 * With no compression, files are simply packed
 * r will append files to end of archive
 * t will list archive
-
 * Individual files can be compressed directly with e.g. gzip. (gzip file, gunzip file.gz)
 
 ---
@@ -1241,7 +1245,7 @@ source ~/.bash_profile
 
 # Exercise 2
 
-* In this exercise we are going to use some more advanced SLURM commands to explore job performance. 
+* In this exercise we are going to use some more advanced SLURM commands to explore job performance.
 
 * You will:
    - Create and compile a simple MPI program
