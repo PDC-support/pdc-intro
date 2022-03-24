@@ -10,4 +10,4 @@ ml add PDC/21.11
 ml matlab/r2021b
 
 # Run matlab taking your_matlab_program.m as input
-matlab -batch your_matlab_program.m > your_matlab_program.out
+matlab -nodisplay -nodesktop -nosplash < your_matlab_program.m > your_matlab_program.out
