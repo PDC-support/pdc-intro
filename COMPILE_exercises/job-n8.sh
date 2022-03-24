@@ -21,12 +21,12 @@ export OMP_PLACES=cores
 
 export OMP_NUM_THREADS=16
 echo 8 MPI x 16 OMP
-srun python3 matmul.py
+srun python3 matmul_mpi_omp_test.py
 
 export OMP_NUM_THREADS=8
 echo 8 MPI x 8 OMP
-srun python3 matmul.py
+srun python3 matmul_mpi_omp_test.py
 
 export OMP_NUM_THREADS=4
 echo 8 MPI x 4 OMP
-srun python3 matmul.py
+srun python3 matmul_mpi_omp_test.py
