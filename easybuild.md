@@ -45,7 +45,6 @@ style: |
 
 # How to use EasyBuild on Dardel
 ![bg h:150 80% left](https://docs.easybuild.io/en/latest/_static/easybuild_logo_alpha.png)
-### 2022-03-24
 
 ### https://docs.easybuild.io/en/latest/
 
@@ -80,7 +79,7 @@ ml EasyBuild-user
 * INSTALLPATH: *$HOME/.local/easybuild*
 * SOURCEPATH: *$HOME/.local/easybuild/sources*
 * adds to MODULEPATH: *$HOME/.local/easybuild/modules/all*
-* Temporary folder: /tmp
+* Temporary folder: /tmp/[user]
 
 ---
 
@@ -103,7 +102,7 @@ $ eb --show-config --<CONFIG-NAME>=<VALUE>
 
 ---
 
-# Exercise 1
+# Do it yourself: Exercise 1
 
 * Load the EasyBuild-user module
 * Check how it is configured
@@ -255,7 +254,7 @@ eb --copy-ec BWA-0.7.17.eb my_easyconfig.eb
 
 ---
 
-# Exercise 2
+# Do it yourself: Exercise 2
 
 * Install BWA
   * Does it miss any dependencies
@@ -421,12 +420,10 @@ sanity_check_commands = [
 
 ---
 
-# Exercise 3
+# Do it yourself: Exercise 3
 
 * Create your own *easyconfig* file
   * Create your *easyconfig* on any recipe you find that is appropriate
   * Edit and make the necessary changes
 * Perform a dry-run as to acertain that there are no installation issues
 * Install the software
-
----

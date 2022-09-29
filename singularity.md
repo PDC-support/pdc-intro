@@ -159,9 +159,10 @@ https://singularity-hub.org/
 
 # Singularity Versions
 
-- Latest version: 3.0.0 (2018-10-08)
-- Installed on Tegner: 2.5.1
-- Installed on VM: 2.5.2
+### singularityCE (Community Edition)
+
+- Latest version: 3.10.2 (2022-07-22)
+- Installed on Dardel: 3.10.0
 
 ---
 
@@ -196,7 +197,7 @@ https://singularity-hub.org/
 # Install singularity in Linux
 
 ```
-$ VERSION=2.5.2
+$ VERSION=2.10.2
 $ sudo apt-get update
 $ sudo apt-get install libarchive-dev
 $ sudo apt-get install squashfs-tools
