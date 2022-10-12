@@ -175,7 +175,7 @@ https://singularity-hub.org/
 *Root access*
 
 1. Create container
-1. *singularity build*
+1. *singularity build* 
 1. Install software
 1. Install libraries
 
@@ -194,24 +194,24 @@ https://singularity-hub.org/
 
 ---
 
-# Install singularity in Linux
+# Install singularity on your computer
+
+### You need a local installed copy of singularity to create your container
 
 ```
-$ VERSION=2.10.2
-$ sudo apt-get update
-$ sudo apt-get install libarchive-dev
-$ sudo apt-get install squashfs-tools
-# Get and install
-$ wget github.com/sylabs/singularity/releases/
-download/$VERSION/singularity-$VERSION.tar.gz
-$ tar xvf singularity-$VERSION.tar.gz
-$ cd singularity-$VERSION
-$ ./configure --prefix=/usr/local
-$ make
-$ sudo make install
+$ sudo apt-get update && sudo apt-get install -y \
+    build-essential libssl-dev uuid-dev libgpgme11-dev \
+    squashfs-tools libseccomp-dev pkg-config \
+    libglib2.0-dev
+# Google GO language is needed
+$ sudo apt install golang
+$ git clone --recurse-submodules https://github.com/sylabs/singularity/
+$ cd singularity
+$ ./mconfig && make -C ./builddir && sudo make -C ./builddir install
 ```
 
-For Mac or Windows, follow instructions at https://www.sylabs.io/guides/2.6/user-guide/installation.html
+More information at ...
+https://docs.sylabs.io/guides/3.0/user-guide/installation.html
 
 ---
 
@@ -237,16 +237,18 @@ For Mac or Windows, follow instructions at https://www.sylabs.io/guides/2.6/user
 Download and test the latest UBUNTU image from docker hub
 
 ```
-$ sudo singularity build my_image.simg docker://ubuntu:latest
-Docker image path: index.docker.io/library/ubuntu:latest
-Cache folder set to /root/.singularity/docker
-Importing: base Singularity environment
-Building Singularity image...
-Singularity container built: my_image.simg
-$ singularity shell my_image.simg
-Singularity: Invoking an interactive shell within container...
-Singularity my_image.simg:~> cat /etc/*-release
-
+$ sudo singularity build my_image.sif docker://ubuntu:latest
+INFO:    Starting build...
+Getting image source signatures
+...
+INFO:    Creating SIF file...
+INFO:    Build complete: my_image.sif
+$ singularity shell my_image.sif
+Singularity> cat /etc/*-release
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=22.04
+DISTRIB_CODENAME=jammy
+Singularity> exit
 ```
 
 <span style="color:red;">Do it yourself</span>
@@ -280,12 +282,14 @@ Since there are memory limitation on writing directly to image file,
 it is better to create a sandbox
 
 ```
-$ sudo singularity build --sandbox my_sandbox my_image.simg
-Building from local image: my_image.simg
-Singularity container built: my_sandbox
-$ sudo singularity shell -w my_sandbox
-Singularity: Invoking an interactive shell within container...
-Singularity my_sandbox:~>
+$ sudo singularity build --sandbox my_sandbox my_image.sif
+INFO:    Starting build...
+INFO:    Verifying bootstrap image my_image.sif
+...
+INFO:    Creating sandbox directory...
+INFO:    Build complete: my_sandbox
+$ singularity shell my_sandbox
+Singularity>
 ```
 
 ---
@@ -295,12 +299,11 @@ Singularity my_sandbox:~>
 Commands in the container can be given as normal.
 
 ```
-singularity exec my_image.simg ls
+$ singularity exec my_image.sif ls
 ```
 ```
-$ singularity shell my_image.simg
-Singularity: Invoking an interactive shell within container...
-Singularity my_image.simg:~> ls
+$ singularity shell my_image.sif
+Singularity> ls
 ```
 
 ---
@@ -320,8 +323,9 @@ read inside container.
 
 ```
 $ sudo singularity exec -w my_sandbox mkdir singularity_folder
+$ mkdir my_folder
 $ sudo singularity shell -B my_folder:/root/singularity_folder -w my_sandbox
-Singularity my_sandbox:~> cp singularity_folder/file1 .
+Singularity> cp singularity_folder/file1 .
 ```
 
 <span style="color:red;">Do it yourself:</span>
@@ -344,7 +348,7 @@ Singularity my_sandbox:~> cp singularity_folder/file1 .
 Startup scripts etc... for your singularity image
 
 ```
-$ singularity exec my_image.simg ls -l /.singularity.d
+$ singularity exec my_image.sif ls -l /.singularity.d
 total 1
 drwxr-xr-x 2 root root  76 Sep 11 17:05 actions
 drwxr-xr-x 2 root root 139 Sep 11 17:23 env
@@ -371,7 +375,7 @@ ls -l
 ### command
 
 ```
-$ singularity run my_image.simg
+$ singularity run my_image.sif
 total 1
 drwxr-xr-x 2 root root  76 Sep 11 17:05 file1
 drwxr-xr-x 2 root root 139 Sep 11 17:23 file2
@@ -390,7 +394,7 @@ This is a text file
 ### command
 
 ```
-$ singularity help my_image.simg
+$ singularity run-help my_image.sif
 This is a text file
 ```
 
@@ -399,11 +403,10 @@ This is a text file
 # Build a new container from a sandbox
 
 ```
-$ sudo singularity build my_new_image.simg my_sandbox
-Building image from sandbox: my_sandbox
-Building Singularity image...
-Singularity container built: my_new_image.simg
-Cleaning up...
+$ sudo singularity build my_new_image.sif my_sandbox
+INFO:    Starting build...
+INFO:    Creating SIF file...
+INFO:    Build complete: my_new_image.sif
 ```
 
 <span style="color:red;">Do it yourself:</span>
@@ -420,78 +423,6 @@ Cleaning up...
 
 ---
 
-# Running your container in an HPC environment
-
----
-
-# Requirements
-
-- OpenMPI version must be the same in container and cluster
-- Compiler and version must be the same in container and cluster
-- You need to bind to the LUSTRE file system at PDC so it can be detected
-
----
-
-# What are the required tools
-
-wget, build-essential, lzip, m4, libgfortran3, gmp, mpfr, mpc,
-zlib, gcc, openmpi, cmake, python, cuda
-
-- On AFS
-  - /afs/pdc.kth.se/pdc/vol/singularity/2.5.1/shub.backup
-- On Lustre
-  - /cfs/klemming/pdc.vol.tegner/singularity/2.4.2/shub
-- **Image:** ubuntu-16.04.3-gcc-basic.simg
-- https://www.pdc.kth.se/software
-
----
-
-# Send in a singularity batch job and execute
-
-```
-#!/bin/bash -l
-#SBATCH -J myjob
-#SBATCH -A edu18.prace
-#SBATCH --reservation=prace-2018-10-25
-#SBATCH -t 1:00
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=8
-#SBATCH -o output_file.o
-module add gcc/6.2.0 openmpi/3.0-gcc-6.2 singularity
-mpirun -n 8 singularity exec -B /cfs/klemming hello_world.simg hello_world_mpi
-```
-
-<span style="color:red;">Do it yourself:</span>
-
----
-
-# Exercise 4: Run a HPC container
-
-1. Login into tegner.pdc.kth.se
-1. send in a job for the hello-world image
-1. Use the hello_world image on PDCs singularity repository
-
-<span style="color:red;">**Tip:** With the singularity module use the **Path:** $PDC_SHUB</span>
-
----
-
-# How about GPUs?
-
-**Flag:** --nv
-
-Finds the relevant nVidia/CUDA libraries on your host.
- 
-```
-salloc -t <time> -A edu18.prace --gres=gpu:K420:1
-srun -N 1 singularity exec --nv -B /cfs/klemming cuda.simg cuda_device
-Device Number: 0
-  Device name: Quadro K420
-  Memory Clock Rate (KHz): 891000
-  Memory Bus Width (bits): 128
-  Peak Memory Bandwidth (GB/s): 28.512000
-```
-
----
 
 # Creating recipes for singularity
 
@@ -510,8 +441,10 @@ software, environment variables, files to add, and container metadata
 A recipe is a textfile explaining what should be put into the container
 
 ```
-sudo singularity build my_image.simg my_recipe
+sudo singularity build my_image.sif my_recipe
 ```
+
+Recipes for images that can be used on PDC clusters can be found at https://github.com/PDC-support/PDC-SoftwareStack/tree/master/other/singularity
 
 ---
 
@@ -561,7 +494,7 @@ are available in the container
 
 ```
 %help
-  This container is based on UBUNTU 16.04. GCC v6.2 installed
+  This container is based on UBUNTU 22.04. GCC installed
 ```
 
 ---
@@ -619,8 +552,87 @@ What should be executed with the run command.
 
 ---
 
+# Running your container in an HPC environment
+
+---
+
+# Requirements
+
+- OpenMPI version must be the same in container and cluster
+- Compiler and version must be the same in container and cluster
+- You need to bind to the LUSTRE file system at PDC so it can be detected
+- You can use *build* but only from other images and only sandboxes
+- You can **ONLY** run *sandbox* and not *SIF* files
+  - A singularity file is copied to all nodes whereas a *sandbox* folder structure is not
+
+---
+
+# Transfer of sandbox file
+
+```
+# On local computer
+sudo tar czf <sandbox name>.tar.gz <sandbox name>
+scp <sandbox name>.tar.gz <username>@dardel.pdc.kth.se:/cfs/klemming/home/<u>/<username>
+# On Dardel
+tar xfp <sandbox name>.tar.gz
+```
+
+---
+
+# What are the required tools
+
+- **Packages:** wget git bash gcc gfortran g++ make
+- **Source:** MPICH
+
+```
+ml PDC
+ml singularity
+```
+
+- In folder *$PDC_SHUB* you can find already built images at PDC
+- https://www.pdc.kth.se/software
+
+---
+
+# Executes singularity on 2 nodes
+
+```
+#!/bin/bash -l
+# The -l above is required to get the full environment with modules
+# Set the allocation to be charged for this job
+#SBATCH -A 202X-X-XX
+# The name of the script is myjob
+#SBATCH -J myjob
+# Only 1 hour wall-clock time will be given to this job
+#SBATCH -t 1:00:00
+# Number of nodes
+#SBATCH --nodes=2
+# Using the shared partition as we are not using all cores
+#SBATCH -p shared
+# Number of MPI processes per node
+#SBATCH --ntasks-per-node=12
+# Run the executable named myexe
+ml PDC singularity
+srun -n 24 --mpi=pmi2 singularity exec <sandbox folder> <myexe>
+```
+
+<span style="color:red;">Do it yourself:</span>
+
+---
+
+# Exercise 4: Run a HPC container
+
+1. Login into dardel.pdc.kth.se
+1. send in a job for the hello-world sandbox
+1. Use the hello_world in PDCs singularity repository
+
+<span style="color:red;">**Tip:** With the singularity module use the **Path:** $PDC_SHUB</span>
+
+---
+
 # Useful links
 
 - https://www.pdc.kth.se/software/software/singularity/
-- https://www.sylabs.io/guides/2.6/user-guide/
-- https://gitpitch.com/PDC-support/singularity-introduction#/
+- https://docs.sylabs.io/guides/3.8/user-guide/
+- https://github.com/PDC-support/PDC-SoftwareStack/tree/master/other/singularity
+
