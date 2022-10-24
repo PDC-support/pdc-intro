@@ -743,7 +743,7 @@ chgrp group_name fileA (change group ownership)
 chown -R folder        (Change owner of folder)
 
 ```
-**NB: On Dardel, we mainly use ACLs instead (next slide)**
+**NB: On Dardel, we also use ACLs (next slide)**
 
 ---
 #### Access control lists (ACLs)
@@ -1423,13 +1423,13 @@ MATLAB can be run on Dardel both in interactive sessions, with or without a grap
 
 # Running interactively
 
-Matlab can be run interactively on an allocated node. To book a single node for one hour
+Matlab can be run interactively on allocated cores. To book 24 cores for one hour
 
 ```
-salloc -N 1 -t 1:00:00 -A pdc.staff -p main
+salloc -n 24 -t 1:00:00 -A pdc.staff -p shared
 ```
 
-Wait for a node to reserved
+Wait for cores to be reserved
 
 ```
 salloc: Granted job allocation 591571
@@ -1437,28 +1437,20 @@ salloc: Waiting for resource configuration
 salloc: Nodes nid001015 are ready for job
 ```
 
-Log in to the node
+Log in to the node where the cores reside
 
 ```
 ssh -X nid00105
 ```
-
 
 ---
 and start MATLAB with graphical user interface
 
 ```
 ml PDC/21.11
-ml matlab/r2021b
+ml matlab/r2022b
 matlab
 ```
-
-Alternatively to requesting a full node, request cores on the shared partition
-
-```
-salloc -n 24 -t 1:00:00 -A pdc.staff -p shared
-```
-
 ---
 
 # Parallel computation with Matlab
@@ -1529,14 +1521,14 @@ Also for batch job use of MATLAB, consider to use the shared partition of Dardel
 #SBATCH -J myjob
 #SBATCH -p shared
 #SBATCH -n 16
-#SBATCH -t 10:00:00
+#SBATCH -t 01:00:00
 
 # Load the Matlab module
 ml add PDC/21.11
-ml matlab/r2021b
+ml matlab/r2022b
 
 # Run matlab taking your_matlab_program.m as input
-matlab -batch your_matlab_program.m > your_matlab_program.out
+matlab -nodisplay -nodesktop -nosplash < your_matlab_program.m > your_matlab_program.out
 ```
 
 ---
@@ -1549,11 +1541,11 @@ matlab -batch your_matlab_program.m > your_matlab_program.out
 #SBATCH -J myjob
 #SBATCH -p shared
 #SBATCH -n 24
-#SBATCH -t 10:00:00
+#SBATCH -t 02:00:00
 
 # Load the Matlab module
 ml add PDC/21.11
-ml matlab/r2021b
+ml matlab/r2022b
 
 # Run matlab for 24 individual programs serial_program_1.m,
 # serial_program_2.m ... and print output in files logfile_1, logfile_2, ...
@@ -1601,7 +1593,12 @@ wait
 
 # Why virtual environment?
 
-* We often need to install a number of Python packages
+* We often need to use a number of Python packages
+  ```
+  import A
+  from B import C
+  import D as E
+  ```
 * When working with multiple projects, it is not uncommon that different projects have conflicting requirements of packages
 * On HPC platform, different users may have conflicting needs of packages
 
@@ -1625,12 +1622,17 @@ Without virtual environment, Python packages are installed
 # Exercise: Check python site directory
 
 ```
+which python3
 python3 -c 'import site; print(site.getsitepackages())'
+```
 
+```
 ml cray-python/3.9.4.2
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
+```
 
+```
 ml PDC/21.11 Anaconda3/2021.05
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
@@ -1648,394 +1650,489 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 ---
 
-# How to use EasyBuild on Dardel
-![bg h:150 80% left](https://docs.easybuild.io/en/latest/_static/easybuild_logo_alpha.png)
-### 2022-03-24
+# Virtual environment with ``venv``
 
-### https://docs.easybuild.io/en/latest/
+* Recommendation: use with cray-python
+  ```
+  ml cray-python/3.9.4.2
 
----
+  cd $HOME
+  python3 -m venv myenv
 
-# Methods of installing software at PDC
+  source myenv/bin/activate
+  ```
 
-* EasyBuild https://www.pdc.kth.se/support/documents/software_development/easybuild.html
-* Spack https://www.pdc.kth.se/support/documents/software_development/spack.html
-* Manually https://www.pdc.kth.se/support/documents/software_development/development_dardel.html
-
----
-
-# What is EasyBuild
-
-* Started in 2008 by HPC team at Ghent university, Belgium
-* Software build and installation framework
-* Tailored towards High Performance Computing (HPC) systems
-* Installs HPC software using procedures described in recipes
+  ```
+  (myvenv) user@uan01:~>
+  ```
 
 ---
 
-# What modules are available
+# Virtual environment with ``venv``
 
-### For local installations
+* Check site-packages directory
+  ```
+  (myenv) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
+  ['/cfs/klemming/home/u/user/myenv/lib/python3.9/site-packages']
+  ```
+
+* Install a Python package
+  ```
+  (myenv) user@uan01:~> python3 -m pip install yapf
+
+  (myenv) user@uan01:~> which yapf
+  /cfs/klemming/home/u/user/myenv/bin/yapf
+  ```
+
+---
+
+# Virtual environment with ``venv``
+
+* Deactivate a virtual environment
+  ```
+  (myenv) user@uan01:~> deactivate
+  user@uan01:~>
+  ```
+
+---
+
+# Virtual environment with ``conda``
+
+* Load Anaconda3
+  ```
+  ml PDC/21.11 Anaconda3/2021.05
+  ```
+
+* Initialize conda
+  ```
+  source conda_init_bash.sh
+  ```
+
+  ```
+  (base) user@uan01:~>
+  ```
+
+---
+
+# Virtual environment with ``conda``
+
+* Content of ``conda_init_bash.sh``
+
+    ```
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/pdc/software/21.11/eb/software/Anaconda3/2021.05/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/pdc/software/21.11/eb/software/Anaconda3/2021.05/etc/profile.d/conda.sh" ]; then
+            . "/pdc/software/21.11/eb/software/Anaconda3/2021.05/etc/profile.d/conda.sh"
+        else
+            export PATH="/pdc/software/21.11/eb/software/Anaconda3/2021.05/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+    ```
+
+* ``conda init bash`` may append the above script to your ``~/.bashrc`` but this is not recommended on an HPC system.
+
+---
+
+# Virtual environment with ``conda``
 
 ```
-ml PDC
-ml EasyBuild-user
-```
+(base) user@uan01:~> conda create --name my-conda-env
 
-* INSTALLPATH: *$HOME/.local/easybuild*
-* SOURCEPATH: *$HOME/.local/easybuild/sources*
-* adds to MODULEPATH: *$HOME/.local/easybuild/modules/all*
-* Temporary folder: /tmp
+(base) user@uan01:~> conda activate my-conda-env
+
+(my-conda-env) user@uan01:~>
+```
 
 ---
 
-# How is EasyBuild configured
+# Virtual environment with ``conda``
+
+* Now try the site-packages directory again
+  ```
+  (my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
+  ```
+* Why is ``site-packages`` still under ``Anaconda3``?
+  ```
+  ['/pdc/software/21.11/eb/software/Anaconda3/2021.05/lib/python3.8/site-packages']
+  ```
+
+---
+
+# Virtual environment with ``conda``
 
 ```
-$ eb --show-config
-# (C: command line argument, D: default value, E: environment variable, F: configuration file)
-#
-buildpath          (E) = /tmp/eb-build
+(my-conda-env) user@uan01:~> conda install python=3.8
+
+(my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
+['/cfs/klemming/home/u/user/.conda/envs/my-conda-env/lib/python3.8/site-packages']
+```
+
+---
+
+# Virtual environment with ``conda``
+
+```
+(my-conda-env) user@uan01:~> conda deactivate
+(base) user@uan01:~>
+```
+
+---
+
+# Cray programming environment (CPE)
+
+* In practice, we recommend
+    - ``ml cpeCray/21.11``
+    - ``ml cpeGNU/21.11``
+    - ``ml cpeAMD/21.11``
+
+* The ``cpeCray``, ``cpeGNU`` and ``cpeAMD`` modules are available after ``ml PDC/21.11``
+
+* No need to ``module swap`` or ``module unload``
+
+---
+
+# Compiler wrappers
+
+* Compiler wrappers for different programming languages
+    - ``cc``: C compiler wrapper
+    - ``CC``: C++ compiler wrapper
+    - ``ftn``: Fortran compiler wrapper
+
+* Automatically link to MPI library and math libraries
+    - MPI library: ``cray-mpich``
+    - Math libraries: ``cray-libsci`` and ``cray-fftw``
+
+---
+
+# Compile a simple MPI code
+
+* ``hello_world_mpi.f90``
+  ```
+  program hello_world_mpi
+  include "mpif.h"
+  integer myrank,mysize,ierr
+  call MPI_Init(ierr)
+  call MPI_Comm_rank(MPI_COMM_WORLD,myrank,ierr)
+  call MPI_Comm_size(MPI_COMM_WORLD,mysize,ierr)
+  write(*,*) "Processor ",myrank," of ",mysize,": Hello World!"
+  call MPI_Finalize(ierr)
+  end program
+  ```
+
+  ```
+  ftn hello_world_mpi.f90 -o hello_world_mpi.x
+  ```
+
+---
+
+# Compile a simple MPI code
+
+```
+user@uan01:> srun -n 8 ./hello_world_mpi.x
+ Processor            4  of            8 : Hello World!
+ Processor            6  of            8 : Hello World!
+ Processor            7  of            8 : Hello World!
+ Processor            0  of            8 : Hello World!
+ Processor            1  of            8 : Hello World!
+ Processor            2  of            8 : Hello World!
+ Processor            3  of            8 : Hello World!
+ Processor            5  of            8 : Hello World!
+```
+
+---
+
+# Compile a simple linear algebra code
+
+[Link to the code](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/dgemm_test.c)
+
+Use cray-libsci
+
+```
+ml PDC/21.11 cpeGNU/21.11
+```
+
+```
+cc dgemm_test.c -o dgemm_test_craylibsci.x
+```
+
+---
+
+# Compile a simple linear algebra code
+
+Use openblas
+
+```
+ml openblas/0.3.18-openmp
+```
+
+```
+OPENBLASROOT=/pdc/software/21.11/spack/spack/opt/spack/cray-sles15-zen2/gcc-11.2.0/openblas-0.3.18-2hewsuvypaots3husxzoz6ohiuixj464
+```
+
+```
+cc dgemm.c -o dgemm_test_openblas.x -I$OPENBLASROOT/include -L$OPENBLASROOT/lib -lopenblas
+```
+
+---
+
+# Check the linked libraries
+
+```
+ldd dgemm_test_craylibsci.x
+```
+
+```
+ldd dgemm_test_openblas.x
+```
+
+---
+
+# Check the linked libraries
+
+```
+ldd dgemm_test_craylibsci.x
+
 ...
-sourcepath         (D) = /cfs/klemming/home/h/hzazzi/.local/easybuild/sources
+libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
+...
 ```
 
-:red_circle: Current EasyBuild configuration can be changed if needed
-
 ```
-$ eb --show-config --<CONFIG-NAME>=<VALUE>
+ldd dgemm_test_openblas.x
+
+...
+libopenblas.so.0 => /.../openblas-0.3.18.../lib/libopenblas.so.0
+...
 ```
 
 ---
 
-# Exercise 1
+# Exercise: Compile and run the dgemm_test code
 
-* Load the EasyBuild-user module
-* Check how it is configured
-* Change some of the configuration parameters
-
----
-
-# What are easyconfigs files
-
-* Plain text file to define installation parameters
-
-* serves as a build specification for software installation
-
-* Is typically named:
+* Run on a single core in the ``shared`` partition
   ```
-  <name>-<version>[-<toolchain>][<versionsuffix>].eb
+  salloc -n 1 -t 10 -p shared -A edu2203.intropdc
+  srun -n 1 ./dgemm_test_craylibsci.x
+  srun -n 1 ./dgemm_test_openblas.x
+  exit
   ```
-* Example
+
+* Expected output:
   ```
-  GROMACS-2021.3-cpeGNU-21.11.eb
+      2.700     4.500     6.300     8.100     9.900    11.700    13.500
+      4.500     8.100    11.700    15.300    18.900    22.500    26.100
+      6.300    11.700    17.100    22.500    27.900    33.300    38.700
   ```
 
 ---
 
-# What is a toolchain
+# Exercise: Compile and run ``fftw_test`` code
 
-* Defines what compiler toolchains to install the software with
-* On Cray we have compiler wrappers, so all software is installed within the Cray Programming Environment (CPE)
+```
+ml cray-fftw/3.3.8.12
 
+wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
+
+cc --version
+cc fftw_test.c -o fftw_test.x
+
+ldd fftw_test.x
+
+salloc -n 1 -t 10 -p shared -A edu2203.intropdc
+srun -n 1 ./fftw_test.x
+```
+
+---
+
+# Compilation of large program 
+
+* [Compilation of NWChem](https://www.pdc.kth.se/software/software/NWChem/cpe21.11/7.0.2/index_building.html)
+
+* [Compilation of VASP](https://www.pdc.kth.se/software/software/VASP/cpe21.11/5.4.4-vanilla/index_building.html)
+
+* [Compilation of VeloxChem](https://www.pdc.kth.se/software/software/VeloxChem/cpe21.11/1.0rc3/index_building.html)
+
+* [Compilation of DFTD4](https://www.pdc.kth.se/software/software/dftd4/cpe21.11/3.3.0/index_building.html)
+
+---
+
+# Environment variables for manual installation of software
+
+* Environment variables for compilers
   ```
-  cpeGNU version 21.11
-  cpeCray version 21.11
-  cpeAMD version 21.11
-  ```
-* Softwares not in need of parallelization can use the **SYSTEM** toolchain
-
----
-
-# How to install software using EasyBuild
-
-* Installs dependencies
-* Builds and install software
-* Create modules for software and dependencies
-
-```
-$ eb <FILENAME>.eb
-== creating build dir, resetting environment...
-== unpacking...
-== preparing...
-== configuring...
-== building...
-== testing...
-== installing...
-== sanity checking...
-== cleaning up...
-== creating module...
-== COMPLETED: Installation ended successfully
-```
----
-
-# Other types of installation procedures
-
-## Installing software via the Robot paths
-
-* Installs the latest software found in the paths defined in the configuration
-
-```
-eb --software-name=GROMACS --toolchain=cpeGNU,21.11
-```
-
-## Rebuild
-
-* rebuilds the software even if it does exist
-
-```
-eb --rebuild ...
-```
-
----
-
-# dry-run
-
-```
-eb Boost-1.75.0-cpeGNU-21.09.eb -dr/--dry-run
-```
-
-* Test the installation procedure without installing it
-* you can also use *-x/--extended-dry-run* for more information
-
----
-
-# How install dependent software
-
-Automatically installs dependency software using easyconfigs that are available in robot paths
-
-* Automatically install dependencies
-  ```
-  eb Boost-1.75.0-cpeGNU-21.09.eb -r/--robot[=<PATH>]
+  export CC=cc
+  export CXX=CC
+  export FC=ftn
+  export F77=ftn
   ```
 
-* Check what dependencies are missing
+* Environment variables for compiler flags
+    - add ``-I``, ``-L``, ``-l``, etc. to Makefile
+
+* Environment variables for runtime
+    - prepend to ``PATH``, ``LD_LIBRARY_PATH``, etc.
+
+---
+
+# What happens when loading a module
+
+```
+ml show nwchem/7.0.2
+```
+
+```
+whatis("NWChem: Open Source High-Performance Computational Chemistry")
+whatis("Homepage: https://www.nwchem-sw.org/")
+whatis("URL: https://www.nwchem-sw.org/")
+conflict("nwchem")
+setenv("NWCHEM_TOP","/pdc/software/21.11/other/nwchem/7.0.2")
+setenv("NWCHEM_BASIS_LIBRARY","/pdc/software/21.11/other/nwchem/7.0.2/data/libraries/")
+setenv("NWCHEM_NWPW_LIBRARY","/pdc/software/21.11/other/nwchem/7.0.2/data/libraryps/")
+setenv("DEFAULT_NWCHEMRC","/pdc/software/21.11/other/nwchem/7.0.2/data/default.nwchemrc")
+prepend_path("PATH","/pdc/software/21.11/other/nwchem/7.0.2/bin")
+```
+
+---
+
+# What happens when loading a module
+
+```
+ml show dftd4/3.3.0
+```
+
+```
+whatis("Generally Applicable Atomic-Charge Dependent London Dispersion Correction")
+whatis("Homepage: https://github.com/dftd4/dftd4")
+whatis("URL: https://github.com/dftd4/dftd4")
+conflict("dftd4")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/21.11/other/dftd4/3.3.0")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/21.11/other/dftd4/3.3.0/lib64")
+prepend_path("LIBRARY_PATH","/pdc/software/21.11/other/dftd4/3.3.0/lib64")
+prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
+```
+
+---
+
+# When running your own code
+
+* Load correct programming environment (e.g. ``cpeGNU``)
+* Load correct dependencies (e.g. ``openblas`` if your code depends on it)
+* Properly prepend to environment variables (e.g. ``PATH``, ``LD_LIBRARY_PATH``)
+* Choose correct SLURM settings
+
+---
+
+# SLURM settings for hybrid MPI/OpenMP code
+
+* ``--nodes`` number of nodes
+* ``--ntasks-per-node`` number of MPI processes
+* ``--cpus-per-task`` 2 x number of OpenMP threads (because of SMT)
+
+* ``OMP_NUM_THREADS`` number of OpenMP threads
+* ``OMP_PLACES`` cores
+
+---
+
+# Example job script
+
+* 64 MPI x 2 OMP per node
   ```
-  eb Boost-1.75.0-cpeGNU-21.09.eb -M/--missing
+  #!/bin/bash
+
+  #SBATCH -A ...
+  #SBATCH -J my_job
+  #SBATCH -t 01:00:00
+  #SBATCH -p main
+
+  #SBATCH --nodes=2
+  #SBATCH --ntasks-per-node=64
+  #SBATCH --cpus-per-task=4
+
+  module load ...
+
+  export OMP_NUM_THREADS=2
+  export OMP_PLACES=cores
+
+  srun ...
   ```
 
 ---
 
-# Supported Robot paths
+# Example job script
 
-Contains easyconfigs and easyblocks for building software.
+* 16 MPI x 8 OMP per node
+  ```
+  #!/bin/bash
 
-* PDC SoftwareStack
-* LUMI SoftwareStack
-* CSCS Software stack
+  #SBATCH -A ...
+  #SBATCH -J my_job
+  #SBATCH -t 01:00:00
+  #SBATCH -p main
 
----
+  #SBATCH --nodes=2
+  #SBATCH --ntasks-per-node=16
+  #SBATCH --cpus-per-task=16
 
-# How to search for software using EasyBuild
+  module load ...
 
-```
-eb -S/--search <software>
-CFGS1=/pdc/software/eb_repo/PDC-SoftwareStack/easybuild/easyconfigs/g
-CFGS2=/pdc/software/eb_repo/LUMI-SoftwareStack/easybuild/easyconfigs/g/GROMACS
-CFGS3=/pdc/software/eb_repo/CSCS-production/easybuild/easyconfigs/g/GROMACS
- * $CFGS1/GROMACS-2020.5-cpeCray-21.09.eb
- * $CFGS1/GROMACS-2021.3-cpeCray-21.09.eb
- * $CFGS1/GROMACS-2022-beta1-cpeCray-21.09.eb
-```
+  export OMP_NUM_THREADS=8
+  export OMP_PLACES=cores
 
-* Lists available *easyconfig* files
-* These can be used to make new easyconfig recipes
-* PDC recipes can be found at https://github.com/PDC-support/PDC-SoftwareStack/blob/master/easybuild/easyconfigs
+  srun ...
+  ```
 
 ---
 
-# Copy found easyconfigs
+# Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
 
-Copy found easyconfigs to act as base for creating easyconfigs for your application
+* Preparation
+  ```
+  mkdir -p matmul_test && cd matmul_test
+  ```
 
-```
-eb --copy-ec <easyconfig filename>.eb [<new filename>]
-```
+  ```
+  python3 -m venv myenv
+  source myenv/bin/activate
+  ```
 
-Example:
+  ```
+  python3 -m pip install /pdc/software/21.11/other/veloxchem/1.0rc3/wheels/mpi4py-3.1.3-cp39-cp39-linux_x86_64.whl
+  python3 -m pip install /pdc/software/21.11/other/veloxchem/1.0rc3/wheels/numpy-1.20.3-cp39-cp39-linux_x86_64.whl
+  ```
 
-```
-eb --copy-ec BWA-0.7.17.eb my_easyconfig.eb
-```
-
----
-
-# Exercise 2
-
-* Install BWA
-  * Does it miss any dependencies
-  * Run a dry-run to see if it installs properly before installing it
-* Install any other software using EasyBuild
+* If you are interested in how mpi4py and numpy were compiled, see [this page](https://www.pdc.kth.se/software/software/VeloxChem/cpe21.11/1.0rc3/index_building.html)
 
 ---
 
-# How to build easyconfig files
+# Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
 
-* Parameters and templates
-* What is needed in an easyconfig file
-  * Name
-  * Toolchain
-  * Sources
-  * Easyblock
-  * Dependencies
-  * Sanity_check
+* Copy python code [matmul_mpi_omp_test.py](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/matmul_mpi_omp_test.py) to the same folder
 
-Writing easyconfig files https://docs.easybuild.io/en/latest/Writing_easyconfig_files.html
+* Copy job script [job-n8.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n8.sh)
+    - for running on 8 MPI processes with different number of OpenMP threads
 
----
+* Copy job script [job-n16.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n16.sh)
+    - for running on 16 MPI processes with different number of OpenMP threads
 
-# Parameters and templates in easyconfig files
-
-A full overview of all known easyconfig parameter
-```
-eb -a/--avail-easyconfig-params
-```
-
-A set of variables that can be used in easyconfig files
-```
-eb --avail-easyconfig-templates
-```
+* Submit two jobs
 
 ---
 
-# Name
+# Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
 
-* Specifies the name and version of the software
-* module will be named accordingly
-* *versionsuffix* is not mandatory
+* Result
 
-```
-name = 'GROMACS'
-version = '2020.5'
-versionsuffix = '-PLUMED-2.7.2'
-
-homepage = 'https://blast.ncbi.nlm.nih.gov/'
-description = """Blast for searching sequences"""
-```
-
----
-
-# Toolchain
-
-### If you want to use MPI, OpenMP ...
-
-```
-toolchain = {'name': 'cpeGNU', 'version': '21.11'}
-```
-`Will also have an impact on the dependencies for this easyconfig`
-
-### If you want to use supporting tools, libraries...
-
-```
-toolchain = SYSTEM
-```
-
----
-
-# Sources
-
-Specify where you can download your source
-
-```
-sources = [{
-    'source_urls': ['https://example.com'],
-    'filename': '%(name)s-%(version)s.tar.gz',
-    'extract_cmd': "tar xf %s",  # Optional
-}]
-```
-```
-source_urls = ['ftp://ftp.%(namelower)s.org/pub/%(namelower)s/']
-sources = ['%(namelower)s_%(version_major)s_%(version_minor)s_0.tar.bz2']
-```
-
-More information at https://docs.easybuild.io/en/latest/Writing_easyconfig_files.html#source-files-patches-and-checksums
-
----
-
-# Easyblock
-
-* A python code to address special needs of the installation
-* Adresses that you should first run *configure > make > make install* or *cmake > make > make install
-
-```
-easyblock = 'type'
-```
-
-* Many EasyBlock are generic as to describe standard installation patterns
-* Easyconfigs without an easyblock entry are special and Easybuild will search for EasyBlocks named **EB_[software]**
-
-To find which Easyblock is specially for you...
-```
-eb --list-easyblocks
-```
-
----
-
-# Examples of useful easyblocks
-
-* **ConfigureMake**: implements the standard ./configure, make, make install installation procedure;
-* **CMakeMake**: same as ConfigureMake, but with ./configure replaced with cmake for the configuration step;
-* **PythonPackage**: implements the installation procedure for a single Python package, by default using "python setup.py install" but other methods like using "pip install" are also supported;
-* **Bundle**: a simple generic easyblock to bundle a set of software packages together in a single installation directory;
-
-See information about parameters for easyblocks https://docs.easybuild.io/en/latest/version-specific/generic_easyblocks.html
-
----
-
-# Dependencies/builddependencies
-
-* Will be installed if found and a module does not exists.
-* *dependencies* are used when the module is loaded
-* *builddependencies* are used when the software is installed
-
-### Main application toolchain
-
-```
-dependencies = [
-    ('Software', 'version'),
-]
-```
-
-### System toolchain
-
-```
-dependencies = [
-    ('Software', 'version', '', ('system', '')),
-]
-```
-
----
-
-# Sanity check
-
-* A test to see everything was installed correctly
-
-```
-sanity_check_paths = {
-    'files': ['bin/reframe',
-              'share/completions/file1',
-              'share/completions/file2'],
-    'dirs': ['bin', 'lib', 'share', 'tutorials']
-}
-
-sanity_check_commands = [
-    'software --version',
-    'software --help',    
-]
-```
-
----
-
-# Exercise 3
-
-* Create your own *easyconfig* file
-  * Create your *easyconfig* on any recipe you find that is appropriate
-  * Edit and make the necessary changes
-* Perform a dry-run as to acertain that there are no installation issues
-* Install the software
-
----
-
-# Compiling and running your own code
-
-### [name of lecturer]
+  | Setting | Timing |
+  | --- | --- |
+  | 8 MPI x 16 OMP | Time spent in matmul: 3.231 sec| 
+  | 8 MPI x 8 OMP | Time spent in matmul: 4.801 sec| 
+  | 8 MPI x 4 OMP | Time spent in matmul: 7.366 sec| 
+  | 16 MPI x 8 OMP | Time spent in matmul: 3.220 sec| 
+  | 16 MPI x 4 OMP | Time spent in matmul: 4.483 sec| 
+  | 16 MPI x 2 OMP | Time spent in matmul: 6.755 sec| 
