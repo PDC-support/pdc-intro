@@ -784,7 +784,6 @@ Config files are located in $HOME and are called:
 * Hotkeys
 * File archiving
 
- Jump to next section [Running jobs](#running-jobs)
 ---
 
 
@@ -887,7 +886,7 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 ```
 ---
 # Running jobs with efficient utilization of hardware
-name: running-jobs
+
 ### Xavier Aguilar
 
 ---
