@@ -777,11 +777,14 @@ Config files are located in $HOME and are called:
 * Type HISTTIMEFORMAT="%d/%m/%y %T "
 * Type history
 ```
+
 ---
 ## Bonus material
 * Finding files
 * Hotkeys
 * File archiving
+
+ Jump to next section [Running jobs](#running-jobs)
 ---
 
 
@@ -882,10 +885,9 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 * Make a tar archive, compare sizes
 * List the files inside the archive
 ```
-
 ---
 # Running jobs with efficient utilization of hardware
-
+name: running-jobs
 ### Xavier Aguilar
 
 ---
