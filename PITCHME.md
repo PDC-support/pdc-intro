@@ -874,7 +874,7 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 * Compile programs
 * Run light tasks
 * Submit jobs
-* Do not run parallel jobs
+* **Do not** run parallel jobs on the login node!
 
 
 ---
@@ -883,19 +883,19 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 
 * Open source, fault-tolerant, and highly scalable cluster management and job scheduling system
   - Allocates access to resources
-  - Provides a framework for monitoring work on the set of allocated nodes
+  - Provides a framework for work monitoring on the set of allocated nodes
   - Arbitrates contention for resources
 ---
 
-# How is SLURM used at PDC?
+# Types of jobs?
 
 * **Batch jobs**
   - the user writes a job script indicating the number of nodes, cores, time needed, etc.
-  - the script is submitted to the batch queue. SLURM evaluates it, and starts the jobs when it reaches the front of the queue.
+  - the script is submitted to the batch queue
   - The user retrieves the output files once the job is finished
 * **Interactive jobs:**
-  - the user runs a command that allocate interactive resources on a number of cores
-  - the interactive job awaits in the queue as any other job
+  - the user runs a command that allocates interactive resources on a number of cores
+  - this creates an interactive job that awaits in the queue as any other job
   - when the job reaches the front of the queue, the user gets access to the resources and can run commands there
 
 ---
@@ -936,53 +936,12 @@ squeue -u <username>
 scancel <job-id>
 ```
 
----
-
-# SLURM advanced commands
-
-<!-- ### To get further information about a job:
-```
-scontrol show job <jobid>
-```
--->
-
-### Get detailed information of a running job:
-```
-sstat --jobs=<your_job-id>
-```
-
-### Filter the information provided by sstat
-```
-sstat --jobs=your_job-id --format=JobID,aveCPU,MaxRRS,NTasks
-```
-
-**Tip:** Use *sstat -e* to see all possible fields for the *format* flag
-
----
-
-# SLURM advanced commands
-
-### To get information on past jobs:
-```
-sacct
-```
-
-### Get detailed information of a certain job:
-```
-sacct --jobs=<your_job-id> --starttime=YYYY-MM-DD
-```
-```
-sacct --starttime=2019-06-23 --format=JobName,CPUTime,NNodes,MaxRSS,Elapsed
-```
-
----
-# SLURM advanced command
-### Information on partitions and nodes
+### Get information on partitions and nodes
 ```
 sinfo
 ```
-
 ---
+
 # Job scripts (pure MPI)
 
 ```
@@ -1017,8 +976,8 @@ module add Y
 srun ./myexe > my_output_file
 ```
 
-
 ---
+
 # Partitions
 
 * Nodes are logically grouped into partitions
@@ -1027,6 +986,7 @@ srun ./myexe > my_output_file
   - **long**: Thin nodes (256 GB RAM), whole nodes, maximum 7 days job time
   - **shared**: Thin nodes (256 GB RAM), job shares node with other jobs, maximum 24 hours job time
   - **memory**: Large/Huge/Giant nodes (512 Gb - 2 TB RAM), whole nodes, 24 hours job time
+
 
 ---
 
@@ -1118,10 +1078,9 @@ int main(int argc, char** argv) {
 # Exercise 1
 
 * Take the job script that you can find [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise1.sh) and modify it accordingly to:
-   - Use the proper allocation required, for this course it is *edu2203.intropdc*
+   - Use the proper allocation required, for this course it is *edu2210.intropdc*
    - Use one node for the job
    - Use 4 cores from that node
-   - Add the command **srun -n 1 hostname** to the script (what this will do?)
    - Add at the end of the script the command **sleep 60** to make the job "sleep" for 60 seconds
 
 
@@ -1131,14 +1090,11 @@ int main(int argc, char** argv) {
 
 * Submit this script using **sbatch**
 
-* Check the queue using **squeue -u $USER**
+* Check the queue using **squeue -u <your_usernamer>**
    - What's the ID of the job?
-   - Is it already running?
-   - Which node was allocated for the job?
+   - Is it already running? If so, which node was allocated for the job?
 
-* Try using **scontrol show job <job-id>** to see more info about the job
-
-* Once the job finishes check the output job. Where is it saved?
+* Once the job finishes check the job output. Where is it saved?
 
 ---
 
@@ -1155,7 +1111,7 @@ It would be also possible to run our program with:
 srun -N 1 -n 4 ./hello_mpi
 ```
 
-However, we don't need to specify the flags because SLURM takes the *-N* and *-n* values from the script *BATCH* directives
+However, we don't need to specify those flags because SLURM takes the *-N* and *-n* values from the *BATCH* directives in the script
 
 ---
 
@@ -1167,6 +1123,83 @@ However, we don't need to specify the flags because SLURM takes the *-N* and *-n
   - Name 1-2 nodes included in that same partition
 
 ---
+# Interactive jobs
+
+Request an interactive allocation
+```
+salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes>
+```
+
+Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
+```
+srun -n <number-of-processes> ./mybinary.x
+```
+It is also possible to ssh into one of the allocated nodes.
+
+---
+# Interactive jobs
+
+We can check what nodes have been granted with:
+
+  ```
+  squeue -u $USER
+  ```
+
+  or inspecting the environment variable:
+  ```
+  SLURM_NODELIST
+  ```
+
+---
+
+# SLURM advanced commands
+
+<!-- ### To get further information about a job:
+```
+scontrol show job <jobid>
+```
+-->
+
+### Get detailed information of a running job:
+```
+sstat --jobs=<your_job-id>
+```
+
+### Filter the information provided by sstat
+```
+sstat --jobs=your_job-id --format=JobID,aveCPU,MaxRRS,NTasks
+```
+
+**Tip:** Use *sstat -e* to see all possible fields for the *format* flag
+
+---
+
+# SLURM advanced commands
+
+### To get information on past jobs:
+```
+sacct
+```
+
+### Get detailed information of a certain job:
+```
+sacct --jobs=<your_job-id> --starttime=YYYY-MM-DD
+```
+```
+sacct --starttime=2019-06-23 --format=JobName,CPUTime,NNodes,MaxRSS,Elapsed
+```
+
+---
+
+# SLURM advanced commands
+
+### Quick performance summary for a job (ended):
+```
+seff <jobid>
+```
+
+---
+
 
 # Job arrays
 
@@ -1212,34 +1245,6 @@ Submitted batch job 6975769
 For more info on job arrays check the SLURM website:
 https://slurm.schedmd.com/job_array.html
 
----
-# Interactive jobs
-
-Request an interactive allocation
-```
-salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes>
-```
-
-Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
-```
-srun -n <number-of-processes> ./mybinary.x
-```
-
----
-# Interactive jobs
-
-We can check what nodes have been granted with:
-
-```
-squeue -u $USER
-```
-
-or inspecting the environment variable:
-```
-SLURM_NODELIST
-```
-
-**Note:** In the future it will be possible to ssh to the allocated nodes as well
 
 ---
 
@@ -1300,7 +1305,7 @@ SLURM_NODELIST
 
 * Run again, and check the job with sacct
 
-* Try to use the **seff** command for another quick job efficiency report.  
+* Try to use the **seff** command for quick job efficiency overview.  
 
    ```
    Job ID: 211499
