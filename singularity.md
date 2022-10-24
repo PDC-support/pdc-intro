@@ -44,10 +44,9 @@ style: |
 <!-- paginate: true -->
 
 # Introduction to Singularity
-![bg](assets/kth_first_slide.png)
+
 # Henric Zazzi
-#
-#
+![height:200px center](assets/singularity/SingularityLogos_CE.png)
 
 ---
 
@@ -126,7 +125,7 @@ A container image is a lightweight, standalone, executable package of software t
 - No support for MPI
 - No native GPU support
 - Docker users can escalate to root access on the cluster
-- @color[red](Not allowed on HPC clusters)
+- <span style="color:red;">Not allowed on HPC clusters</span>
 
 ---
 
