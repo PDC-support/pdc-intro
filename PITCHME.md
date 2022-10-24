@@ -1418,13 +1418,13 @@ MATLAB can be run on Dardel both in interactive sessions, with or without a grap
 
 # Running interactively
 
-Matlab can be run interactively on an allocated node. To book a single node for one hour
+Matlab can be run interactively on allocated cores. To book 24 cores for one hour
 
 ```
-salloc -N 1 -t 1:00:00 -A pdc.staff -p main
+salloc -n 24 -t 1:00:00 -A pdc.staff -p shared
 ```
 
-Wait for a node to reserved
+Wait for cores to be reserved
 
 ```
 salloc: Granted job allocation 591571
@@ -1432,28 +1432,20 @@ salloc: Waiting for resource configuration
 salloc: Nodes nid001015 are ready for job
 ```
 
-Log in to the node
+Log in to the node where the cores reside
 
 ```
 ssh -X nid00105
 ```
-
 
 ---
 and start MATLAB with graphical user interface
 
 ```
 ml PDC/21.11
-ml matlab/r2021b
+ml matlab/r2022b
 matlab
 ```
-
-Alternatively to requesting a full node, request cores on the shared partition
-
-```
-salloc -n 24 -t 1:00:00 -A pdc.staff -p shared
-```
-
 ---
 
 # Parallel computation with Matlab
@@ -1524,11 +1516,11 @@ Also for batch job use of MATLAB, consider to use the shared partition of Dardel
 #SBATCH -J myjob
 #SBATCH -p shared
 #SBATCH -n 16
-#SBATCH -t 10:00:00
+#SBATCH -t 01:00:00
 
 # Load the Matlab module
 ml add PDC/21.11
-ml matlab/r2021b
+ml matlab/r2022b
 
 # Run matlab taking your_matlab_program.m as input
 matlab -nodisplay -nodesktop -nosplash < your_matlab_program.m > your_matlab_program.out
@@ -1544,11 +1536,11 @@ matlab -nodisplay -nodesktop -nosplash < your_matlab_program.m > your_matlab_pro
 #SBATCH -J myjob
 #SBATCH -p shared
 #SBATCH -n 24
-#SBATCH -t 10:00:00
+#SBATCH -t 02:00:00
 
 # Load the Matlab module
 ml add PDC/21.11
-ml matlab/r2021b
+ml matlab/r2022b
 
 # Run matlab for 24 individual programs serial_program_1.m,
 # serial_program_2.m ... and print output in files logfile_1, logfile_2, ...
