@@ -17,6 +17,8 @@ style: |
     }
 ---
 
+<!-- Section: Background and infrastructure -->
+
 # <!--fit--> Introduction to PDC
 
 2022-03-23
@@ -24,8 +26,6 @@ style: |
 PDC staff
 
 <style scoped>a { color: #eee; }</style>
-
-<!-- This is presenter note. You can write down notes through HTML comment. -->
 
 ---
 
@@ -234,6 +234,8 @@ node   0   1   2   3   4   5   6   7
 
 ---
 
+<!-- Section: Accounts, login, and file system -->
+
 <!-- paginate: true -->
 
 ![bg 90% left](https://www.pdc.kth.se/polopoly_fs/1.1053343.1614296818!/image/3D%20marketing%201%20row%20cropped%201000pW%20300ppi.jpg)
@@ -437,6 +439,8 @@ setfacl -x u:<uid> -R /cfs/klemming/home/u/user/test
 ```
 
 ---
+
+<!-- Section: Using Bash shell -->
 
 # Using Bash shell
 ## Introduction for beginners
@@ -885,6 +889,9 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 * List the files inside the archive
 ```
 ---
+
+<!-- Section: Job script for efficient utilization of hardware -->
+
 # Running jobs with efficient utilization of hardware
 
 ### Xavier Aguilar
@@ -1420,6 +1427,8 @@ wait
 
 ---
 
+<!-- Section: Using Matlab -->
+
 # Using MATLAB
 
 ![bg right:50% width:80%](https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/667px-Matlab_Logo.png)
@@ -1611,6 +1620,8 @@ wait
 
 
 ---
+
+<!-- Section: Using Python virtual environment -->
 
 # Using Python virtual environment
 
@@ -1808,6 +1819,8 @@ python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ---
+
+<!-- Section: Compiling and running your own code -->
 
 # Cray programming environment (CPE)
 
