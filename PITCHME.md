@@ -788,7 +788,7 @@ Config files are located in $HOME and are called:
 * Hotkeys
 * File archiving
 
- [Jump to next section: Compiling and running code](#compiling-running)
+ [Jump to next section](#66)
 
 ---
 
@@ -894,7 +894,7 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 
 <!-- Section: Compiling and running your own code -->
 
-# Cray programming environment (CPE) <a id="compiling-running"></a>
+# Cray programming environment (CPE)
 
 * In practice, we recommend
     - ``ml cpeCray/21.11``
