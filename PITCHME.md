@@ -1027,7 +1027,7 @@ libopenblas.so.0 => /.../openblas-0.3.18.../lib/libopenblas.so.0
 
 * Run on a single core in the ``shared`` partition
   ```
-  salloc -n 1 -t 10 -p shared -A edu2203.intropdc
+  salloc -n 1 -t 10 -p shared -A edu2210.intropdc --reservation=intropdc-2022-10-28
   srun -n 1 ./dgemm_test_craylibsci.x
   srun -n 1 ./dgemm_test_openblas.x
   exit
@@ -1803,7 +1803,7 @@ MATLAB allows matrix manipulations, plotting of functions and data, implementati
 
 In order to use MATLAB you need to have a MATLAB license.
 
-KTH has a MATLAB site license for academic users, affiliated at KTH or affiliated with other universities. The license includes all MATLAB toolboxes.
+KTH has a MATLAB site license valid for academic users that are affiliated with KTH or with other universities. The license includes all MATLAB toolboxes.
 
 To access the installation of MATLAB on Dardel, please contact PDC support and request access.
 
