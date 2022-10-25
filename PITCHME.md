@@ -446,14 +446,16 @@ setfacl -x u:<uid> -R /cfs/klemming/home/u/user/test
 * Bash shell and basic commands
 * Files and Folders
 * Input/output
-* Searching for files or text
+* Searching in text
 * Processes
 * File/directory permissions
-* Hotkeys
 * Environment variables
+
+
+#### Bonus material for self-studying
+* Finding files
+* Hotkeys
 * File archiving
-
-
 
 ---
 ### What is a shell?
@@ -552,6 +554,7 @@ cd /home/tkl/shell-lesson-data/exercise-data
 Most people are used to GUI text editors but it is often worthwhile to master at least one editor in the terminal.
 
 List of common editors:
+
 * nano - easiest, minimal functionality
 * vi/vim - a bit more involved, but more functionality
 * emacs - even a bit more involved, but a lot of functionality
@@ -601,6 +604,7 @@ cat file1 file2 > file3
 
 # go through file1 and replace spaces with a new line mark, then output to file2
 tr -s ' ' '\n' < file1 > file2
+
 # -or- in more readable format
 cat file1 | tr -s ' ' '\n' > file2
 ```
@@ -617,22 +621,6 @@ cat file1 | tr -s ' ' '\n' > file2
 way to print the last 4 commands by piping history into tail
 ```
 ---
-### Finding things
-Command: *find*
-
-```
-# search for pentane.pdb in current directory
-find . -name pentane.pdb
-
-# one can search more than one dir at once
-find . /cfs/klemming/nobackup/u/username -name pentane.pdb
-
-```
-Bonus (for interested to do later):
-* On a Lustre system, *lfs find* is faster. Same syntax.
-
-* On a workstation: *locate* may be useful. Read manual for information.
----
 ### grep
 This command is for searching keyword inside files.
 
@@ -643,31 +631,17 @@ command | grep <pattern>  # grep lines from stdin
 
 ```
 ---
-### Exercise 5
+### Exercise 5 [grep]
 ```
-grep:
 * Go back to the data-shell directory
 * Type grep rabbit exercise-data/animal-counts/animals.csv
 * Try finding all occurences of the string “rabbit” using
 recursive search (adding the -R flag)
 
-find:
-* Type find . -name animals.csv.
-* Type find . -name *.pdb
-
-```
----
-### Exercise 5 [cont]
-```
 grep + pipes:
-* Make a pipe that counts number of files/directories in the
+* Make a pipe that displays all files ending with "pdb" in the
  data-shell directory.
 
-bonus:
-* Count unique logged in users on Dardel.
-Tip: w or users gives you a list of all currently login users,
-many of them have several sessions open.
-Tip: You may have to use uniq, tr -s, cut -f 1 -d " ", and wc -l
 ```
 ---
 ### Processes
@@ -699,12 +673,14 @@ But we also want to run **programs.**
 
 ---
 ### Foreground and background processes [cont]
+
  ```
  Example:
  ./my_prog.ex
  ./my_prog.ex 1> output.txt 2>error.txt &
 
  ```
+
 **NB: You will most likely not use Dardel like this, but it is possible to do so by logging into a compute node.**
 
 ---
@@ -761,40 +737,7 @@ chown -R folder        (Change owner of folder)
 
 In many support cases we ask users to apply the last line so we can access files.
 
----
-### Hotkeys
-* Shortcuts
-* Most important key: **tab** for autocompletion
-* You should never type full filenames or command names - **tab** can complete almost anything.
 
----
-Some common commands
-```
-TAB            (autocompletion)
-Home/Ctrl-a    (move to start of command line)
-End/Ctrl-e     (move to end)
-up/down        (traverse command history)
-Ctrl-l         (clear the screen)
-Ctrl-Shift-c   (copy)
-Ctrl-Shift-v   (paste)
-Ctrl-r         (command history search: backwards)
-
-```
----
-### Exercise 6
-#### TAB autocompletion
-
-We will here display contents of a file using its full path, but try to type as few characters as possible.
-
-First find your absolute path to "numbers.txt"
-```
-* Type find $HOME -name numbers.text
-Say the path was /home/tkl/shell-lesson-data/exercise-data/numbers.txt
-
-* Type cat /home/tk and then start hitting TAB.
- Add characters when needed to reach full path.
-(use your own path)
-```
 
 ---
 ### Environment variables
@@ -819,7 +762,8 @@ Try it:
 
 * You can always manually test things in an open shell before putting it in the config files (recommended!)
 
-* Config files are located in $HOME and are called:
+Config files are located in $HOME and are called:
+
  * .bashrc
  * .bash_profile
 
@@ -835,7 +779,89 @@ Try it:
 ```
 
 ---
-### File archiving
+## Bonus material
+* Finding files
+* Hotkeys
+* File archiving
+
+---
+
+
+### Finding things [bonus slide]
+Command: *find*
+
+```
+# search for pentane.pdb in current directory
+find . -name pentane.pdb
+
+# one can search more than one dir at once
+find . /cfs/klemming/nobackup/u/username -name pentane.pdb
+
+```
+
+---
+### Exercise 5 [bonus slide]
+
+Bonus (for interested to do later):
+
+* On a Lustre system, *lfs find* is faster. Same syntax.
+
+* On a workstation: *locate* may be useful. Read manual for information.
+
+
+* Type find . -name animals.csv.
+
+* Type find . -name *.pdb
+
+* Make a pipe that counts number of files/directories in the
+ data-shell directory.
+
+* Count unique logged in users on Dardel.
+
+Tip: **w** or **users** give you a list of all currently login users,
+many of them have several sessions open.
+
+Tip: You may have to use **uniq**, **tr -s**, **cut -f 1 -d " "**, and **wc -l**
+
+---
+
+### Hotkeys [bonus slide]
+* Shortcuts
+* Most important key: **tab** for autocompletion
+* You should never type full filenames or command names - **tab** can complete almost anything.
+
+---
+Some common commands
+```
+TAB            (autocompletion)
+Home/Ctrl-a    (move to start of command line)
+End/Ctrl-e     (move to end)
+up/down        (traverse command history)
+Ctrl-l         (clear the screen)
+Ctrl-Shift-c   (copy)
+Ctrl-Shift-v   (paste)
+Ctrl-r         (command history search: backwards)
+
+```
+---
+### Exercise 6 [bonus slide]
+#### TAB autocompletion
+
+We will here display contents of a file using its full path, but try to type as few characters as possible.
+
+First find your absolute path to "numbers.txt"
+```
+* Type find $HOME -name numbers.text
+Say the path was /home/tkl/shell-lesson-data/exercise-data/numbers.txt
+
+* Type cat /home/tk and then start hitting TAB.
+ Add characters when needed to reach full path.
+(use your own path)
+```
+
+
+---
+### File archiving [bonus slide]
 ```
 # create tar archive gzipped on the way
 tar -caf archive_name.tar.gz dir/
@@ -852,13 +878,12 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 * Individual files can be compressed directly with e.g. gzip. (gzip file, gunzip file.gz)
 
 ---
-### Exercise 7
+### Exercise 7 [bonus slide]
 ```
 * Make a tar.gz archive of shell-lesson-data
 * Make a tar archive, compare sizes
 * List the files inside the archive
 ```
-
 ---
 # Running jobs with efficient utilization of hardware
 
@@ -1950,7 +1975,7 @@ srun -n 1 ./fftw_test.x
 
 ---
 
-# Compilation of large program 
+# Compilation of large program
 
 * [Compilation of NWChem](https://www.pdc.kth.se/software/software/NWChem/cpe21.11/7.0.2/index_building.html)
 
@@ -2130,9 +2155,9 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 
   | Setting | Timing |
   | --- | --- |
-  | 8 MPI x 16 OMP | Time spent in matmul: 3.231 sec| 
-  | 8 MPI x 8 OMP | Time spent in matmul: 4.801 sec| 
-  | 8 MPI x 4 OMP | Time spent in matmul: 7.366 sec| 
-  | 16 MPI x 8 OMP | Time spent in matmul: 3.220 sec| 
-  | 16 MPI x 4 OMP | Time spent in matmul: 4.483 sec| 
-  | 16 MPI x 2 OMP | Time spent in matmul: 6.755 sec| 
+  | 8 MPI x 16 OMP | Time spent in matmul: 3.231 sec|
+  | 8 MPI x 8 OMP | Time spent in matmul: 4.801 sec|
+  | 8 MPI x 4 OMP | Time spent in matmul: 7.366 sec|
+  | 16 MPI x 8 OMP | Time spent in matmul: 3.220 sec|
+  | 16 MPI x 4 OMP | Time spent in matmul: 4.483 sec|
+  | 16 MPI x 2 OMP | Time spent in matmul: 6.755 sec|
