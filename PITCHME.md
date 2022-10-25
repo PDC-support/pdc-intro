@@ -21,7 +21,7 @@ style: |
 
 # <!--fit--> Introduction to PDC
 
-2022-03-23
+2022-10-27
 
 PDC staff
 
@@ -136,7 +136,7 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
 # Introduction to Dardel supercomputer
 
-2022-03-23
+2022-10-27
 
 [About Dardel](https://www.pdc.kth.se/hpc-services/computing-systems/about-dardel-1.1053338)
 
@@ -1803,7 +1803,7 @@ MATLAB allows matrix manipulations, plotting of functions and data, implementati
 
 In order to use MATLAB you need to have a MATLAB license.
 
-KTH has a site-wide license for MATLAB which includes all MATLAB toolboxes.
+KTH has a MATLAB site license for academic users, affiliated at KTH or affiliated with other universities. The license includes all MATLAB toolboxes.
 
 To access the installation of MATLAB on Dardel, please contact PDC support and request access.
 
