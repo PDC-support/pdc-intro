@@ -30,19 +30,23 @@ PDC staff
 # Contents
 
 * [Background and infrastructure](#3)
-* [Accounts, login, and file system](#19)
-* [Using Bash shell](#33)
-* [Building software with EasyBuild](#67)
-* [Using Singularity](#68)
-* [Compiling and running your own code](#69)
-* [Job script for efficient utilization of hardware](#90)
-* [Using Matlab](#124)
-* [Using Python virtual environment](#135)
+* [Accounts, login, and file system](#20)
+* [Using Bash shell](#34)
+* [Building software with EasyBuild](#68)
+* [Using Singularity](#69)
+* [Compiling and running your own code](#70)
+* [Job script for efficient utilization of hardware](#92)
+* [Using Matlab](#126)
+* [Using Python virtual environment](#138)
 
 
 ---
 
 <!-- Section: Background and infrastructure -->
+
+# Background and infrastructure
+
+---
 
 ![bg top:90% width:80%](./assets/pdc-homepage.jpg)
 
@@ -805,7 +809,7 @@ Config files are located in $HOME and are called:
 * Hotkeys
 * File archiving
 
- [Jump to next section](#67)
+ [Jump to next section](#68)
 
 ---
 
@@ -908,18 +912,34 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 * List the files inside the archive
 ```
 ---
+
+<!-- Section: Building software with EasyBuild -->
+
 # Building software with EasyBuild
 
-* [Link to download the slides](https://github.com/PDC-support/pdc-intro/raw/pdf-files/easybuild.pdf)
+### Henric Zazzi
+
+Link to download the slides: [easybuild.pdf](https://github.com/PDC-support/pdc-intro/raw/pdf-files/easybuild.pdf)
 
 ---
+
+<!-- Section: Using Singularity -->
+
 # Using Singularity
 
-* [Link to download the slides](https://github.com/PDC-support/pdc-intro/raw/pdf-files/singularity.pdf)
+### Henric Zazzi
+
+Link to download the slides: [singularity.pdf](https://github.com/PDC-support/pdc-intro/raw/pdf-files/singularity.pdf)
 
 ---
 
 <!-- Section: Compiling and running your own code -->
+
+# Compiling and running your own code
+
+### Johan Hellsvik, Xin Li
+
+---
 
 # Cray programming environment (CPE)
 
@@ -1809,6 +1829,12 @@ wait
 
 # Using MATLAB
 
+### Johan Hellsvik
+
+---
+
+# Using MATLAB
+
 ![bg right:50% width:80%](https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/667px-Matlab_Logo.png)
 
 MATLAB is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks.
@@ -2002,6 +2028,8 @@ wait
 <!-- Section: Using Python virtual environment -->
 
 # Using Python virtual environment
+
+### Xin Li
 
 ---
 
