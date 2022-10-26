@@ -32,10 +32,12 @@ PDC staff
 * [Background and infrastructure](#3)
 * [Accounts, login, and file system](#19)
 * [Using Bash shell](#33)
-* [Compiling and running your own code](#67)
-* [Job script for efficient utilization of hardware](#88)
-* [Using Matlab](#122)
-* [Using Python virtual environment](#133)
+* [Building software with EasyBuild](#67)
+* [Using Singularity](#68)
+* [Compiling and running your own code](#69)
+* [Job script for efficient utilization of hardware](#90)
+* [Using Matlab](#124)
+* [Using Python virtual environment](#135)
 
 
 ---
@@ -905,6 +907,16 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 * Make a tar archive, compare sizes
 * List the files inside the archive
 ```
+---
+# Building software with EasyBuild
+
+* [Link to download the slides](https://github.com/PDC-support/pdc-intro/raw/pdf-files/easybuild.pdf)
+
+---
+# Using Singularity
+
+* [Link to download the slides](https://github.com/PDC-support/pdc-intro/raw/pdf-files/singularity.pdf)
+
 ---
 
 <!-- Section: Compiling and running your own code -->
