@@ -96,10 +96,6 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
     - https://www.pdc.kth.se/research/business-research/pdc-partners
 
-* White papers from research collaborations between PDC and European companies
-
-    - https://www.pdc.kth.se/research/business-research/white-papers-1.737818
-
 * A small part of Dardel nodes will be dedicated to industry/business research.
 
 * If you are interested in purchasing HPC compute time, contact PDC Support.
@@ -115,10 +111,6 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 * SNIC Zoom-in (advertised in SNIC training newsletter)
 
 * Workshops (see [PDC events](https://www.pdc.kth.se/about/events))
-
-* PDC User Days
-
-    - PDC Pub and Open House
 
 * University Courses that use PDC systems
 
@@ -314,7 +306,7 @@ node   0   1   2   3   4   5   6   7
 
 * ``ssh -o GSSAPIDelegateCredentials=yes -o GSSAPIKeyExchange=yes -o GSSAPIAuthentication=yes <your-username>@dardel.pdc.kth.se``
     - use PuTTY on Windows
-    - you can put SSH options in ``~/.ssh/config`` on Linux/macOS
+    - you can save SSH options in ``~/.ssh/config`` on Linux/macOS
 
 ---
 
@@ -395,17 +387,27 @@ groups
 
 # Find out your storage quota
 
-* Home directory
-  ```
-  lfs quota -hg $USER /cfs/klemming/
-  ```
-  Note: This takes into account files under ``/cfs/klemming/scratch/``
+```
+projinfo
+```
 
-* Project directory
-  ```
-  lfs quota -hg pg_xxxxxx /cfs/klemming/
-  ```
-  Replace ``pg_xxxxxx`` by the actual group name.
+```
+$HOME folder
+Path: /cfs/klemming/home/u/user
+Storage: ... GiB
+Number of files: ...
+```
+
+```
+Information for storage project: snicYYYY-X-XX (PI: ...)
+...
+Active from ... to ...
+Members: ...
+Max quota: ... GiB, ... files
+Path: /cfs/klemming/projects/snic/...
+Storage: ... TiB
+Number of files: ...
+```
 
 ---
 
@@ -418,7 +420,7 @@ groups
 * Bad practice
   - Small reads
   - Opening many files
-  - Seeking within a le to read a small piece of data
+  - Seeking within a file to read a small piece of data
 
 ---
 
@@ -442,13 +444,13 @@ other::---
 
 # Access Control Lists
 
-### To grant the access to another user ("-R" for recursive):
+### To grant the access to another user (use "-R" for recursive):
 ```
-setfacl -m u:<uid>:r-x -R /cfs/klemming/home/u/user/test
+setfacl -m u:<uid>:r-x /cfs/klemming/home/u/user/test
 ```
-### To remove the access for another user ("-R" for recursive):
+### To remove the access for another user (use "-R" for recursive):
 ```
-setfacl -x u:<uid> -R /cfs/klemming/home/u/user/test
+setfacl -x u:<uid> /cfs/klemming/home/u/user/test
 ```
 
 ---
@@ -1098,7 +1100,7 @@ srun -n 1 ./fftw_test.x
 * Environment variables for compiler flags
     - add ``-I``, ``-L``, ``-l``, etc. to Makefile
 
-* Environment variables for runtime
+* Environment variables at runtime
     - prepend to ``PATH``, ``LD_LIBRARY_PATH``, etc.
 
 ---
