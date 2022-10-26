@@ -81,6 +81,7 @@ int main(int argc, char** argv) {
 # Run the executable named myexe
 # and write the output into my_output_file
 srun ./hello_mpi > my_output_file
+sleep 60
 ```
 ---
 
@@ -90,8 +91,6 @@ srun ./hello_mpi > my_output_file
    - Use the proper allocation required, for this course it is *edu2210.intropdc* 
    - Use one node
    - Use 4 cores from that node
-   - Add the command **srun -n 1 hostname** to the script (what this will do?)
-   - Add at the end the command **sleep 60** to make the job "sleep" for 60 seconds
 
 
 ---
@@ -104,8 +103,6 @@ srun ./hello_mpi > my_output_file
    - What's the ID of the job?
    - Is it already running? 
    - Which node was allocated for the job?
-
-* Try using **scontrol show job <job-id>** to see more info about the job
 
 * Once the job finishes check the output job. Where is it saved?
 
