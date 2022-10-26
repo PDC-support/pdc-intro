@@ -1486,7 +1486,6 @@ int main(int argc, char** argv) {
    - Use the proper allocation required, for this course it is *edu2210.intropdc*
    - Use one node for the job
    - Use 4 cores from that node
-   - Add at the end of the script the command **sleep 60** to make the job "sleep" for 60 seconds
 
 
 ---
@@ -1495,7 +1494,7 @@ int main(int argc, char** argv) {
 
 * Submit this script using **sbatch**
 
-* Check the queue using **squeue -u <your_usernamer>**
+* Check the queue using **squeue -u <your_username>**
    - What's the ID of the job?
    - Is it already running? If so, which node was allocated for the job?
 
