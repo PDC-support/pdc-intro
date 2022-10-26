@@ -23,4 +23,5 @@
 # Run the executable named myexe
 # and write the output into my_output_file
 srun ./hello_mpi > my_output_file
+sleep 60
 
