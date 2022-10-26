@@ -1166,7 +1166,7 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 
 # Example job script
 
-* 64 MPI x 2 OMP per node
+* 64 MPI x 2 OMP per node (main parition)
   ```
   #!/bin/bash
 
@@ -1191,22 +1191,21 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 
 # Example job script
 
-* 16 MPI x 8 OMP per node
+* 2 MPI x 2 OMP per node (shared partition)
   ```
   #!/bin/bash
 
   #SBATCH -A ...
   #SBATCH -J my_job
   #SBATCH -t 01:00:00
-  #SBATCH -p main
+  #SBATCH -p shared
 
-  #SBATCH --nodes=2
-  #SBATCH --ntasks-per-node=16
-  #SBATCH --cpus-per-task=16
+  #SBATCH --ntasks=2
+  #SBATCH --cpus-per-task=4
 
   module load ...
 
-  export OMP_NUM_THREADS=8
+  export OMP_NUM_THREADS=2
   export OMP_PLACES=cores
 
   srun ...
@@ -1222,13 +1221,8 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
   ```
 
   ```
-  python3 -m venv myenv
-  source myenv/bin/activate
-  ```
-
-  ```
-  python3 -m pip install /pdc/software/21.11/other/veloxchem/1.0rc3/wheels/mpi4py-3.1.3-cp39-cp39-linux_x86_64.whl
-  python3 -m pip install /pdc/software/21.11/other/veloxchem/1.0rc3/wheels/numpy-1.20.3-cp39-cp39-linux_x86_64.whl
+  ml PDC/21.11
+  ml numpy/1.20.3-gcc11.2-py38
   ```
 
 * If you are interested in how mpi4py and numpy were compiled, see [this page](https://www.pdc.kth.se/software/software/VeloxChem/cpe21.11/1.0rc3/index_building.html)
@@ -1239,11 +1233,11 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 
 * Copy python code [matmul_mpi_omp_test.py](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/matmul_mpi_omp_test.py) to the same folder
 
-* Copy job script [job-n8.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n8.sh)
-    - for running on 8 MPI processes with different number of OpenMP threads
+* Copy job script [job-n2.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n2.sh)
+    - for running on 2 MPI processes with different number of OpenMP threads
 
-* Copy job script [job-n16.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n16.sh)
-    - for running on 16 MPI processes with different number of OpenMP threads
+* Copy job script [job-n4.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n4.sh)
+    - for running on 4 MPI processes with different number of OpenMP threads
 
 * Submit two jobs
 
@@ -1255,12 +1249,12 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 
   | Setting | Timing |
   | --- | --- |
-  | 8 MPI x 16 OMP | Time spent in matmul: 3.231 sec|
-  | 8 MPI x 8 OMP | Time spent in matmul: 4.801 sec|
-  | 8 MPI x 4 OMP | Time spent in matmul: 7.366 sec|
-  | 16 MPI x 8 OMP | Time spent in matmul: 3.220 sec|
-  | 16 MPI x 4 OMP | Time spent in matmul: 4.483 sec|
-  | 16 MPI x 2 OMP | Time spent in matmul: 6.755 sec|
+  | 2 MPI x 8 OMP | Time spent in matmul: 1.714 sec|
+  | 2 MPI x 4 OMP | Time spent in matmul: 3.110 sec|
+  | 2 MPI x 2 OMP | Time spent in matmul: 5.273 sec|
+  | 4 MPI x 4 OMP | Time spent in matmul: 1.698 sec|
+  | 4 MPI x 2 OMP | Time spent in matmul: 2.747 sec|
+  | 4 MPI x 1 OMP | Time spent in matmul: 4.559 sec|
 ---
 
 <!-- Section: Job script for efficient utilization of hardware -->

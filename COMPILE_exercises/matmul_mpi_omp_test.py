@@ -5,7 +5,7 @@ import time
 comm = MPI.COMM_WORLD
 nranks = comm.Get_size()
 
-nrows = 2000000
+nrows = 200000
 ncols = 2000
 
 local_matrix = np.random.rand(nrows // nranks, ncols)
