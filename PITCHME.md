@@ -17,8 +17,6 @@ style: |
     }
 ---
 
-<!-- Section: Background and infrastructure -->
-
 # <!--fit--> Introduction to PDC
 
 2022-10-27
@@ -28,6 +26,21 @@ PDC staff
 <style scoped>a { color: #eee; }</style>
 
 ---
+
+# Contents
+
+* [Background and infrastructure](#3)
+* [Accounts, login, and file system](#19)
+* [Using Bash shell](#33)
+* [Compiling and running your own code](#67)
+* [Job script for efficient utilization of hardware](#88)
+* [Using Matlab](#122)
+* [Using Python virtual environment](#133)
+
+
+---
+
+<!-- Section: Background and infrastructure -->
 
 ![bg top:90% width:80%](./assets/pdc-homepage.jpg)
 
@@ -242,7 +255,7 @@ node   0   1   2   3   4   5   6   7
 
 # Account, Login and File System
 
-2022-03-23
+2022-10-27
 
 [PDC support documentation](https://www.pdc.kth.se/support)
 
@@ -1054,7 +1067,7 @@ cc fftw_test.c -o fftw_test.x
 
 ldd fftw_test.x
 
-salloc -n 1 -t 10 -p shared -A edu2203.intropdc
+salloc -n 1 -t 10 -p shared -A edu2210.intropdc --reservation=intropdc-2022-10-28
 srun -n 1 ./fftw_test.x
 ```
 
