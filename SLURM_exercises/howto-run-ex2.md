@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
 
 # Set the allocation to be charged for this job
 # not required if you have set a default allocation
-#SBATCH -A edu2203.intropdc
+#SBATCH -A edu2210.intropdc
 
 # The name of the script is myjob
 #SBATCH -J myjob

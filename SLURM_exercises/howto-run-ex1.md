@@ -87,7 +87,7 @@ srun ./hello_mpi > my_output_file
 # Exercise
 
 * Take the job script from the previous slide, save it in job.sh and modify it accordingly to:
-   - Use the proper allocation required, for this course it is *edu2203.intropdc* 
+   - Use the proper allocation required, for this course it is *edu2210.intropdc* 
    - Use one node
    - Use 4 cores from that node
    - Add the command **srun -n 1 hostname** to the script (what this will do?)
