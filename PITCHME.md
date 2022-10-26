@@ -803,7 +803,7 @@ Config files are located in $HOME and are called:
 * Hotkeys
 * File archiving
 
- [Jump to next section](#66)
+ [Jump to next section](#67)
 
 ---
 
