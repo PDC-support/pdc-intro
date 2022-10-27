@@ -5,6 +5,9 @@
 # not required if you have set a default allocation
 #SBATCH -A edu2210.intropdc
 
+# Reservation for today
+#SBATCH --reservation=intropdc-2022-10-28
+
 # The name of the script is myjob
 #SBATCH -J myjob
 
