@@ -1557,7 +1557,7 @@ However, we don't need to specify those flags because SLURM takes the *-N* and *
 
 Request an interactive allocation
 ```
-salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes>
+salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes> -n <cores>
 ```
 
 Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
@@ -1630,6 +1630,69 @@ seff <jobid>
 
 ---
 
+# Common reasons for inefficient jobs
+
+* Not all nodes allocated are used
+* Not all cores within a node are used (if it's not intentional)
+* Many more cores than the available are used
+* Inneficient use of the file system
+* Using the wrong partition
+
+---
+
+# Exercise 2
+
+* In this exercise we are going to use some more advanced SLURM commands to explore job performance.
+
+* You will:
+   - Create and compile a simple MPI program
+   - Submit it to the queues
+   - Check job data using sacct
+
+
+---
+
+# Exercise 2
+
+* You can find the sample code for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/vector_mpi.c)
+
+* Compile the code and generate a binary called *vector_mpi*
+
+---
+
+
+# Exercise 2
+
+* You can find the job script for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise-2.sh)
+
+* Save the script on Dardel and submit the job. Once the job finishes check its output.
+
+* Inspect the job performance data using **sacct**
+   - Use: -j <jobID> --format=JobID,JobName,Elapsed,ReqMem,MaxRSS
+
+     **Tip**: use flag "--unit=M" to see memory units in MB
+
+---
+
+# Exercise 2
+
+* Use the **seff** command for quick job efficiency overview.  
+
+   ```
+   Job ID: 211499
+   Cluster: dardel
+   User/Group: xaguilar/xaguilar
+   State: COMPLETED (exit code 0)
+   Nodes: 1
+   Cores per node: 8
+   CPU Utilized: 00:00:01
+   CPU Efficiency: 0.37% of 00:04:32 core-walltime
+   Job Wall-clock time: 00:00:34
+   Memory Utilized: 549.25 MB (estimated maximum)
+   Memory Efficiency: 7.73% of 6.94 GB (888.00 MB/core)
+   ```
+  
+---
 
 # Job arrays
 
@@ -1674,82 +1737,6 @@ Submitted batch job 6975769
 
 For more info on job arrays check the SLURM website:
 https://slurm.schedmd.com/job_array.html
-
-
----
-
-
-# Common reasons for inefficient jobs
-
-* Not all nodes allocated are used
-* Not all cores within a node are used (if it's not intentional)
-* Many more cores than the available are used
-* Inneficient use of the file system
-* Using the wrong partition
-
----
-
-# Exercise 2
-
-* In this exercise we are going to use some more advanced SLURM commands to explore job performance.
-
-* You will:
-   - Create and compile a simple MPI program
-   - Submit it to the queues
-   - Check job data using sacct
-
-
-
----
-
-# Exercise 2
-
-* You can find the sample code for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/vector_mpi.c)
-
-* Compile the code and generate a binary called *vector_mpi*
-
----
-
-
-# Exercise 2
-
-* You can find the job script for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise-2.sh)
-
-* Save the script on Dardel and submit the job. Once the job finishes check its output.
-
-* Inspect the job performance data using **sacct**
-   - Use: -j <jobID> --format=JobID,JobName,Elapsed,ReqMem,MaxRSS
-
-     **Tip**: use flag "--unit=M" to see memory units in MB
-
----
-
-# Exercise 2
-
-* Use the **seff** command for quick job efficiency overview.  
-
-   ```
-   Job ID: 211499
-   Cluster: dardel
-   User/Group: xaguilar/xaguilar
-   State: COMPLETED (exit code 0)
-   Nodes: 1
-   Cores per node: 8
-   CPU Utilized: 00:00:01
-   CPU Efficiency: 0.37% of 00:04:32 core-walltime
-   Job Wall-clock time: 00:00:34
-   Memory Utilized: 549.25 MB (estimated maximum)
-   Memory Efficiency: 7.73% of 6.94 GB (888.00 MB/core)
-   ```
-
----
-
-
-# Good SLURM practices
-
-* Avoid too many short jobs
-* Avoid massive output to STDOUT
-* Try to provide a good estimate of the job duration before submitting
 
 ---
 
@@ -1813,6 +1800,14 @@ done
 
 wait
 ```
+  
+---
+
+# Good SLURM practices
+
+* Avoid too many short jobs
+* Avoid massive output to STDOUT
+* Try to provide a good estimate of the job duration before submitting
 
 ---
 
