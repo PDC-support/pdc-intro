@@ -1623,7 +1623,7 @@ sacct --starttime=2019-06-23 --format=JobName,CPUTime,NNodes,MaxRSS,Elapsed
 
 # SLURM advanced commands
 
-### Quick performance summary for a job (ended):
+### Quick performance summary for a finished job:
 ```
 seff <jobid>
 ```
@@ -1715,27 +1715,18 @@ https://slurm.schedmd.com/job_array.html
 
 * You can find the job script for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise-2.sh)
 
-* Save the script on Dardel and submit the job. Once the job finishes check its output
+* Save the script on Dardel and submit the job. Once the job finishes check its output.
 
-* What happened with the job?
-
-* Inspect the job data using **sacct**
-   - Use: --format=JobID,JobName,Elapsed,Alloc,NTask,MaxRSS,ReqMem,State
+* Inspect the job performance data using **sacct**
+   - Use: -j <jobID> --format=JobID,JobName,Elapsed,ReqMem,MaxRSS
 
      **Tip**: use flag "--unit=M" to see memory units in MB
-
-* Can you see why the job failed?
-
 
 ---
 
 # Exercise 2
 
-* Change the NROWS and NCOLS value to 4096 for example
-
-* Run again, and check the job with sacct
-
-* Try to use the **seff** command for quick job efficiency overview.  
+* Use the **seff** command for quick job efficiency overview.  
 
    ```
    Job ID: 211499
