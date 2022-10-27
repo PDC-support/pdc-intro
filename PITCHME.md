@@ -1330,15 +1330,6 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
   - when the job reaches the front of the queue, the user gets access to the resources and can run commands there
 
 ---
-# Queing jobs
-<style scoped>
-section{
-  justify-content: flex-start;
-}
-</style>
-![bg right: 90%](https://pdc-web.eecs.kth.se/files/support/images/sbatchflow.PNG)
-
----
 
 # How jobs are scheduled?
 
