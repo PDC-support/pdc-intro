@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define NROWS 16384
-#define NCOLS 16384
+#define NROWS 2048
+#define NCOLS 2048
 
 double A[NROWS][NCOLS];
 
