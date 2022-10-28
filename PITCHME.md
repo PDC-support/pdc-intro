@@ -1857,7 +1857,7 @@ MATLAB can be run on Dardel both in interactive sessions, with or without a grap
 Matlab can be run interactively on allocated cores. To book 24 cores for one hour
 
 ```
-salloc -n 24 -t 1:00:00 -p shared -A edu2210.intropdc --reservation=intropdc-2022-10-28
+salloc -n 24 -t 1:00:00 -p shared -A edu2210.intropdc
 ```
 
 Wait for cores to be reserved
@@ -1912,6 +1912,7 @@ Consider first serial code: [spectral_serial.m](https://github.com/PDC-support/p
 
 ```
 tic
+disp('Start serial calculation of spectral radius')
 n = 500;
 A = 1000;
 a = zeros(n);
@@ -1919,6 +1920,7 @@ for i = 1:n
     a(i) = max(abs(eig(rand(A))));
 end
 toc
+disp('End serial calculation of spectral radius')
 ```
 
 Execution time on one core: 297 s
@@ -1934,6 +1936,7 @@ Replace `for` statements in serial code with ``parfor`` to obtain [spectral_parf
 
 ```
 tic
+disp('Start parallel calculation of spectral radius')
 ticBytes(gcp);
 n = 500;
 A = 1000;
@@ -1942,6 +1945,7 @@ parfor i = 1:n
     a(i) = max(abs(eig(rand(A))));
 end
 tocBytes(gcp)
+disp('End parallel calculation of spectral radius')
 toc
 ```
 
