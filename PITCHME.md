@@ -1857,7 +1857,7 @@ MATLAB can be run on Dardel both in interactive sessions, with or without a grap
 Matlab can be run interactively on allocated cores. To book 24 cores for one hour
 
 ```
-salloc -n 24 -t 1:00:00 -A pdc.staff -p shared
+salloc -n 24 -t 1:00:00 -p shared -A edu2210.intropdc --reservation=intropdc-2022-10-28
 ```
 
 Wait for cores to be reserved
@@ -1875,13 +1875,22 @@ ssh -X nid00105
 ```
 
 ---
-and start MATLAB with graphical user interface
+and start MATLAB with graphical user interface (GUI)
 
 ```
 ml PDC/21.11
 ml matlab/r2022b
 matlab
 ```
+
+if you have not got X11 forwarding active, start MATLAB without GUI
+
+```
+ml PDC/21.11
+ml matlab/r2022b
+matlab -nodisplay -nodesktop -nosplash
+```
+
 ---
 
 # Parallel computation with Matlab
