@@ -1659,7 +1659,7 @@ seff <jobid>
 * Save the script on Dardel and submit the job. Once the job finishes check its output.
 
 * Inspect the job performance data using **sacct**
-   - Use: -j <jobID> --format=JobID,JobName,Elapsed,ReqMem,MaxRSS
+   - Use: -j <job-id> --format=JobID,JobName,Elapsed,ReqMem,MaxRSS
 
      **Tip**: use flag "--unit=M" to see memory units in MB
 
@@ -1667,7 +1667,7 @@ seff <jobid>
 
 # Exercise 2
 
-* Use the **seff** command for quick job efficiency overview.  
+* Use the **seff <job-id>** command for quick job efficiency overview.  
 
    ```
    Job ID: 211499
