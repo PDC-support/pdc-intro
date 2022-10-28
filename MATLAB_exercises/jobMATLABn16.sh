@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH -A snicYYYY-X-XX
+#SBATCH -A edu2210.intropdc
 #SBATCH -J myjob
 #SBATCH -p shared
 #SBATCH -n 16
@@ -10,4 +10,6 @@ ml add PDC/21.11
 ml matlab/r2022b
 
 # Run matlab taking your_matlab_program.m as input
-matlab -nodisplay -nodesktop -nosplash < your_matlab_program.m > your_matlab_program.out
+echo "Script initiated at `date` on `hostname`"
+matlab -nodisplay -nodesktop -nosplash spectral_serial.m your_matlab_program.out
+echo "Script finished at `date` on `hostname`"
