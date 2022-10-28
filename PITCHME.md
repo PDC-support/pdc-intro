@@ -943,6 +943,10 @@ Link to download the slides: [singularity.pdf](https://github.com/PDC-support/pd
 
 # Cray programming environment (CPE)
 
+Reference page: [Compilers and libraries](https://www.pdc.kth.se/support/documents/software_development/development.html)
+
+The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
+
 * In practice, we recommend
     - ``ml cpeCray/21.11``
     - ``ml cpeGNU/21.11``
@@ -960,6 +964,8 @@ Link to download the slides: [singularity.pdf](https://github.com/PDC-support/pd
     - ``cc``: C compiler wrapper
     - ``CC``: C++ compiler wrapper
     - ``ftn``: Fortran compiler wrapper
+
+* The wrappers choose the required compiler version and target architecture optinons.
 
 * Automatically link to MPI library and math libraries
     - MPI library: ``cray-mpich``
@@ -984,6 +990,16 @@ Link to download the slides: [singularity.pdf](https://github.com/PDC-support/pd
 
   ```
   ftn hello_world_mpi.f90 -o hello_world_mpi.x
+  ```
+
+---
+
+# What flags do the ``ftn`` wrapper activate?
+
+* Use the flag ``-craype-verbose``
+
+  ```
+  ftn -craype-verbose hello_world_mpi.f90 -o hello_world_mpi.x
   ```
 
 ---
