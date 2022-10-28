@@ -35,7 +35,7 @@ PDC staff
 * [Building software with EasyBuild](#68)
 * [Using Singularity](#69)
 * [Compiling and running your own code](#70)
-* [Job script for efficient utilization of hardware](#92)
+* [Job script for efficient utilization of hardware](#93)
 * [Using Matlab](#126)
 * [Using Python virtual environment](#138)
 
