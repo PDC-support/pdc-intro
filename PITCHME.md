@@ -19,7 +19,7 @@ style: |
 
 # <!--fit--> Introduction to PDC
 
-2022-10-27
+2023-01-23
 
 PDC staff
 
@@ -114,7 +114,7 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
     - Introduction to HPC held every year
 
-* SNIC Zoom-in (advertised in SNIC training newsletter)
+* Zoom-in (advertised in training newsletter)
 
 * Workshops (see [PDC events](https://www.pdc.kth.se/about/events))
 
@@ -147,7 +147,7 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
 # Introduction to Dardel supercomputer
 
-2022-10-27
+2023-01-23
 
 [About Dardel](https://www.pdc.kth.se/hpc-services/computing-systems/about-dardel-1.1053338)
 
@@ -253,7 +253,7 @@ node   0   1   2   3   4   5   6   7
 
 # Account, Login and File System
 
-2022-10-27
+2023-01-23
 
 [PDC support documentation](https://www.pdc.kth.se/support)
 
@@ -280,7 +280,7 @@ node   0   1   2   3   4   5   6   7
 
 * Unit: core-hours per month
 
-* SNIC projects are managed in SUPR.
+* NAISS projects are managed in SUPR.
 
 * Course/Workshop allocations are managed locally at PDC.
 
@@ -1090,7 +1090,7 @@ libopenblas.so.0 => /.../openblas-0.3.18.../lib/libopenblas.so.0
 
 * Run on a single core in the ``shared`` partition
   ```
-  salloc -n 1 -t 10 -p shared -A edu2210.intropdc --reservation=intropdc-2022-10-28
+  salloc -n 1 -t 10 -p shared -A edu23.sf2568 --reservation=lab-24-1
   srun -n 1 ./dgemm_test_craylibsci.x
   srun -n 1 ./dgemm_test_openblas.x
   exit
@@ -1117,7 +1117,7 @@ cc fftw_test.c -o fftw_test.x
 
 ldd fftw_test.x
 
-salloc -n 1 -t 10 -p shared -A edu2210.intropdc --reservation=intropdc-2022-10-28
+salloc -n 1 -t 10 -p shared -A edu23.sf2568 --reservation=lab-24-1
 srun -n 1 ./fftw_test.x
 ```
 
@@ -1516,7 +1516,7 @@ int main(int argc, char** argv) {
 # Exercise 1
 
 * Take the job script that you can find [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise1.sh) and modify it accordingly to:
-   - Use the proper allocation required, for this course it is *edu2210.intropdc*
+   - Use the proper allocation required, for this course it is *edu23.sf2568*
    - Use one node for the job
    - Use 4 cores from that node
 
@@ -1857,7 +1857,7 @@ MATLAB can be run on Dardel both in interactive sessions, with or without a grap
 Matlab can be run interactively on allocated cores. To book 24 cores for one hour
 
 ```
-salloc -n 24 -t 1:00:00 -p shared -A edu2210.intropdc
+salloc -n 24 -t 1:00:00 -p shared -A edu23.sf2568
 ```
 
 Wait for cores to be reserved
