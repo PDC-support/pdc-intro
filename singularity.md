@@ -56,8 +56,8 @@ style: |
 - Docker, the most popular container
 - Singularity: Containers for the HPC environment
 - installation of singularity
-- Using the container
 - How to build containers
+- Installing software in container
 - Running your container in an HPC environment
 - Creating recipes for singularity
 
@@ -160,8 +160,8 @@ https://singularity-hub.org/
 
 ### singularityCE (Community Edition)
 
-- Latest version: 3.10.2 (2022-07-22)
-- Installed on Dardel: 3.10.0
+- Latest version: 3.11.0 (2023-02-17)
+- Installed on Dardel: 3.10.4
 
 ---
 
@@ -227,7 +227,7 @@ https://docs.sylabs.io/guides/3.0/user-guide/installation.html
 
 ---
 
-# Using the container
+# How to build containers
 
 ---
 
@@ -250,20 +250,49 @@ DISTRIB_CODENAME=jammy
 Singularity> exit
 ```
 
+---
+
+# Paths for building containers
+
+```
+singularity build [image].sif [name]
+```
+
+| From | Path |
+| --- | --- |
+| Singularity hub | shub://[name] |
+| Docker hub | docker://[name] |
+| Local | [name] |
+| Sandbox | [Sandox folder name] |
+| Recipe | [recipe name] |
+
+---
+
+# How do I execute commands in singularity
+
+Commands in the container can be given as normal.
+
+```
+$ singularity exec my_image.sif ls
+```
+```
+$ singularity shell my_image.sif
+Singularity> ls
+```
+
 <span style="color:red;">Do it yourself</span>
 
 ---
 
 # Exercise 1: Download a container
 
-1. Go to singularity hub and find the hello-world container (https://singularity-hub.org/collections)
+1. Go to singularity hub and find the hello-world container (https://singularityhub.github.io/singularityhub-archive/)
 1. build the container using singularity
-  (shub://[full name of container])
 1. Use the container shell and get acquainted with it 
 
 ---
 
-# How to build containers
+# Installing software in container
 
 ---
 
@@ -293,20 +322,6 @@ Singularity>
 
 ---
 
-# How do I execute commands in singularity
-
-Commands in the container can be given as normal.
-
-```
-$ singularity exec my_image.sif ls
-```
-```
-$ singularity shell my_image.sif
-Singularity> ls
-```
-
----
-
 # Transfer files into container
 
 **Read mode:** You can read/write to file system outside container and
@@ -318,14 +333,34 @@ read inside container.
 
 ---
 
-# How to transfer files into the container
+# Binding folders
 
 ```
-$ sudo singularity exec -w my_sandbox mkdir singularity_folder
-$ mkdir my_folder
-$ sudo singularity shell -B my_folder:/root/singularity_folder -w my_sandbox
-Singularity> cp singularity_folder/file1 .
+... -B [local folder]:[singularity folder] ...
 ```
+
+* Enables transferring of data to container
+* Enables accessing external data from within the container
+* Enables running external scripts from within the container
+* For using PDC filesystem you must bind to *cfs/klemming*
+
+---
+
+# Example on how to transfer files into the container
+
+1. Create local folder and internal singularity folder 
+   ```
+   $ mkdir my_folder
+   $ sudo singularity exec -w my_sandbox mkdir singularity_folder
+   ```
+1. Starting container as *root* and bind folders
+   ```
+   $ sudo singularity shell -B my_folder:/root/singularity_folder -w my_sandbox
+   ```
+1. Copy *file1* to container folder
+   ```   
+   Singularity> cp singularity_folder/file1 .
+   ```
 
 <span style="color:red;">Do it yourself:</span>
 
@@ -342,18 +377,24 @@ Singularity> cp singularity_folder/file1 .
 
 ---
 
+# Initiating your container
+
+---
+
 # singularity.d folder
 
 Startup scripts etc... for your singularity image
 
 ```
 $ singularity exec my_image.sif ls -l /.singularity.d
-total 1
-drwxr-xr-x 2 root root  76 Sep 11 17:05 actions
-drwxr-xr-x 2 root root 139 Sep 11 17:23 env
-drwxr-xr-x 2 root root   3 Sep 11 17:05 libs
--rwxr-xr-x 1 root root  33 Sep 11 17:23 runscript
--rwxr-xr-x 1 root root  10 Sep 11 17:05 runscript.help
+-rw-r--r-- 1 root root   39 Feb 17 09:27 Singularity
+drwxr-xr-x 2 root root 4096 Feb 17 09:27 actions
+drwxr-xr-x 2 root root 4096 Feb 17 09:27 env
+-rw-r--r-- 1 root root  459 Feb 17 09:27 labels.json
+drwxr-xr-x 2 root root 4096 Feb 17 09:27 libs
+-rwxr-xr-x 1 root root 1933 Feb 17 09:27 runscript
+-rwxr-xr-x 1 root root 10   Feb 17 09:27 runscript.help
+-rwxr-xr-x 1 root root   10 Feb 17 09:27 startscript
 ```
 
 <span style="color:red;">Important: The files must be executable and owned by root</span>
@@ -363,49 +404,35 @@ drwxr-xr-x 2 root root   3 Sep 11 17:05 libs
 # Creating a script
 
 
-### runscript
+### Example of runscript file
 
 ```
 #!/bin/sh
-
-ls -l
+echo "Hello world!"
 ```
 
-### command
+### Executing the runscript file
 
 ```
 $ singularity run my_image.sif
-total 1
-drwxr-xr-x 2 root root  76 Sep 11 17:05 file1
-drwxr-xr-x 2 root root 139 Sep 11 17:23 file2
+Hello world!
 ```
 
 ---
 
 # What is a help file and how is it used
 
-### runscript.help
+### Example of runscript.help file
 
 ```
 This is a text file
 ```
 
-### command
+### Print the information within
 
 ```
 $ singularity run-help my_image.sif
 This is a text file
-```
-
----
-
-# Build a new container from a sandbox
-
-```
-$ sudo singularity build my_new_image.sif my_sandbox
-INFO:    Starting build...
-INFO:    Creating SIF file...
-INFO:    Build complete: my_new_image.sif
 ```
 
 <span style="color:red;">Do it yourself:</span>
@@ -415,10 +442,9 @@ INFO:    Build complete: my_new_image.sif
 # Exercise 3: Edit your own container
 
 1. Create a help file
-1. Create/Edit the runscript running hello world
-1. Create a new container from the sandbox
+1. Create/Edit the runscript printing *Hello world!*
 
-<span style="color:red;">**Tip:** You can use the editor in your VM and then transfer the file</span>
+<span style="color:red;">**Tip:** You can use an editor in your VM or create it and then transfer the file</span>
 
 ---
 
@@ -440,10 +466,18 @@ software, environment variables, files to add, and container metadata
 A recipe is a textfile explaining what should be put into the container
 
 ```
-sudo singularity build my_image.sif my_recipe
+sudo singularity build [container].sif [recipe].def
 ```
 
 Recipes for images that can be used on PDC clusters can be found at https://github.com/PDC-support/PDC-SoftwareStack/tree/master/other/singularity
+
+---
+
+# Printing how a container was built
+
+```
+singularity inspect --deffile [container]
+```
 
 ---
 
@@ -519,8 +553,7 @@ What local files should be copied into my container
 
 ```
 %files
-    # <filename> <singularity path>
-    myfile.txt /opt
+    <local filename> <singularity path>
 ```
 
 ---
@@ -531,7 +564,7 @@ What should be executed with the run command.
 
 ```
 %runscript
-    mysoftware -param1 -param2
+    <software executable> -<parameter1>
     
 ```
 
@@ -539,7 +572,7 @@ What should be executed with the run command.
 
 ---
 
-# Exercise 5: Create a recipe
+# Exercise 4: Create a recipe
 
 1. Based on UBUNTU
 1. Install compilers
@@ -576,6 +609,13 @@ scp <sandbox name>.tar.gz <username>@dardel.pdc.kth.se:/cfs/klemming/home/<u>/<u
 tar xfp <sandbox name>.tar.gz
 ```
 
+# Transfer a SIF file
+
+```
+scp <SIF file> <username>@dardel.pdc.kth.se:/cfs/klemming/home/<u>/<username>
+singularity build --sandbox <sandbox name> <SIF file>
+```
+
 ---
 
 # What are the required tools
@@ -588,8 +628,7 @@ ml PDC
 ml singularity
 ```
 
-- In folder *$PDC_SHUB* you can find already built images at PDC
-- https://www.pdc.kth.se/software
+* In folder *$PDC_SHUB* you can find already built images at PDC
 
 ---
 
@@ -615,11 +654,32 @@ ml PDC singularity
 srun -n 24 --mpi=pmi2 singularity exec <sandbox folder> <myexe>
 ```
 
-<span style="color:red;">Do it yourself:</span>
+---
+
+# Executes GPU enabled code with singularity
+
+```
+#!/bin/bash -l
+# The -l above is required to get the full environment with modules
+# Set the allocation to be charged for this job
+# not required if you have set a default allocation
+#SBATCH -A 201X-X-XX
+# The name of the script is myjob
+#SBATCH -J myjob
+# Only 1 hour wall-clock time will be given to this job
+#SBATCH -t 1:00:00
+# Number of nodes
+#SBATCH --nodes=1
+# Using the GPU partition which is at the moment is under testing
+#SBATCH -p gpu-tst
+# Run the executable named myexe
+ml PDC singularity
+srun -n 1 singularity exec --rocm -B /cfs/klemming <sandbox folder> <myexe>
+```
 
 ---
 
-# Exercise 4: Run a HPC container
+# Exercise 5: Run a HPC container
 
 1. Login into dardel.pdc.kth.se
 1. send in a job for the hello-world sandbox
@@ -631,7 +691,6 @@ srun -n 24 --mpi=pmi2 singularity exec <sandbox folder> <myexe>
 
 # Useful links
 
-- https://www.pdc.kth.se/software/software/singularity/
-- https://docs.sylabs.io/guides/3.8/user-guide/
-- https://github.com/PDC-support/PDC-SoftwareStack/tree/master/other/singularity
-
+* https://www.pdc.kth.se/support/documents/software/singularity.html
+* https://github.com/PDC-support/PDC-SoftwareStack/tree/master/other/singularity
+* https://sylabs.io/docs/
