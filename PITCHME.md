@@ -19,7 +19,7 @@ style: |
 
 # <!--fit--> Introduction to PDC
 
-2022-10-27
+2023-03-08
 
 PDC staff
 
@@ -147,7 +147,7 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
 # Introduction to Dardel supercomputer
 
-2022-10-27
+2023-03-08
 
 [About Dardel](https://www.pdc.kth.se/hpc-services/computing-systems/about-dardel-1.1053338)
 
@@ -253,7 +253,7 @@ node   0   1   2   3   4   5   6   7
 
 # Account, Login and File System
 
-2022-10-27
+2023-03-08
 
 [PDC support documentation](https://www.pdc.kth.se/support)
 
