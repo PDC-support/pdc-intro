@@ -128,11 +128,11 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 
 * 2xAMD EPYC™ 2.25 GHz 64 cores
 * RAM
-  * 524 nodes, 256 GB
-  * 256 nodes, 512 GB RAM
+  * 730 nodes, 256 GB
+  * 516 nodes, 512 GB RAM
   * 8 nodes, 1024 GB RAM
-  * 6 nodes, 2048 GB RAM
-* <span style="color:red;">4xAMD Instinct™ MI250X GPUs</span>
+  * 14 nodes, 2048 GB RAM
+* <span style="color:red;">123 Nodes 4xAMD Instinct™ MI250X GPUs</span>
 
 </div></div>
 
