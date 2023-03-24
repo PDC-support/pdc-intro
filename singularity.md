@@ -346,6 +346,25 @@ read inside container.
 
 ---
 
+# How to use binding to run local scripts
+
+1. Create local folder and internal singularity folder 
+   ```
+   $ mkdir my_folder
+   $ sudo singularity exec -w my_sandbox mkdir /usr/local/sing
+   ```
+1. Starting container and bind folders
+   The file *myscript*, residing in my_folder, will be executed as within the container
+   ```
+   $ singularity exec -B my_folder:/usr/local/sing -w my_sandbox /usr/local/sing/myscript
+   ```
+1. Obscuring container folder */opt*
+   ```
+   $ singularity exec -B my_folder:/opt my_sandbox /opt/myscript
+   ```
+
+---
+
 # Example on how to transfer files into the container
 
 1. Create local folder and internal singularity folder 
