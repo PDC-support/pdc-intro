@@ -19,7 +19,7 @@ style: |
 
 # <!--fit--> Introduction to PDC
 
-2023-04
+2023-03-08
 
 PDC staff
 
@@ -32,13 +32,13 @@ PDC staff
 * [Background and infrastructure](#3)
 * [Accounts, login, and file system](#20)
 * [Using Bash shell](#34)
-* [Building software with EasyBuild](#68)
-* [Using Singularity](#69)
-* [Compiling and running your own code](#70)
-* [Job script for efficient utilization of hardware](#93)
-* [Using Matlab](#126)
-* [Using Python virtual environment](#138)
-
+* [Compiling and running code on CPU nodes](#68)
+* [Job script for efficient utilization of hardware](#91)
+* [Using ThinLinc](#124)
+* [Compiling and running code on GPU nodes](#125)
+* [Using Singularity](#126)
+* [Using Matlab](#127)
+* [Using Python virtual environment](#139)
 
 ---
 
@@ -913,31 +913,11 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 ```
 ---
 
-<!-- Section: Building software with EasyBuild -->
+<!-- Section: Compiling and running code on CPU nodes -->
 
-# Building software with EasyBuild
+# Compiling and running code on GPU nodes
 
-### Henric Zazzi
-
-Link to download the slides: [easybuild.pdf](https://github.com/PDC-support/pdc-intro/raw/pdf-files/easybuild.pdf)
-
----
-
-<!-- Section: Using Singularity -->
-
-# Using Singularity
-
-### Henric Zazzi
-
-Link to download the slides: [singularity.pdf](https://github.com/PDC-support/pdc-intro/raw/pdf-files/singularity.pdf)
-
----
-
-<!-- Section: Compiling and running your own code -->
-
-# Compiling and running your own code
-
-### Johan Hellsvik, Xin Li
+### Xin Li
 
 ---
 
@@ -1815,6 +1795,34 @@ wait
 * Avoid too many short jobs
 * Avoid massive output to STDOUT
 * Try to provide a good estimate of the job duration before submitting
+
+---
+
+<!-- Section: Using ThinLinc -->
+
+# Using ThinLinc
+
+### Mustafa Arif
+
+Link to download the slides: To be added
+
+---
+
+<!-- Section: Compiling and running code on GPU nodes -->
+
+# Compiling and running code on GPU nodes
+
+### Johan Hellsvik
+
+---
+
+<!-- Section: Using Singularity -->
+
+# Using Singularity
+
+### Henric Zazzi
+
+Link to download the slides: [singularity.pdf](https://github.com/PDC-support/pdc-intro/raw/pdf-files/singularity.pdf)
 
 ---
 
