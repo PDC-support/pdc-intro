@@ -11,6 +11,12 @@ style: |
     border: 20px solid transparent;
     background-color: transparent;
     }
+  .column33 {
+    float: left;
+    width: 30%;
+    border: 10px solid transparent;
+    background-color: transparent;
+    }
   .columnlightblue {
     border: 10px solid #b6e0ff;
     background-color: #b6e0ff;
@@ -55,6 +61,42 @@ style: |
 1. Backup
 1. How to apply to PDC resources
 1. How to login to PDC resources
+
+---
+
+# PDC is finansed by NAISS
+
+<div class="row">
+<div class="column33">
+
+![height:550px](outreach_pdc/img/naiss_sweden.png)
+
+</div>
+<div class="column33 columnlightblue">
+
+# Resources
+
+Chalmers Tek. Högskola
+Kungliga Tek. Högskola
+Linköping Universitet
+Uppsala Universitet
+
+</div>
+<div class="column33 columnlightblue">
+
+# Branches
+
+Chalmers Tek. Högskola
+Göteborg Universitet
+Karolinska institutet
+Kungliga Tek. Högskola
+Linköpings Universitet
+Lund Universitet
+Stockholm Universitet
+Umeå Universitet
+Uppsala Universitet
+
+</div></div>
 
 ---
 
