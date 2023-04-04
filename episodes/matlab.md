@@ -39,7 +39,7 @@ MATLAB can be run on Dardel both in interactive sessions, with or without a grap
 Matlab can be run interactively on allocated cores. To book 24 cores for one hour
 
 ```
-salloc -n 24 -t 1:00:00 -p shared -A edu23.sf2568
+salloc -n 24 -t 1:00:00 -p shared -A edu2304.intropdc
 ```
 
 Wait for cores to be reserved
@@ -60,16 +60,16 @@ ssh -X nid00105
 and start MATLAB with graphical user interface (GUI)
 
 ```
-ml PDC/21.11
-ml matlab/r2022b
+ml PDC/22.06
+ml matlab/r2023a
 matlab
 ```
 
 if you have not got X11 forwarding active, start MATLAB without GUI
 
 ```
-ml PDC/21.11
-ml matlab/r2022b
+ml PDC/22.06
+ml matlab/r2023a
 matlab -nodisplay -nodesktop -nosplash
 ```
 
@@ -150,8 +150,8 @@ Also for batch job use of MATLAB, consider to use the shared partition of Dardel
 #SBATCH -t 01:00:00
 
 # Load the Matlab module
-ml add PDC/21.11
-ml matlab/r2022b
+ml add PDC/22.06
+ml matlab/r2023a
 
 # Run matlab taking your_matlab_program.m as input
 matlab -nodisplay -nodesktop -nosplash < your_matlab_program.m > your_matlab_program.out
@@ -170,8 +170,8 @@ matlab -nodisplay -nodesktop -nosplash < your_matlab_program.m > your_matlab_pro
 #SBATCH -t 02:00:00
 
 # Load the Matlab module
-ml add PDC/21.11
-ml matlab/r2022b
+ml add PDC/22.06
+ml matlab/r2023a
 
 # Run matlab for 24 individual programs serial_program_1.m,
 # serial_program_2.m ... and print output in files logfile_1, logfile_2, ...
