@@ -10,13 +10,13 @@
 * Bash shell and basic commands
 * Files and Folders
 * Input/output
-* Searching in text
 * Processes
 * File/directory permissions
 * Environment variables
 
 
 #### Bonus material for self-studying
+* Searching in text
 * Finding files
 * Hotkeys
 * File archiving
@@ -59,21 +59,21 @@ https://carpentries.org/
 ---
 ### Exercise 1
 ```
-* Explore the contents of shell-lesson-data
+$ ls -l shell-lesson-data
 * Move back and forth into the subdirectories
-* Move into exercise-data and copy the file
- "numbers.txt" into a new file "numbers_copy.txt"
- by typing "cp numbers.txt numbers_copy.txt"
+* Move into exercise-data and type
+$ cp numbers.txt numbers_copy.txt
 ```
 verify that the new file was created.
  **NB! Do not use whitespace in file/folder names.**
 
 ```
-* Create a new directory with some name, and move this copy there
-mv numbers_copy.txt your_new_folder/.
+* Create a new directory with some name. Then type:
+$ mv numbers_copy.txt your_new_folder/.
+* what happened?
 ```
 ---
-### Some more commands
+### Exercise 2: Some more commands
 
 ```
 cp -r dir1 dir2   (copy directory, NB "-r")
@@ -85,20 +85,14 @@ less file_example (view contents of file in pager)
 head file_example (print first lines of file)
 tail file_example (print last lines of file)
 
-```
----
-### Exercise 2
-
-```
 * Copy an existing directory
 * Display "numbers_copy.txt" in some way
 * Print your command line history
-* Take a peek at the manual for command ls:
-* Type man ls
-* Press up/down keys to scroll
-* Type / to start search mode
-* Try to search for the flag: -F
-* Type q to quit
+* Open manual for the command ls and then
+- press up/down keys to scroll
+- Type / to start search mode
+- Search for the flag: -F
+- Type q to quit
 ```
 ---
 ### Relative vs. absolute paths
@@ -115,14 +109,14 @@ cd /home/tkl/shell-lesson-data/exercise-data
 
 ---
 ### Text editors
-Most people are used to GUI text editors but it is often worthwhile to master at least one editor in the terminal.
+Very good idea to master at least one (non-graphical) editor in the terminal.
 
 List of common editors:
 
 * nano - easiest, minimal functionality
 * vi/vim - a bit more involved, but more functionality
 * emacs - even a bit more involved, but a lot of functionality
-
+* HOMEWORK: get used to one text editor.
 ---
 
 ### Input & Output: redirect and pipes
@@ -130,123 +124,61 @@ List of common editors:
 
 * Programs can take input, e.g. **less**
 
-* "cat numbers_copy.txt" dumps the file to *stdout*
+* $ cat numbers_copy.txt
 
-* "cat numbers_copy.txt | less" gives the text as input to *less* (i.e. pipe)
+ dumps the file to *stdout*
+
+* $ cat numbers_copy.txt | less
+
+ gives the text as input to *less* (i.e. pipe it)
 ---
 ### Try it: pipes
 ```
-# count number of logged in users
-w -h | wc -l
+# what sessions are logged in?
+$ w
 
-# to list all matching commands
-history | grep -w 'ls'
+# count number of sessions
+$ w -h | wc -l
+
+# list all matching commands
+$ history | grep -w 'ls'
 
 # print the name of the newest file in the directory (non-dot)
-ls -1tF | grep -v -E '*/|@' | head -1
+$ ls -1tF | grep -v -E '*/|@' | head -1
 
 ```
 ---
 ### Redirects
 * Like pipes, but data is sent to/from files and not processes
 
-* Replace a file: command > file.txt
+* Replace a file:
 
-* Append to a file: command >> file.txt (be careful to **not** mix them up!)
+ command > file.txt
 
-* Redirect file as STDIN: command < file (in case program accepts STDIN only)
+* Append to a file:
+
+ command >> file.txt (be careful to **not** mix them up!)
+
+* Redirect file as STDIN:
+
+ command < file (in case program accepts STDIN only)
 
 ---
 ### Try it: Redirects
 ```
-echo Hello World > hello.txt
+$ echo Hello World > hello.txt
 
-ls -lH >> current_dir_ls.txt
+$ ls -lH >> current_dir_ls.txt
 
 # join two files (e.g. the two above) into one
-cat file1 file2 > file3
+$ cat file1 file2 > file3
 
 # go through file1 and replace spaces with a new line mark, then output to file2
-tr -s ' ' '\n' < file1 > file2
+$ tr -s ' ' '\n' < file1 > file2
 
 # -or- in more readable format
-cat file1 | tr -s ' ' '\n' > file2
+$ cat file1 | tr -s ' ' '\n' > file2
 ```
----
-### Exercise 4
-```
-* Step into the data-shell folder
-* Type history
-* Type history > history.txt
-* Type ls -l and then check time stamp of history.txt
-* Print the last 4 lines of history.txt using the tail command
-(explore the manpage if needed)
-* Instead of creating an intermediate file, find a more clever
-way to print the last 4 commands by piping history into tail
-```
----
-### grep
-This command is for searching keyword inside files.
-
-```
-grep <pattern> <filename>  # grep lines that match <pattern>
- -or-
-command | grep <pattern>  # grep lines from stdin
-
-```
----
-### Exercise 5 [grep]
-```
-* Go back to the data-shell directory
-* Type grep rabbit exercise-data/animal-counts/animals.csv
-* Try finding all occurences of the string “rabbit” using
-recursive search (adding the -R flag)
-
-grep + pipes:
-* Make a pipe that displays all files ending with "pdb" in the
- data-shell directory.
-
-```
----
-### Processes
-Uptil now we only discussed files/folders.
-But we also want to run **programs.**
-* All running programs and commands are *processes*
-* Processes have:
-  * Process ID, NAME, Command line arguments
-  * input and output, Return code (integer) when complete
-  * Working directory, Environment variables
-* These concepts bind together all UNIX programs
-* To see some runnings processes, type *top*
-
----
-### Foreground and background processes
-
-**Foreground**
-
- * Example: *Top*
- * Keyboard is connected as input, screen to output.
- * Only one such process active at a time.
- * Kill it: Ctrl-c
-
-**Background**
- * No input connected
- * You can have as many as resources allow
- * Add an *&* after a command to put it in background
- * To kill: use *kill* or *pkill*, or do it from within *top*
-
----
-### Foreground and background processes [cont]
-
- ```
- Example:
- ./my_prog.ex
- ./my_prog.ex 1> output.txt 2>error.txt &
-
- ```
-
-**NB: You will most likely not use Dardel like this, but it is possible to do so by logging into a compute node.**
-
 ---
 ### File/directory permissions
 #### The basics
@@ -300,8 +232,45 @@ chown -R folder        (Change owner of folder)
 ```
 
 In many support cases we ask users to apply the last line so we can access files.
+---
+### Processes
+Uptil now we only discussed files/folders.
+But we also want to run **programs.**
+* All running programs and commands are *processes*
+* Processes have:
+  * Process ID, NAME, Command line arguments
+  * input and output, Return code (integer) when complete
+  * Working directory, Environment variables
+* These concepts bind together all UNIX programs
+* To see some runnings processes, type *top*
 
+---
+### Foreground and background processes
 
+**Foreground**
+
+ * Example: *Top*
+ * Keyboard is connected as input, screen to output.
+ * Only one such process active at a time.
+ * Kill it: Ctrl-c
+
+**Background**
+ * No input connected
+ * You can have as many as resources allow
+ * Add an *&* after a command to put it in background
+ * To kill: use *kill* or *pkill*, or do it from within *top*
+
+---
+### Foreground and background processes [cont]
+
+ ```
+ Example:
+ ./my_prog.ex
+ ./my_prog.ex 1> output.txt 2>error.txt &
+
+ ```
+
+**NB: You will most likely not use Dardel like this, but it is possible to do so by logging into a compute node.**
 
 ---
 ### Environment variables
@@ -319,7 +288,28 @@ Try it:
 ```
 
 ---
-### Initialization and configuration
+## Bonus material
+* Initialization and configuration
+* Finding files and text patterns within files
+* Hotkeys
+* File archiving
+
+ [Jump to next section](#68)
+
+---
+### Exercise: some more redirects [bonus slide]
+```
+* Step into the data-shell folder
+* Type history
+* Type history > history.txt
+* Type ls -l and then check time stamp of history.txt
+* Print the last 4 lines of history.txt using the tail command
+(explore the manpage if needed)
+* Instead of creating an intermediate file, find a more clever
+way to print the last 4 commands by piping history into tail
+```
+---
+### Initialization and configuration [bonus slide]
 * When the shell first starts (e.g. at login) it reads shell config files.
 
 * The config files give you power to customize your shell to your liking.
@@ -332,24 +322,38 @@ Config files are located in $HOME and are called:
  * .bash_profile
 
 ---
-
-### Initialization and configuration [cont]
-
-#### Example to try
+#### Example to try [bonus slide]
 ```
-* Type history
-* Type HISTTIMEFORMAT="%d/%m/%y %T "
-* Type history
+* Try to customize your shell to your liking. It can for instance be
+- define some environmental you will often used
+- get certain color scheme
+- get date and time information when typing the command history
 ```
 
 ---
-## Bonus material
-* Finding files
-* Hotkeys
-* File archiving
 
- [Jump to next section](#68)
+### Findings patterns in files: grep  [bonus slide]
+This command is for searching keyword inside files.
 
+```
+grep <pattern> <filename>  # grep lines that match <pattern>
+ -or-
+command | grep <pattern>  # grep lines from stdin
+
+```
+---
+### Exercise 5 [grep]  [bonus slide]
+```
+* Go back to the data-shell directory
+* Type grep rabbit exercise-data/animal-counts/animals.csv
+* Try finding all occurences of the string “rabbit” using
+recursive search (adding the -R flag)
+
+grep + pipes:
+* Make a pipe that displays all files ending with "pdb" in the
+ data-shell directory.
+
+```
 ---
 
 
