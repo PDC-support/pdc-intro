@@ -1,13 +1,13 @@
 #!/bin/bash -l
-#SBATCH -A edu2210.intropdc
+#SBATCH -A edu2304.intropdc
 #SBATCH -J myjob
 #SBATCH -p shared
 #SBATCH -n 16
 #SBATCH -t 01:00:00
 
 # Load the Matlab module
-ml add PDC/21.11
-ml matlab/r2022b
+ml PDC/22.06
+ml matlab/r2023a
 
 # Run matlab taking your_matlab_program.m as input
 echo "Script initiated at `date` on `hostname`"

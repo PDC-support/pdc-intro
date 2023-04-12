@@ -3,18 +3,18 @@
 
 # Set the allocation to be charged for this job
 # not required if you have set a default allocation
-#SBATCH -A XXX
+#SBATCH -A edu2304.intropdc
 
 # Reservation for today
-#SBATCH --reservation=intropdc-2022-10-28
+#SBATCH --reservation=intropdc-cpu-2023-04-13
 
 # The name of the script is myjob
-#SBATCH -J myjob
+#SBATCH -J hello_world
 
 # The partition
 #SBATCH -p shared
 
-# 10 hours wall-clock time will be given to this job
+# 5 minutes wall-clock time will be given to this job
 #SBATCH -t 00:05:00
 
 # Number of nodes
@@ -23,8 +23,8 @@
 # Number of MPI processes per node
 #SBATCH --ntasks-per-node=Y
 
-# Run the executable named myexe
+# Run the executable
 # and write the output into my_output_file
-srun ./hello_mpi > my_output_file
+srun ./hello_mpi.x > my_output_file
 sleep 60
 
