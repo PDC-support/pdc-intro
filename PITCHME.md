@@ -19,7 +19,7 @@ style: |
 
 # <!--fit--> Introduction to PDC
 
-2023-03-08
+2023-04-13
 
 PDC staff
 
@@ -30,15 +30,15 @@ PDC staff
 # Contents
 
 * [Background and infrastructure](#3)
-* [Accounts, login, and file system](#20)
-* [Using Bash shell](#34)
-* [Compiling and running code on CPU nodes](#68)
-* [Job script for efficient utilization of hardware](#91)
-* [Using ThinLinc](#124)
-* [Compiling and running code on GPU nodes](#125)
-* [Using Singularity](#134)
-* [Using Matlab](#135)
-* [Using Python virtual environment](#147)
+* [Accounts, login, and file system](#18)
+* [Using Bash shell](#31)
+* [Compiling and running code on CPU nodes](#65)
+* [Job script for efficient utilization of hardware](#88)
+* [Using ThinLinc](#119)
+* [Compiling and running code on GPU nodes](#120)
+* [Using Singularity](#129)
+* [Using Matlab](#130)
+* [Using Python virtual environment](#142)
 
 ---
 
@@ -76,15 +76,15 @@ PDC staff
 
 ---
 
-# PDC is a SNIC center
+# PDC is finansed by NAISS
 
-![bg left:30% width:100%](https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/dardel/images/snic.png)
+![bg left:25% width:100%](https://github.com/PDC-support/pdc-intro/raw/master/outreach/outreach_pdc/img/naiss_sweden.png)
 
-* SNIC (Swedish National Infrastructure for Computing)
+* NAISS: National Academic Infrastructure for Supercomputing in Sweden
 
-* SNIC is a national research infrastructure that provides a balanced and cost-efficient set of resources and user support for large scale computation and data storage to meet the needs of researchers from all scientific disciplines and from all over Sweden (universities, university colleges, research institutes, etc).
+* Resources: Chalmers Tek. Högskola, Kungliga Tek. Högskola, Linköping Universitet, Uppsala Universitet
 
-* SNIC is funded by the Swedish Research Council (VR-RFI) and the 10 participating universities: Chalmers, GU, KI, KTH, LiU, LU, SLU, SU, UmU, and UU.
+* Branches: Chalmers Tek. Högskola, Göteborg Universitet, Karolinska institutet, Kungliga Tek. Högskola, Linköpings Universitet, Lund Universitet, Stockholm Universitet, Umeå Universitet, Uppsala Universitet,
 
 ---
 
@@ -113,8 +113,6 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 * Summer School
 
     - Introduction to HPC held every year
-
-* Zoom-in (advertised in training newsletter)
 
 * Workshops (see [PDC events](https://www.pdc.kth.se/about/events))
 
@@ -147,7 +145,7 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
 # Introduction to Dardel supercomputer
 
-2023-03-08
+2023-04-13
 
 [About Dardel](https://www.pdc.kth.se/hpc-services/computing-systems/about-dardel-1.1053338)
 
@@ -155,47 +153,31 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
 # Dardel is an HPE Cray EX system
 
-* Phase 1: CPU partition
+* CPU partition
 
-    - 2.279 petaFlops (Top500 Nov 2021)
-    - 554 CPU nodes
-    - Dual AMD EPYC(TM) 64-core processors
+    - 1270 CPU nodes
+    - Each node has
+        + two AMD EPYC(TM) Zen2 2.25 GHz 64-core processors
 
-* Phase 2: GPU partition
+* GPU partition
 
     - 56 GPU nodes
-    - AMD EPYC(TM) processor with 64 cores
-    - four AMD Instinct(TM) MI250X GPUs
+    - Each node has
+        + one AMD EPYC(TM) processor with 64 cores
+        + four AMD Instinct(TM) MI250X GPUs
 
 ---
 
-![bg width:100%](https://pdc-web.eecs.kth.se/files/support/images/anatomy.png)
-
----
-
-# Supercomputer anatomy
-
-* Dardel consists of several cabinets (also known as racks)
-
-* Each cabinet is filled with many blades
-
-* A single blade hosts two nodes
-
-* A node has two AMD EPYC 7742 CPUs, each with 64 cores clocking at 2.25GHz
-
----
-
-# Compute nodes
+# More about the CPU nodes
 
 | Number of nodes | RAM per node | Name |
 | --- | --- | --- |
-| 488 | 256 GB | Thin nodes |
-| 20 | 512 GB | Large nodes |
-| 8 | 1 TB | Huge nodes |
-| 2 | 2 TB| Giant nodes |
-| 36 | 256 GB | Business nodes |
-
-Total: **554** Nodes (128 cores per node)
+| 736 | 256 GB | NAISS thin nodes |
+| 268 | 512 GB | NAISS large nodes |
+| 8 | 1024 GB | NAISS huge nodes |
+| 10 | 2048 GB | NAISS giant nodes |
+| 36 | 256 GB | KTH industry/business research nodes |
+| 248 | 512 GB | KTH industry/business research nodes |
 
 ---
 
@@ -253,7 +235,7 @@ node   0   1   2   3   4   5   6   7
 
 # Account, Login and File System
 
-2023-03-08
+2023-04-13
 
 [PDC support documentation](https://www.pdc.kth.se/support)
 
@@ -261,7 +243,7 @@ node   0   1   2   3   4   5   6   7
 
 # Getting a PDC account
 
-* From [SUPR](https://supr.snic.se/)
+* From [SUPR](https://supr.naiss.se/)
 
     - Get a SUPR account
     - Join a project with time allocation on Dardel
@@ -336,10 +318,6 @@ node   0   1   2   3   4   5   6   7
 
 ---
 
-# Exercise: Log in to Dardel
-
----
-
 # File System
 
 Lustre File System (Klemming, total size 12 PB (12,000 TB))
@@ -352,7 +330,7 @@ Lustre File System (Klemming, total size 12 PB (12,000 TB))
   ```
 * Project directory
   ```
-  /cfs/klemming/projects/snic/[projectname]
+  /cfs/klemming/projects/...
   ```
 * Scratch directory
   ```
@@ -361,7 +339,7 @@ Lustre File System (Klemming, total size 12 PB (12,000 TB))
 
 ---
 
-# Exercise: Home and project directories
+# Home and project directories
 
 * Home directory
   ```
@@ -379,7 +357,7 @@ Lustre File System (Klemming, total size 12 PB (12,000 TB))
 
 ---
 
-# Find out your groups
+# Groups
 
 In addition to ``projinfo``, your groups also indicate the projects that you have access to.
 
@@ -391,7 +369,7 @@ groups
 
 ---
 
-# Find out your storage quota
+# Storage quota
 
 ```
 projinfo
@@ -405,12 +383,12 @@ Number of files: ...
 ```
 
 ```
-Information for storage project: snicYYYY-X-XX (PI: ...)
+Information for storage project: naissYYYY-X-XX (PI: ...)
 ...
 Active from ... to ...
 Members: ...
 Max quota: ... GiB, ... files
-Path: /cfs/klemming/projects/snic/...
+Path: /cfs/klemming/projects/...
 Storage: ... TiB
 Number of files: ...
 ```
@@ -1293,7 +1271,7 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 
 ---
 
-# How we run jobs on a Supercomputer
+# How do we run jobs on a Supercomputer?
 
 ![bg right:60% width:100%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
 
@@ -1399,12 +1377,12 @@ srun ./myexe > my_output_file
 # Partitions
 
 * Nodes are logically grouped into partitions
-* There are four partitions that can be used on Dardel
+* There are several partitions that can be used on Dardel
   - **main**: Thin nodes (256 GB RAM), whole nodes, maximum 24 hours job time
   - **long**: Thin nodes (256 GB RAM), whole nodes, maximum 7 days job time
   - **shared**: Thin nodes (256 GB RAM), job shares node with other jobs, maximum 24 hours job time
-  - **memory**: Large/Huge/Giant nodes (512 Gb - 2 TB RAM), whole nodes, 24 hours job time
-
+  - **memory**: Large/Huge/Giant nodes (512 GB - 2 TB RAM), whole nodes, 24 hours job time
+  - **gpu**: GPU nodes, 512 GB RAM, and 4 AMD MI250X GPU cards
 
 ---
 
@@ -1441,6 +1419,37 @@ export OMP_PLACES=cores
 # Run the executable named myexe
 srun ./myexe > my_output_file
 ```
+
+
+---
+
+# Interactive jobs
+
+Request an interactive allocation
+```
+salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes> -n <cores>
+```
+
+Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
+```
+srun -n <number-of-processes> ./mybinary.x
+```
+It is also possible to ssh into one of the allocated nodes.
+
+---
+
+# Interactive jobs
+
+We can check what nodes have been granted with:
+
+  ```
+  squeue -u $USER
+  ```
+
+  or inspecting the environment variable:
+  ```
+  SLURM_NODELIST
+  ```
 
 ---
 
@@ -1487,7 +1496,7 @@ int main(int argc, char** argv) {
 
 * You can find the code from the previous slide [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/hello_mpi.c)
 
-* Save the file on Dardel, compile the code and generate a binary called *hello_mpi*
+* Save the file on Dardel, compile the code and generate a binary called *hello_mpi.x*
 
 ---
 
@@ -1496,7 +1505,7 @@ int main(int argc, char** argv) {
 # Exercise 1
 
 * Take the job script that you can find [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise1.sh) and modify it accordingly to:
-   - Use the proper allocation required, for this course it is *edu23.sf2568*
+   - Use the proper allocation required, for this course it is *edu2304.intropdc*
    - Use one node for the job
    - Use 4 cores from that node
 
@@ -1520,12 +1529,12 @@ int main(int argc, char** argv) {
 Notice that we run our program with just:
 
 ```
-srun ./hello_mpi
+srun ./hello_mpi.x
 ````
 
 It would be also possible to run our program with:
 ```
-srun -N 1 -n 4 ./hello_mpi
+srun -N 1 -n 4 ./hello_mpi.x
 ```
 
 However, we don't need to specify those flags because SLURM takes the *-N* and *-n* values from the *BATCH* directives in the script
@@ -1539,33 +1548,6 @@ However, we don't need to specify those flags because SLURM takes the *-N* and *
   - What's the partition with the highest number of nodes?
   - Name 1-2 nodes included in that same partition
 
----
-# Interactive jobs
-
-Request an interactive allocation
-```
-salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes> -n <cores>
-```
-
-Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
-```
-srun -n <number-of-processes> ./mybinary.x
-```
-It is also possible to ssh into one of the allocated nodes.
-
----
-# Interactive jobs
-
-We can check what nodes have been granted with:
-
-  ```
-  squeue -u $USER
-  ```
-
-  or inspecting the environment variable:
-  ```
-  SLURM_NODELIST
-  ```
 
 ---
 
@@ -1622,8 +1604,7 @@ seff <jobid>
 * Not all nodes allocated are used
 * Not all cores within a node are used (if it's not intentional)
 * Many more cores than the available are used
-* Inneficient use of the file system
-* Using the wrong partition
+* Inefficient use of the file system
 
 ---
 
@@ -1643,7 +1624,7 @@ seff <jobid>
 
 * You can find the sample code for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/vector_mpi.c)
 
-* Compile the code and generate a binary called *vector_mpi*
+* Compile the code and generate a binary called *vector_mpi.x*
 
 ---
 
@@ -1678,52 +1659,15 @@ seff <jobid>
    Memory Utilized: 549.25 MB (estimated maximum)
    Memory Efficiency: 7.73% of 6.94 GB (888.00 MB/core)
    ```
-  
----
 
-# Job arrays
-
-When we have several similar jobs that can be packed within a single job
-
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -t 00:10:00
-
-for i in $(seq 0 9); do
-        srun -n 1 myprog $i
-done
-```
 
 ---
-# Job arrays
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -t 00:01:00
-#SBATCH -a 0-9
 
-srun -n 1 myprog $SLURM_ARRAY_TASK_ID
-```
+# SLURM good practices
 
-\$SLURM_ARRAY_TASK_ID contains a number 0-9 identifying each job in the array (defined with -a)
-
-**Note:** Too many short jobs is bad for performance and can slow down the whole queue system. Ideally each job should be at least 10 minutes long.
-
----
-# Job arrays
-
-Once submitted, the job array gets a job id assigned that can be used to manipulate all jobs at once:
-```
-> sbatch job_array.sh
-Submitted batch job 6975769
-> scancel 6975769
-```
-
-For more info on job arrays check the SLURM website:
-https://slurm.schedmd.com/job_array.html
+* Avoid too many short jobs
+* Avoid massive output to STDOUT
+* Try to provide a good estimate of the job duration before submitting
 
 ---
 
@@ -1787,15 +1731,8 @@ done
 
 wait
 ```
-  
+
 ---
-
-# Good SLURM practices
-
-* Avoid too many short jobs
-* Avoid massive output to STDOUT
-* Try to provide a good estimate of the job duration before submitting
-
 ---
 
 <!-- Section: Using ThinLinc -->

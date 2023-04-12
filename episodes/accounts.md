@@ -91,10 +91,6 @@
 
 ---
 
-# Exercise: Log in to Dardel
-
----
-
 # File System
 
 Lustre File System (Klemming, total size 12 PB (12,000 TB))
