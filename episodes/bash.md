@@ -6,16 +6,17 @@
 ## Introduction for beginners
 ### Tor Kjellsson Lindblom
 ---
-### Content
+## How can I run my program on Dardel?
+### Content (minimal prerequisites)
 * Bash shell and basic commands
 * Files and Folders
 * Input/output
-* Processes
 * File/directory permissions
 * Environment variables
 
 
-#### Bonus material for self-studying
+### Bonus material for self-studying
+* Processes (including programs)
 * Searching in text
 * Finding files
 * Hotkeys
@@ -31,16 +32,16 @@
 
 * Multiple types of shells exist - this is about **bash shell**
 
-* This presentation contains the very basics, mixing in some hands-on exercises.
+* This presentation contains the very basics with hands-on exercises and type-alongs.
 
-* **No need to finish all exercises**.
+* **No need to finish all exercises now**.
 
 ---
 ### Getting a bash shell
 * Linux and Mac users - just open a terminal window (or login to Dardel)
 * Windows users - please login to Dardel.
 ---
-### Your very first commands
+### Your very first commands (type along)
 Explore the following commands, one at a time.
 
 ```
@@ -57,7 +58,7 @@ The last two lines downloads and extracts tutorial material we have borrowed fro
 https://carpentries.org/
 
 ---
-### Exercise 1
+### Exercise 1 (3 min)
 ```
 $ ls -l shell-lesson-data
 * Move back and forth into the subdirectories
@@ -73,7 +74,7 @@ $ mv numbers_copy.txt your_new_folder/.
 * what happened?
 ```
 ---
-### Exercise 2: Some more commands
+### Exercise 2: Some more commands (5 min)
 
 ```
 cp -r dir1 dir2   (copy directory, NB "-r")
@@ -96,7 +97,7 @@ tail file_example (print last lines of file)
 ```
 ---
 ### Relative vs. absolute paths
-You can specify a location relative to current position, or give an absolute path to it.
+You can specify a location in two ways:
 
 ```
 (Relative)            
@@ -105,9 +106,9 @@ cd exercise_data
 (Absolute)
 cd /home/tkl/shell-lesson-data/exercise-data
 ```
-
-
+Both ways are useful. Determine which is best for the situation at hand.
 ---
+
 ### Text editors
 Very good idea to master at least one (non-graphical) editor in the terminal.
 
@@ -126,13 +127,13 @@ List of common editors:
 
 * $ cat numbers_copy.txt
 
- dumps the file to *stdout*
+ dumps contents of numbers_copy.txt to *stdout*
 
 * $ cat numbers_copy.txt | less
 
  gives the text as input to *less* (i.e. pipe it)
 ---
-### Try it: pipes
+### Try it: pipes (3 min)
 ```
 # what sessions are logged in?
 $ w
@@ -164,7 +165,7 @@ $ ls -1tF | grep -v -E '*/|@' | head -1
  command < file (in case program accepts STDIN only)
 
 ---
-### Try it: Redirects
+### Try it: Redirects (3 min)
 ```
 $ echo Hello World > hello.txt
 
@@ -227,50 +228,11 @@ chown -R folder        (Change owner of folder)
 
 * ACLs are controlled via getfacl and setfacl.
 
-* getfacl file                   (get current stage)
-* setfacl -m u:<user>:r file    (Allow read access for user)
+$ getfacl file                   (get current stage)
+$ setfacl -m u:<user>:r file    (Allow read access for user)
 ```
 
 In many support cases we ask users to apply the last line so we can access files.
----
-### Processes
-Uptil now we only discussed files/folders.
-But we also want to run **programs.**
-* All running programs and commands are *processes*
-* Processes have:
-  * Process ID, NAME, Command line arguments
-  * input and output, Return code (integer) when complete
-  * Working directory, Environment variables
-* These concepts bind together all UNIX programs
-* To see some runnings processes, type *top*
-
----
-### Foreground and background processes
-
-**Foreground**
-
- * Example: *Top*
- * Keyboard is connected as input, screen to output.
- * Only one such process active at a time.
- * Kill it: Ctrl-c
-
-**Background**
- * No input connected
- * You can have as many as resources allow
- * Add an *&* after a command to put it in background
- * To kill: use *kill* or *pkill*, or do it from within *top*
-
----
-### Foreground and background processes [cont]
-
- ```
- Example:
- ./my_prog.ex
- ./my_prog.ex 1> output.txt 2>error.txt &
-
- ```
-
-**NB: You will most likely not use Dardel like this, but it is possible to do so by logging into a compute node.**
 
 ---
 ### Environment variables
@@ -282,19 +244,61 @@ Defined text strings that your programs may use
 * List all defined variables with printenv
 
 Try it:
-* Type echo $HOME
-* Type echo $HOSTNAME
-* Type echo $PATH
+$ echo $HOME
+$ echo $HOSTNAME
+$ echo $PATH
 ```
 
 ---
 ## Bonus material
+* Processes (including Programs)
 * Initialization and configuration
 * Finding files and text patterns within files
 * Hotkeys
 * File archiving
 
  [Jump to next section](#68)
+
+ ---
+ ### Processes [bonus slide]
+ Uptil now we only discussed files/folders.
+ But we also want to run **programs.**
+ * All running programs and commands are *processes*
+ * Processes have:
+   * Process ID, NAME, Command line arguments
+   * input and output, Return code (integer) when complete
+   * Working directory, Environment variables
+ * These concepts bind together all UNIX programs
+ * To see some runnings processes, type *top*
+
+ ---
+ ### Foreground and background processes [bonus slide]
+
+ **Foreground**
+
+  * Example: *top*
+  * Keyboard is connected as input, screen to output.
+  * Only one such process active at a time.
+  * Kill it: Ctrl-c
+
+ **Background**
+  * No input connected
+  * You can have as many as resources allow
+  * Add an *&* after a command to put it in background
+  * To kill: use *kill* or *pkill*, or do it from within *top*
+
+ ---
+ ### Foreground and background processes [bonus slide cont]
+
+  ```
+  Example:
+  ./my_prog.ex
+  ./my_prog.ex 1> output.txt 2>error.txt &
+
+  ```
+
+ **NB: You will most likely not use Dardel like this, but it is possible to do so by logging into a compute node.**
+
 
 ---
 ### Exercise: some more redirects [bonus slide]
