@@ -6,8 +6,7 @@
 ## Introduction for beginners
 ### Tor Kjellsson Lindblom
 ---
-## How can I run my program on Dardel?
-### Content (minimal prerequisites)
+### Content 
 * Bash shell and basic commands
 * Files and Folders
 * Input/output
