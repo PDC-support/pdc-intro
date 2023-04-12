@@ -23,7 +23,7 @@
 # Number of MPI processes per node
 #SBATCH --ntasks-per-node=Y
 
-# Run the executable named myexe
+# Run the executable
 # and write the output into my_output_file
 srun ./hello_mpi.x > my_output_file
 sleep 60
