@@ -242,7 +242,6 @@ int main(int argc, char** argv) {
 # Exercise 1
 
 * Take the job script that you can find [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise1.sh) and modify it accordingly to:
-   - Use the proper allocation required, for this course it is *edu2304.intropdc*
    - Use one node for the job
    - Use 4 cores from that node
 
