@@ -34,15 +34,15 @@
 
 ---
 
-# PDC is a SNIC center
+# PDC is finansed by NAISS
 
-![bg left:30% width:100%](https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/dardel/images/snic.png)
+![bg left:25% width:100%](https://github.com/PDC-support/pdc-intro/raw/master/outreach/outreach_pdc/img/naiss_sweden.png)
 
-* SNIC (Swedish National Infrastructure for Computing)
+* NAISS: National Academic Infrastructure for Supercomputing in Sweden
 
-* SNIC is a national research infrastructure that provides a balanced and cost-efficient set of resources and user support for large scale computation and data storage to meet the needs of researchers from all scientific disciplines and from all over Sweden (universities, university colleges, research institutes, etc).
+* Resources: Chalmers Tek. Högskola, Kungliga Tek. Högskola, Linköping Universitet, Uppsala Universitet
 
-* SNIC is funded by the Swedish Research Council (VR-RFI) and the 10 participating universities: Chalmers, GU, KI, KTH, LiU, LU, SLU, SU, UmU, and UU.
+* Branches: Chalmers Tek. Högskola, Göteborg Universitet, Karolinska institutet, Kungliga Tek. Högskola, Linköpings Universitet, Lund Universitet, Stockholm Universitet, Umeå Universitet, Uppsala Universitet,
 
 ---
 
@@ -71,8 +71,6 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 * Summer School
 
     - Introduction to HPC held every year
-
-* Zoom-in (advertised in training newsletter)
 
 * Workshops (see [PDC events](https://www.pdc.kth.se/about/events))
 
@@ -105,7 +103,7 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
 # Introduction to Dardel supercomputer
 
-2023-03-08
+2023-04-13
 
 [About Dardel](https://www.pdc.kth.se/hpc-services/computing-systems/about-dardel-1.1053338)
 
@@ -113,47 +111,31 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
 # Dardel is an HPE Cray EX system
 
-* Phase 1: CPU partition
+* CPU partition
 
-    - 2.279 petaFlops (Top500 Nov 2021)
-    - 554 CPU nodes
-    - Dual AMD EPYC(TM) 64-core processors
+    - 1270 CPU nodes
+    - Each node has
+        + two AMD EPYC(TM) Zen2 2.25 GHz 64-core processors
 
-* Phase 2: GPU partition
+* GPU partition
 
     - 56 GPU nodes
-    - AMD EPYC(TM) processor with 64 cores
-    - four AMD Instinct(TM) MI250X GPUs
+    - Each node has
+        + one AMD EPYC(TM) processor with 64 cores
+        + four AMD Instinct(TM) MI250X GPUs
 
 ---
 
-![bg width:100%](https://pdc-web.eecs.kth.se/files/support/images/anatomy.png)
-
----
-
-# Supercomputer anatomy
-
-* Dardel consists of several cabinets (also known as racks)
-
-* Each cabinet is filled with many blades
-
-* A single blade hosts two nodes
-
-* A node has two AMD EPYC 7742 CPUs, each with 64 cores clocking at 2.25GHz
-
----
-
-# Compute nodes
+# More about the CPU nodes
 
 | Number of nodes | RAM per node | Name |
 | --- | --- | --- |
-| 488 | 256 GB | Thin nodes |
-| 20 | 512 GB | Large nodes |
-| 8 | 1 TB | Huge nodes |
-| 2 | 2 TB| Giant nodes |
-| 36 | 256 GB | Business nodes |
-
-Total: **554** Nodes (128 cores per node)
+| 736 | 256 GB | NAISS thin nodes |
+| 268 | 512 GB | NAISS large nodes |
+| 8 | 1024 GB | NAISS huge nodes |
+| 10 | 2048 GB | NAISS giant nodes |
+| 36 | 256 GB | KTH industry/business research nodes |
+| 248 | 512 GB | KTH industry/business research nodes |
 
 ---
 
