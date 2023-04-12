@@ -36,9 +36,9 @@ PDC staff
 * [Job script for efficient utilization of hardware](#87)
 * [Using ThinLinc](#118)
 * [Compiling and running code on GPU nodes](#119)
-* [Using Singularity](#128)
-* [Using Matlab](#129)
-* [Using Python virtual environment](#141)
+* [Using Singularity](#130)
+* [Using Matlab](#131)
+* [Using Python virtual environment](#143)
 
 ---
 
@@ -1778,6 +1778,22 @@ Build and test run a Hello World C++ code which offloads to GPU via the heteroge
 
 ---
 
+# Run the code as a batch job
+
+* Edit [job_gpu_helloworld.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job_gpu_helloworld.sh) to specify the compute project and reservation
+
+* Submit the script with ``sbatch job_gpu_helloworld.sh``
+
+* with program output written to ``output.txt``
+
+```
+You can access GPU devices: 0-7
+GPU 0: hello world```
+...
+```
+
+---
+
 * Test the code in an interactive session.
 
 * First queue to get one GPU node reserved for 10 minutes
@@ -1808,6 +1824,16 @@ In this example we build and test run a Fortran program that calculates the dot 
 
 * Compile the code on the login node
     - ``ftn -fopenmp ex04.F90 -o ex04.x``
+
+---
+
+# Run the code as a batch job
+
+* Edit [job_gpu_ex04.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job_gpu_ex04.sh) to specify the compute project and reservation
+
+* Submit the script with ``sbatch job_gpu_ex04.sh``
+
+* with program output ``The sum is:  1.25`` written to ``output.txt``
 
 ---
 
