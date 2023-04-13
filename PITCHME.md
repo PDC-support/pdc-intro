@@ -36,9 +36,9 @@ PDC staff
 * [Job script for efficient utilization of hardware](#86)
 * [Using ThinLinc](#117)
 * [Compiling and running code on GPU nodes](#118)
-* [Using Singularity](#129)
-* [Using Matlab](#130)
-* [Using Python virtual environment](#142)
+* [Using Singularity](#132)
+* [Using Matlab](#133)
+* [Using Python virtual environment](#145)
 
 ---
 
@@ -1722,12 +1722,46 @@ Link to download the slides: To be added
 
 Reference page: [Building for AMD GPUs](https://www.pdc.kth.se/support/documents/software_development/development_gpu.html)
 
+---
+
+# Generalized programming for GPUs
+
+Central processing units (CPU) and graphics processing units (GPU) do different work
+
+* CPUs have large instruction sets and execute general code.
+
+* GPUs have smaller instructions sets. Runs compute intensive work on large number of compute units (CU).
+
+* Code execution is started and controlled from the CPU. Compute intensive work is offloaded to the GPU.
+
+---
+
+# Dardel GPU nodes
+
+Dardel has 56 GPU nodes which each are equipped with
+
+* One AMD EPYC™ processor with 64 cores
+
+* Four AMD Instinct MI250X GPUs
+
+* 512 GB of shared fast HBM2E RAM memory
+
+Performs up to 95.7 TFLOPS in double precision when using special matrix operations
+
+![bg right:45% width:100%](https://www.pdc.kth.se/polopoly_fs/1.1242679.1679986622!/image/MI200_hpc_architecture_1000pW_heading_cut.png)
+
+---
+
+# AMD Radeon Open Compute (ROCm)
+
 The AMD Radeon Open Compute (ROCm) platform is a software stack for programming and running of programs on GPUs.
 
 * The ROCm platform supports different programming models
     - Heterogeneous interface for portability (HIP),
     - Offloading to GPU with OpenMP directives
     - The SYCL programming model
+
+* [AMD ROCm Information Portal](https://rocmdocs.amd.com/)
 
 ---
 
