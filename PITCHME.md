@@ -1710,7 +1710,7 @@ wait
 
 ### Mustafa Arif
 
-Link to download the slides: To be added
+Link to download the slides: [ThinLinc_Tutorial.pdf](https://github.com/PDC-support/pdc-intro/raw/master/episodes/pdf-files/ThinLinc_Tutorial.pdf)
 
 ---
 
