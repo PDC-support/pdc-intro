@@ -86,11 +86,53 @@ For executables that are built with the compilers of the Cray Compiler Environme
 
 ---
 
-# Example 1: Offloading to GPU with HIP
+# Offloading to GPU with HIP
 
-Build and test run a Hello World C++ code which offloads to GPU via the heterogeneous interface for portability (HIP).
+The heterogeneous interface for portability (HIP) is a hardware close (low level) programming model for GPUs. Example lines of code:
 
-* Download the source code
+* Include statement for the HIP runtime
+
+```
+#include <hip/hip_runtime.h>
+```
+
+* HIP functions have names starting with ``hip``
+
+```
+// Get number of GPUs available
+if (hipGetDeviceCount(&ndevices) != hipSuccess) {
+    printf("No such devices\n");
+    return 1;
+    } 
+printf("You can access GPU devices: 0-%d\n", (ndevices - 1));
+```
+
+---
+
+* Explicit handling of memory on the GPU
+
+```
+// Allocate memory on device
+hipMalloc(&devs1, size);
+hipMalloc(&devs2, size);
+// Copy data host -> device
+hipMemcpy(devs1, hosts1, size, hipMemcpyHostToDevice);
+
+```
+
+* Call to run the compute kernel on the GPU
+
+// Run kernel
+hipLaunchKernelGGL(MyKernel, ngrid, nblock, 0, 0, devs1, devs2);
+
+
+---
+
+# Example: Hello world with HIP
+
+Build and test run a Hello World C++ code which offloads to GPU via HIP.
+
+* Download the [source code](https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp)
    - ``wget https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp``
 
 * Load the ROCm module and set the accelerator target to amd-gfx90a (AMD MI250X GPU)
@@ -140,7 +182,7 @@ GPU 0: hello world```
 
 In this example we build and test run a Fortran program that calculates the dot product of two long vectors by means of offloading to GPU with OpenMP. The build is done within the PrgEnv-cray environment using the Cray Compiler
 
-* Download the source code
+* Download the [source code](https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90)
     - ``wget https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90``
 
 * Load the ROCm module and set the accelerator target to amd-gfx90a
