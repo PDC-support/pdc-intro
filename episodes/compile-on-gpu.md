@@ -16,7 +16,7 @@ Central processing units (CPU) and graphics processing units (GPU) do different 
 
 * CPUs have large instruction sets and execute general code.
 
-* GPUs have smaller instructions sets. Runs compute intensive work on large number of compute units (CU).
+* GPUs have smaller instructions sets. Runs compute intensive work in parallel on large number of compute units (CU).
 
 * Code execution is started and controlled from the CPU. Compute intensive work is offloaded to the GPU.
 
@@ -78,11 +78,37 @@ The CPE version 22.12 is available **on the GPU nodes**. We recommend these vers
 
 ---
 
-# Runtime environment variables
+## The ROCM info command
 
-For executables that are built with the compilers of the Cray Compiler Environment (CCE), verbose runtime information can be enabled with the environment variable ``CRAY_ACC_DEBUG`` which takes values 1, 2 or 3. For the highest level of information
+Information on the available GPU hardware can be displayed with the ``rocminfo`` command. Example output (truncated)
 
-   - ``export CRAY_ACC_DEBUG=3``
+```
+ROCk module is loaded
+=====================
+HSA System Attributes
+=====================
+Runtime Version:         1.1
+System Timestamp Freq.:  1000.000000MHz
+
+==========
+HSA Agents
+==========
+*******
+Agent 1
+*******
+  Name:                    AMD EPYC 7A53 64-Core Processor
+  Uuid:                    CPU-XX
+```
+
+---
+
+## The CRAY_ACC_DEBUG runtime environment variable
+
+For executables that are built with the compilers of the Cray Compiler Environment (CCE), verbose runtime information can be enabled with the environment variable ``CRAY_ACC_DEBUG`` which takes values 1, 2 or 3.
+
+For the highest level of information
+
+``export CRAY_ACC_DEBUG=3``
 
 ---
 
@@ -122,13 +148,14 @@ hipMemcpy(devs1, hosts1, size, hipMemcpyHostToDevice);
 
 * Call to run the compute kernel on the GPU
 
+```
 // Run kernel
 hipLaunchKernelGGL(MyKernel, ngrid, nblock, 0, 0, devs1, devs2);
-
+```
 
 ---
 
-# Example: Hello world with HIP
+# Exercise 1: Hello world with HIP
 
 Build and test run a Hello World C++ code which offloads to GPU via HIP.
 
@@ -144,7 +171,7 @@ Build and test run a Hello World C++ code which offloads to GPU via HIP.
 
 ---
 
-# Run the code as a batch job
+## Run the code as a batch job
 
 * Edit [job_gpu_helloworld.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job_gpu_helloworld.sh) to specify the compute project and reservation
 
@@ -158,29 +185,41 @@ GPU 0: hello world```
 ...
 ```
 
----
-
-* Test the code in an interactive session.
-
-* First queue to get one GPU node reserved for 10 minutes
-    - ``salloc -N 1 -t 0:10:00 -A <project name> -p gpu``
-
-* wait for a node, then run the program
-    - ``srun -n 1 ./hello_world_gpu.x``
-
-* with program output to standard out
-
-```
-You can access GPU devices: 0-7
-GPU 0: hello world```
-...
-```
 
 ---
 
-# Example 2: Offloading to GPU with OpenMP
+# Offloading to GPU with OpenMP
 
-In this example we build and test run a Fortran program that calculates the dot product of two long vectors by means of offloading to GPU with OpenMP. The build is done within the PrgEnv-cray environment using the Cray Compiler
+The OpenMP programming model can be used for directive based offloading to GPUs.
+
+A serial code that operates on arrays ``vecA``, ``vecB``, and ``vecC``,
+
+```
+! Dot product of two vectors
+do i = 1, nx
+   vecC(i) =  vecA(i) * vecB(i)
+end do
+```
+
+We implement OpenMP offloading by inserting OpenMP directives. In Fortran the directives starts with ``!$omp``
+
+```
+! Dot product of two vectors
+!$omp target teams distribute map(from:vecC) map(to:vecA,vecB)
+do i = 1, nx
+   vecC(i) =  vecA(i) * vecB(i)
+end do
+!$omp end target teams distribute
+```
+
+
+---
+
+# Exercise 2: Hello world with HIP
+
+Build and test run a Fortran program that calculates the dot product of vectors.
+
+* Activate the PrgEnv-cray environment ``ml PrgEnv-cray``
 
 * Download the [source code](https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90)
     - ``wget https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90``
@@ -193,7 +232,7 @@ In this example we build and test run a Fortran program that calculates the dot 
 
 ---
 
-# Run the code as a batch job
+## Run the code as a batch job
 
 * Edit [job_gpu_ex04.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job_gpu_ex04.sh) to specify the compute project and reservation
 
@@ -203,7 +242,7 @@ In this example we build and test run a Fortran program that calculates the dot 
 
 ---
 
-* Test the code in interactive session.
+## Optionally, test the code in interactive session.
 
 * First queue to get one GPU node reserved for 10 minutes
     - ``salloc -N 1 -t 0:10:00 -A <project name> -p gpu``
@@ -214,7 +253,7 @@ In this example we build and test run a Fortran program that calculates the dot 
 
 ---
 
-* Alternatively, login to the reserved GPU node
+## Alternatively, login to the reserved GPU node
     - ``ssh nid002792 #nid002792 is one of the GPU nodes``
 
 * Load ROCm, activate verbose runtime information, and run the program
