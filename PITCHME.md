@@ -560,17 +560,14 @@ List of common editors:
 ---
 
 ### Input & Output: redirect and pipes
-* Programs can display something, e.g. **"echo hello world"**
+* Programs can display something, e.g. **echo hello world**
 
 * Programs can take input, e.g. **less**
 
 * $ cat numbers_copy.txt
 
- dumps contents of numbers_copy.txt to *stdout*
-
 * $ cat numbers_copy.txt | less
 
- gives the text as input to *less* (i.e. pipe it)
 ---
 ### Try it: pipes (3 min)
 ```
@@ -593,15 +590,15 @@ $ ls -1tF | grep -v -E '*/|@' | head -1
 
 * Replace a file:
 
- command > file.txt
+* $ command > file.txt
 
 * Append to a file:
 
- command >> file.txt (be careful to **not** mix them up!)
+* $ command >> file.txt (be careful to **not** mix them up!)
 
 * Redirect file as STDIN:
 
- command < file (in case program accepts STDIN only)
+* command < file (in case program accepts STDIN only)
 
 ---
 ### Try it: Redirects (3 min)
