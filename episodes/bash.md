@@ -6,7 +6,7 @@
 ## Introduction for beginners
 ### Tor Kjellsson Lindblom
 ---
-### Content 
+### Content
 * Bash shell and basic commands
 * Files and Folders
 * Input/output
@@ -106,6 +106,7 @@ cd exercise_data
 cd /home/tkl/shell-lesson-data/exercise-data
 ```
 Both ways are useful. Determine which is best for the situation at hand.
+
 ---
 
 ### Text editors
