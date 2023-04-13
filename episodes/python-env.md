@@ -44,13 +44,13 @@ python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ```
-ml cray-python/3.9.4.2
+ml cray-python/3.9.12.1
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ```
-ml PDC/21.11 Anaconda3/2021.05
+ml PDC/22.06 anaconda3/2021.05
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
 ```
@@ -71,7 +71,7 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 * Recommendation: use with cray-python
   ```
-  ml cray-python/3.9.4.2
+  ml cray-python/3.9.12.1
 
   cd $HOME
   python3 -m venv myenv
@@ -115,9 +115,9 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 # Virtual environment with ``conda``
 
-* Load Anaconda3
+* Load anaconda3
   ```
-  ml PDC/21.11 Anaconda3/2021.05
+  ml PDC/22.06 anaconda3/2021.05
   ```
 
 * Initialize conda
@@ -138,14 +138,14 @@ python3 -c 'import site; print(site.getsitepackages())'
     ```
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/pdc/software/21.11/eb/software/Anaconda3/2021.05/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    __conda_setup="$('/pdc/software/22.06/eb/software/anaconda3/2021.05/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "/pdc/software/21.11/eb/software/Anaconda3/2021.05/etc/profile.d/conda.sh" ]; then
-            . "/pdc/software/21.11/eb/software/Anaconda3/2021.05/etc/profile.d/conda.sh"
+        if [ -f "/pdc/software/22.06/eb/software/anaconda3/2021.05/etc/profile.d/conda.sh" ]; then
+            . "/pdc/software/22.06/eb/software/anaconda3/2021.05/etc/profile.d/conda.sh"
         else
-            export PATH="/pdc/software/21.11/eb/software/Anaconda3/2021.05/bin:$PATH"
+            export PATH="/pdc/software/22.06/eb/software/anaconda3/2021.05/bin:$PATH"
         fi
     fi
     unset __conda_setup
@@ -174,9 +174,9 @@ python3 -c 'import site; print(site.getsitepackages())'
   ```
   (my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
   ```
-* Why is ``site-packages`` still under ``Anaconda3``?
+* Why is ``site-packages`` still under ``anaconda3``?
   ```
-  ['/pdc/software/21.11/eb/software/Anaconda3/2021.05/lib/python3.8/site-packages']
+  ['/pdc/software/22.06/eb/software/anaconda3/2021.05/lib/python3.8/site-packages']
   ```
 
 ---
