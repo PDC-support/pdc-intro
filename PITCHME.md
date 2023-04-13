@@ -1728,11 +1728,11 @@ Reference page: [Building for AMD GPUs](https://www.pdc.kth.se/support/documents
 
 Central processing units (CPU) and graphics processing units (GPU) do different work
 
-* CPUs have large instruction sets and execute general code.
+- CPUs have large instruction sets and execute general code.
 
-* GPUs have smaller instructions sets. Runs compute intensive work in parallel on large number of compute units (CU).
+- GPUs have smaller instructions sets. Runs compute intensive work in parallel on large number of compute units (CU).
 
-* Code execution is started and controlled from the CPU. Compute intensive work is offloaded to the GPU.
+- Code execution is started and controlled from the CPU. Compute intensive work is offloaded to the GPU.
 
 ---
 
@@ -1740,11 +1740,11 @@ Central processing units (CPU) and graphics processing units (GPU) do different 
 
 Dardel has 56 GPU nodes which each are equipped with
 
-* One AMD EPYC™ processor with 64 cores
+- One AMD EPYC™ processor with 64 cores
 
-* Four AMD Instinct MI250X GPUs
+- Four AMD Instinct MI250X GPUs
 
-* 512 GB of shared fast HBM2E RAM memory
+- 512 GB of shared fast HBM2E RAM memory
 
 Performs up to 95.7 TFLOPS in double precision when using special matrix operations
 
@@ -1756,24 +1756,24 @@ Performs up to 95.7 TFLOPS in double precision when using special matrix operati
 
 The AMD Radeon Open Compute (ROCm) platform is a software stack for programming and running of programs on GPUs.
 
-* The ROCm platform supports different programming models
-    - Heterogeneous interface for portability (HIP),
+- The ROCm platform supports different programming models
+    - Heterogeneous interface for portability (HIP)
     - Offloading to GPU with OpenMP directives
     - The SYCL programming model
 
-* [AMD ROCm Information Portal](https://rocmdocs.amd.com/)
+- [AMD ROCm Information Portal](https://rocmdocs.amd.com/)
 
 ---
 
 # Setting up a GPU build environment
 
-* Load version 5.0.2 of ROCm with
+- Load version 5.0.2 of ROCm with
     - ``ml rocm/5.0.2``
 
-* Set the accelerator target to **amd-gfx90a** (AMD MI250X GPU)
+- Set the accelerator target to **amd-gfx90a** (AMD MI250X GPU)
     - ``ml craype-accel-amd-gfx90a``
 
-* Choose one of the available toolchains (Cray, Gnu, AOCC)
+- Choose one of the available toolchains (Cray, Gnu, AOCC)
     - ``ml cpeCray/22.06``
     - ``ml cpeGNU/22.06``
     - ``ml cpeAOCC/22.06``
@@ -1830,13 +1830,13 @@ For the highest level of information
 
 The heterogeneous interface for portability (HIP) is a hardware close (low level) programming model for GPUs. Example lines of code:
 
-* Include statement for the HIP runtime
+- Include statement for the HIP runtime
 
 ```
 #include <hip/hip_runtime.h>
 ```
 
-* HIP functions have names starting with ``hip``
+- HIP functions have names starting with ``hip``
 
 ```
 // Get number of GPUs available
@@ -1849,7 +1849,7 @@ printf("You can access GPU devices: 0-%d\n", (ndevices - 1));
 
 ---
 
-* Explicit handling of memory on the GPU
+- Explicit handling of memory on the GPU
 
 ```
 // Allocate memory on device
@@ -1860,7 +1860,7 @@ hipMemcpy(devs1, hosts1, size, hipMemcpyHostToDevice);
 
 ```
 
-* Call to run the compute kernel on the GPU
+- Call to run the compute kernel on the GPU
 
 ```
 // Run kernel
@@ -1873,25 +1873,25 @@ hipLaunchKernelGGL(MyKernel, ngrid, nblock, 0, 0, devs1, devs2);
 
 Build and test run a Hello World C++ code which offloads to GPU via HIP.
 
-* Download the [source code](https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp)
+- Download the [source code](https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp)
    - ``wget https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp``
 
-* Load the ROCm module and set the accelerator target to amd-gfx90a (AMD MI250X GPU)
+- Load the ROCm module and set the accelerator target to amd-gfx90a (AMD MI250X GPU)
    - ``ml rocm/5.0.2``
    - ``ml craype-accel-amd-gfx90a``
 
-* Compile the code with the AMD hipcc compiler on the login node
+- Compile the code with the AMD hipcc compiler on the login node
    - ``hipcc --offload-arch=gfx90a hello_world_gpu.cpp -o hello_world_gpu.x``
 
 ---
 
 ## Run the code as a batch job
 
-* Edit [job_gpu_helloworld.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job_gpu_helloworld.sh) to specify the compute project and reservation
+- Edit [job_gpu_helloworld.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job_gpu_helloworld.sh) to specify the compute project and reservation
 
-* Submit the script with ``sbatch job_gpu_helloworld.sh``
+- Submit the script with ``sbatch job_gpu_helloworld.sh``
 
-* with program output written to ``output.txt``
+with program output written to ``output.txt``
 
 ```
 You can access GPU devices: 0-7
@@ -1929,53 +1929,53 @@ end do
 
 ---
 
-# Exercise 2: Hello world with HIP
+# Exercise 2: Dot product with OpenMP
 
 Build and test run a Fortran program that calculates the dot product of vectors.
 
-* Activate the PrgEnv-cray environment ``ml PrgEnv-cray``
+- Activate the PrgEnv-cray environment ``ml PrgEnv-cray``
 
-* Download the [source code](https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90)
+- Download the [source code](https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90)
     - ``wget https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90``
 
-* Load the ROCm module and set the accelerator target to amd-gfx90a
+- Load the ROCm module and set the accelerator target to amd-gfx90a
     - ``ml rocm/5.0.2 craype-accel-amd-gfx90a``
 
-* Compile the code on the login node
+- Compile the code on the login node
     - ``ftn -fopenmp ex04.F90 -o ex04.x``
 
 ---
 
 ## Run the code as a batch job
 
-* Edit [job_gpu_ex04.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job_gpu_ex04.sh) to specify the compute project and reservation
+- Edit [job_gpu_ex04.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job_gpu_ex04.sh) to specify the compute project and reservation
 
-* Submit the script with ``sbatch job_gpu_ex04.sh``
+- Submit the script with ``sbatch job_gpu_ex04.sh``
 
-* with program output ``The sum is:  1.25`` written to ``output.txt``
+- with program output ``The sum is:  1.25`` written to ``output.txt``
 
 ---
 
 ## Optionally, test the code in interactive session.
 
-* First queue to get one GPU node reserved for 10 minutes
+- First queue to get one GPU node reserved for 10 minutes
 
     - ``salloc -N 1 -t 0:10:00 -A <project name> -p gpu``
 
-* wait for a node, then run the program ``srun -n 1 ./ex04.x``
+- wait for a node, then run the program ``srun -n 1 ./ex04.x``
 
-* with program output to standard out ``The sum is:  1.25``
+- with program output to standard out ``The sum is:  1.25``
 
 ---
 
-* Alternatively, login to the reserved GPU node (here nid002792) ``ssh nid002792``.
+- Alternatively, login to the reserved GPU node (here nid002792) ``ssh nid002792``.
 
-* Load ROCm, activate verbose runtime information, and run the program
+- Load ROCm, activate verbose runtime information, and run the program
     - ``ml rocm/5.0.2``
     - ``export CRAY_ACC_DEBUG=3``
     - ``./ex04.x``
 
-* with program output to standard out
+- with program output to standard out
 
 ```
 ACC: Version 5.0 of HIP already initialized, runtime version 50013601
