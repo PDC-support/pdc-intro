@@ -1906,7 +1906,7 @@ GPU 0: hello world```
 
 The OpenMP programming model can be used for directive based offloading to GPUs.
 
-A serial code that operates on arrays ``vecA``, ``vecB``, and ``vecC``,
+A serial code that operates on arrays ``vecA``, ``vecB``, and ``vecC``
 
 ```
 ! Dot product of two vectors
@@ -1959,6 +1959,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
 ## Optionally, test the code in interactive session.
 
 * First queue to get one GPU node reserved for 10 minutes
+
     - ``salloc -N 1 -t 0:10:00 -A <project name> -p gpu``
 
 * wait for a node, then run the program ``srun -n 1 ./ex04.x``
@@ -1967,8 +1968,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
 
 ---
 
-## Alternatively, login to the reserved GPU node
-    - ``ssh nid002792 #nid002792 is one of the GPU nodes``
+* Alternatively, login to the reserved GPU node (here nid002792) ``ssh nid002792``.
 
 * Load ROCm, activate verbose runtime information, and run the program
     - ``ml rocm/5.0.2``
