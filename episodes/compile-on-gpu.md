@@ -155,6 +155,32 @@ hipLaunchKernelGGL(MyKernel, ngrid, nblock, 0, 0, devs1, devs2);
 
 ---
 
+# Offloading to GPU with OpenMP
+
+The OpenMP programming model can be used for directive based offloading to GPUs.
+
+Example: A serial code that operates on arrays ``vecA``, ``vecB``, and ``vecC``
+
+```
+! Dot product of two vectors
+do i = 1, nx
+   vecC(i) =  vecA(i) * vecB(i)
+end do
+```
+
+Implement OpenMP offloading by inserting OpenMP directives. In Fortran the directives starts with ``!$omp``
+
+```
+! Dot product of two vectors
+!$omp target teams distribute map(from:vecC) map(to:vecA,vecB)
+do i = 1, nx
+   vecC(i) =  vecA(i) * vecB(i)
+end do
+!$omp end target teams distribute
+```
+
+---
+
 # Exercise 1: Hello world with HIP
 
 Build and test run a Hello World C++ code which offloads to GPU via HIP.
@@ -184,34 +210,6 @@ You can access GPU devices: 0-7
 GPU 0: hello world```
 ...
 ```
-
-
----
-
-# Offloading to GPU with OpenMP
-
-The OpenMP programming model can be used for directive based offloading to GPUs.
-
-A serial code that operates on arrays ``vecA``, ``vecB``, and ``vecC``
-
-```
-! Dot product of two vectors
-do i = 1, nx
-   vecC(i) =  vecA(i) * vecB(i)
-end do
-```
-
-We implement OpenMP offloading by inserting OpenMP directives. In Fortran the directives starts with ``!$omp``
-
-```
-! Dot product of two vectors
-!$omp target teams distribute map(from:vecC) map(to:vecA,vecB)
-do i = 1, nx
-   vecC(i) =  vecA(i) * vecB(i)
-end do
-!$omp end target teams distribute
-```
-
 
 ---
 
