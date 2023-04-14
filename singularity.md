@@ -690,7 +690,7 @@ srun -n 24 --mpi=pmi2 singularity exec <sandbox folder> <myexe>
 # Number of nodes
 #SBATCH --nodes=1
 # Using the GPU partition which is at the moment is under testing
-#SBATCH -p gpu-tst
+#SBATCH -p gpu
 # Run the executable named myexe
 ml PDC singularity
 srun -n 1 singularity exec --rocm -B /cfs/klemming <sandbox folder> <myexe>
