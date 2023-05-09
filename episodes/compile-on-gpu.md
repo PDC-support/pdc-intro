@@ -24,15 +24,13 @@ Central processing units (CPU) and graphics processing units (GPU) do different 
 
 # Dardel GPU nodes
 
-Dardel has 56 GPU nodes which each are equipped with
+Dardel has 56 GPU nodes, each of which is equipped with
 
 - One AMD EPYC™ processor with 64 cores
 
-- Four AMD Instinct MI250X GPUs
+- 512 GB of shared fast HBM2E memory
 
-- 512 GB of shared fast HBM2E RAM memory
-
-Performs up to 95.7 TFLOPS in double precision when using special matrix operations
+- Four AMD Instinct™ MI250X GPUs (with an impressive performance of up to 95.7 TFLOPS in double precision when using special matrix operations)
 
 ![bg right:45% width:100%](https://www.pdc.kth.se/polopoly_fs/1.1242679.1679986622!/image/MI200_hpc_architecture_1000pW_heading_cut.png)
 
