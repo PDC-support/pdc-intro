@@ -7,7 +7,7 @@ style: |
     }
   .column50 {
     float: left;
-    width: 48%;
+    width: 45%;
     border: 20px solid transparent;
     background-color: transparent;
     }
@@ -113,6 +113,27 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 
 ---
 
+# What is a cluster
+
+<div class="row">
+<div class="column50">
+
+![](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/cluster_definition.png)
+
+</div>
+<div class="column50">
+
+# Cluster
+#
+# Nodes
+#
+# CPUs
+# Cores
+
+</div>
+
+---
+
 # Dardel
 
 <div class="row">
@@ -129,7 +150,7 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 
 ### Node configuration
 
-* 2xAMD EPYC™ 2.25 GHz 64 cores
+* 2xAMD EPYC™ 2.25 GHz CPU with 64 cores each
 * RAM
   * 524 nodes, 256 GB
   * 256 nodes, 512 GB RAM
@@ -376,15 +397,14 @@ prepend-path	 LD_LIBRARY_PATH /pdc/vol/R/4.0.0/lib64/
 ```
 $ ml av PDC
 ---- /pdc/software/modules ---------------------
-   PDC/21.09    PDC/21.11 (L,D)    PDCTEST/22.04
-
+      PDC/21.09    PDC/21.11    PDC/22.06 (L,D)
 ```
 
 * Every PDC module relate to a specific version of **CPE**
 * Every software is installed under a specific **CPE**
 * To access the softwares you need to first...
   ```
-  $ ml PDC/21.11
+  $ ml PDC/22.06
   ```
 * Omitting the *[version]* you will load the latest stable **CPE**
 
@@ -444,14 +464,6 @@ Time limit: 24h
 </div>
 <div class="column50 columnlightblue">
 
-**Shared**
-Shared node access
-Time limit: 24h (most nodes), 7 days
-
-</div></div>
-<div class="row">
-<div class="column50 columnlightblue">
-
 **Long**
 Exclusive node access
 Time limit: 7 days
@@ -459,10 +471,24 @@ Time limit: 7 days
 </div>
 <div class="column50 columnlightblue">
 
-**Memory**
-Exclusive node access
+**GPU**
+4xGPUs Exclusive node access
 Time limit: 24h
-Nodes with 512 Gb RAM or more  
+
+</div>
+<div class="column50 columnlightblue">
+
+**Memory**
+512+ Gb RAM Exclusive node access
+Time limit: 24h
+
+</div></div>
+<div class="row">
+<div class="column50 columnlightblue">
+
+**Shared**
+Shared node access
+Time limit: 24h (most nodes), 7 days
 
 </div></div>
 
@@ -484,15 +510,31 @@ $ exit
 ```
 ---
 
+# Working with shared nodes
+```
+$ salloc -t <min> -N <nodes> -A <allocation> -p shared ...
+```
+
+### When using a shared node you must specify the number of cores
+
+```
+# Allocates n cores
+$ -n [tasks]
+# Allocates cores=n*cpus-per-task (Default n=1)
+$ --cpus-per-task [cores]
+```
+
+### RAM will be allocated proportionally to the number of cores
+
+---
+
 # Other SLURM flags
 
 | Command | Description |
 | --- | --- |
-| -p shared -n [processes] | Shared node. **-n Must be present on shared job** |
 | --reservation=[reservation] | Reserved nodes |
 | --mem=1000000 | At least 1TB RAM |
 | --mincpus=24 | At least 24 logical CPUs |
-| --gres=gpu:K80:2 | Node with a K80 GPU |
 
 #### If the cluster does not have enough nodes of that type then the request will fail with an error message.
 
@@ -552,20 +594,6 @@ $ scancel [jobID]
 
 ---
 
-# Reservation
-
-| Reservation | Starttime | Endtime | Nodes | Partition |
-| --- | --- | --- | --- | --- |
-| summer-test | 2022-08-15T11:00 | 2022-08-15T12:00  | 2 |  shared |
-| summer-2022-08-16 | 2022-08-16T15:00 | 2022-08-16T17:30 | 8 | shared | 
-| summer-2022-08-17 | 2022-08-17T13:00 | 2022-08-17T17:30 | 8 | shared | 
-| summer-2022-08-18 | 2022-08-18T13:00 | 2022-08-18T15:30 | 8 | shared |
-| summer-2022-08-19 | 2022-08-19T13:00 | 2022-08-19T17:30 | 8 | shared |  
-| summer-2022-08-22 | 2022-08-22T13:00 | 2022-08-22T17:30 | 8 | shared | 
-| summer-2022-08-23 | 2022-08-23T13:00 | 2022-08-23T17:30 | 8 | shared |  
-
----
-
 # How to compile on Dardel
 
 <div class="column50 columnlightblue">
@@ -603,35 +631,20 @@ $ scancel [jobID]
 
 ---
 
-# Compiling serial code on Tegner
+# Compiling for GPUs
+
+## Load the rocm module
 ```
-#GNU
-$ gfortran -o hello hello.f
-$ gcc -o hello hello.c
-$ g++ -o hello hello.cpp
-#Intel
-$ module add i-compilers
-$ ifort -FR -o hello hello.f
-$ icc -o hello hello.c
-$ icpc -o hello hello.cpp
+$ ml rocm/5.0.2
+$ ml craype-accel-amd-gfx90a
 ```
 
----
-
-# Compiling MPI/OpenMP code on Tegner
-
+## Use the hipcc compiler for AMD GPUs
 ```
-#GNU
-$ module add gcc/9.2 openmpi/4.1-gcc-9.2
-$ mpif90 -FR -fopenmp -o hello_mpi hello_mpi.f
-$ mpicc -fopenmp -o hello_mpi hello_mpi.c
-$ mpic++ -fopenmp -o hello_mpi hello_mpi.cpp
-#Intel
-$ module add i-compilers intelmpi
-$ mpiifort -openmp -o hello.f90 -o hello_mpi
-$ mpiicc -openmp -o hello_mpi hello_mpi.c
-$ mpiicpc -openmp -o hello_mpi hello_mpi.cpp
+$ hipcc --offload-arch=gfx90a MyPrgm.cpp -o MyPrgm
 ```
+
+More information at https://www.pdc.kth.se/support/documents/software_development/development_gpu.html
 
 ---
 
