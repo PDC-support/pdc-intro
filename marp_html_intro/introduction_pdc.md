@@ -1,6 +1,6 @@
 ---
 marp: true
-backgroundImage: url('/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/background.png')
+backgroundImage: url('intro_pdc/img/background.png')
 style: |
   section h1 {
     text-align: center;
@@ -40,7 +40,7 @@ style: |
 <!-- paginate: true -->
 
 # Introduction to PDC
-![bg](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/first_slide.png)
+![bg](intro_pdc/img/first_slide.png)
 # Henric Zazzi 2022-08-16
 #
 #
@@ -75,7 +75,7 @@ The Swedish National Infrastructure for Computing (SNIC) is a national research 
 </div>
 <div class="column50">
 
-![height:570px](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/sweden.png)
+![height:570px](intro_pdc/img/sweden.png)
 
 
 </div></div>
@@ -84,19 +84,19 @@ The Swedish National Infrastructure for Computing (SNIC) is a national research 
 
 # PDC offers...
 
-![height:600px](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/pdc_offers.png)
+![height:600px](intro_pdc/img/pdc_offers.png)
 
 ---
 
 # Research areas at PDC
 
-![height:450px](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/beskow_statistics.jpeg)
+![height:450px](intro_pdc/img/beskow_statistics.jpeg)
 
 *Usage of beskow, march 2017*
 
 ---
 
-# PDC key assets: Support
+# PDC key intro_pdc: Support
 
 ### First-line support
 Helps you have a smooth start to using PDC’s resources and provides assistance if you need help while using our facilities
@@ -118,7 +118,7 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 <div class="row">
 <div class="column50">
 
-![](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/cluster_definition.png)
+![](intro_pdc/img/cluster_definition.png)
 
 </div>
 <div class="column50">
@@ -139,7 +139,7 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 <div class="row">
 <div class="column50">
 
-![](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/dardel.png)
+![](intro_pdc/img/dardel.png)
 
 **Nodes:** 794
 **Cores:** 101632
