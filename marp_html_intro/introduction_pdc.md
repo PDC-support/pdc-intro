@@ -344,7 +344,7 @@ Data deleted after 30 days
 ### Projects
 **Quota:** according to project
 ```
-/cfs/klemming/projects/snic/
+/cfs/klemming/projects/supr/
 ```
 
 </div></div>
