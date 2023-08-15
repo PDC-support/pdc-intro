@@ -282,7 +282,7 @@ Example: **[username]@NADA.KTH.SE**
 | kpasswd | change your kerberos password |
 
 ```
-$ kinit -f [username[@NADA.KTH.SE
+$ kinit -f [username]@NADA.KTH.SE
 $ klist -T
 Principal: [username]@NADA.KTH.SE
 Issued Expires Flags Principal
