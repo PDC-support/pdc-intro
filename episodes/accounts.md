@@ -8,7 +8,7 @@
 
 # Account, Login and File System
 
-2023-03-08
+2023-04-13
 
 [PDC support documentation](https://www.pdc.kth.se/support)
 
@@ -16,7 +16,7 @@
 
 # Getting a PDC account
 
-* From [SUPR](https://supr.snic.se/)
+* From [SUPR](https://supr.naiss.se/)
 
     - Get a SUPR account
     - Join a project with time allocation on Dardel
@@ -91,10 +91,6 @@
 
 ---
 
-# Exercise: Log in to Dardel
-
----
-
 # File System
 
 Lustre File System (Klemming, total size 12 PB (12,000 TB))
@@ -107,7 +103,7 @@ Lustre File System (Klemming, total size 12 PB (12,000 TB))
   ```
 * Project directory
   ```
-  /cfs/klemming/projects/snic/[projectname]
+  /cfs/klemming/projects/...
   ```
 * Scratch directory
   ```
@@ -116,7 +112,7 @@ Lustre File System (Klemming, total size 12 PB (12,000 TB))
 
 ---
 
-# Exercise: Home and project directories
+# Home and project directories
 
 * Home directory
   ```
@@ -134,7 +130,7 @@ Lustre File System (Klemming, total size 12 PB (12,000 TB))
 
 ---
 
-# Find out your groups
+# Groups
 
 In addition to ``projinfo``, your groups also indicate the projects that you have access to.
 
@@ -146,7 +142,7 @@ groups
 
 ---
 
-# Find out your storage quota
+# Storage quota
 
 ```
 projinfo
@@ -160,12 +156,12 @@ Number of files: ...
 ```
 
 ```
-Information for storage project: snicYYYY-X-XX (PI: ...)
+Information for storage project: naissYYYY-X-XX (PI: ...)
 ...
 Active from ... to ...
 Members: ...
 Max quota: ... GiB, ... files
-Path: /cfs/klemming/projects/snic/...
+Path: /cfs/klemming/projects/...
 Storage: ... TiB
 Number of files: ...
 ```

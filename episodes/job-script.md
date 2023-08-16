@@ -8,7 +8,7 @@
 
 ---
 
-# How we run jobs on a Supercomputer
+# How do we run jobs on a Supercomputer?
 
 ![bg right:60% width:100%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
 
@@ -114,12 +114,12 @@ srun ./myexe > my_output_file
 # Partitions
 
 * Nodes are logically grouped into partitions
-* There are four partitions that can be used on Dardel
+* There are several partitions that can be used on Dardel
   - **main**: Thin nodes (256 GB RAM), whole nodes, maximum 24 hours job time
   - **long**: Thin nodes (256 GB RAM), whole nodes, maximum 7 days job time
   - **shared**: Thin nodes (256 GB RAM), job shares node with other jobs, maximum 24 hours job time
-  - **memory**: Large/Huge/Giant nodes (512 Gb - 2 TB RAM), whole nodes, 24 hours job time
-
+  - **memory**: Large/Huge/Giant nodes (512 GB - 2 TB RAM), whole nodes, 24 hours job time
+  - **gpu**: GPU nodes, 512 GB RAM, and 4 AMD MI250X GPU cards
 
 ---
 
@@ -156,6 +156,37 @@ export OMP_PLACES=cores
 # Run the executable named myexe
 srun ./myexe > my_output_file
 ```
+
+
+---
+
+# Interactive jobs
+
+Request an interactive allocation
+```
+salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes> -n <cores>
+```
+
+Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
+```
+srun -n <number-of-processes> ./mybinary.x
+```
+It is also possible to ssh into one of the allocated nodes.
+
+---
+
+# Interactive jobs
+
+We can check what nodes have been granted with:
+
+  ```
+  squeue -u $USER
+  ```
+
+  or inspecting the environment variable:
+  ```
+  SLURM_NODELIST
+  ```
 
 ---
 
@@ -202,7 +233,7 @@ int main(int argc, char** argv) {
 
 * You can find the code from the previous slide [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/hello_mpi.c)
 
-* Save the file on Dardel, compile the code and generate a binary called *hello_mpi*
+* Save the file on Dardel, compile the code and generate a binary called *hello_mpi.x*
 
 ---
 
@@ -211,7 +242,6 @@ int main(int argc, char** argv) {
 # Exercise 1
 
 * Take the job script that you can find [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise1.sh) and modify it accordingly to:
-   - Use the proper allocation required, for this course it is *edu23.sf2568*
    - Use one node for the job
    - Use 4 cores from that node
 
@@ -235,12 +265,12 @@ int main(int argc, char** argv) {
 Notice that we run our program with just:
 
 ```
-srun ./hello_mpi
+srun ./hello_mpi.x
 ````
 
 It would be also possible to run our program with:
 ```
-srun -N 1 -n 4 ./hello_mpi
+srun -N 1 -n 4 ./hello_mpi.x
 ```
 
 However, we don't need to specify those flags because SLURM takes the *-N* and *-n* values from the *BATCH* directives in the script
@@ -254,33 +284,6 @@ However, we don't need to specify those flags because SLURM takes the *-N* and *
   - What's the partition with the highest number of nodes?
   - Name 1-2 nodes included in that same partition
 
----
-# Interactive jobs
-
-Request an interactive allocation
-```
-salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes> -n <cores>
-```
-
-Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
-```
-srun -n <number-of-processes> ./mybinary.x
-```
-It is also possible to ssh into one of the allocated nodes.
-
----
-# Interactive jobs
-
-We can check what nodes have been granted with:
-
-  ```
-  squeue -u $USER
-  ```
-
-  or inspecting the environment variable:
-  ```
-  SLURM_NODELIST
-  ```
 
 ---
 
@@ -337,8 +340,7 @@ seff <jobid>
 * Not all nodes allocated are used
 * Not all cores within a node are used (if it's not intentional)
 * Many more cores than the available are used
-* Inneficient use of the file system
-* Using the wrong partition
+* Inefficient use of the file system
 
 ---
 
@@ -358,7 +360,7 @@ seff <jobid>
 
 * You can find the sample code for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/vector_mpi.c)
 
-* Compile the code and generate a binary called *vector_mpi*
+* Compile the code and generate a binary called *vector_mpi.x*
 
 ---
 
@@ -393,52 +395,15 @@ seff <jobid>
    Memory Utilized: 549.25 MB (estimated maximum)
    Memory Efficiency: 7.73% of 6.94 GB (888.00 MB/core)
    ```
-  
----
 
-# Job arrays
-
-When we have several similar jobs that can be packed within a single job
-
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -t 00:10:00
-
-for i in $(seq 0 9); do
-        srun -n 1 myprog $i
-done
-```
 
 ---
-# Job arrays
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -t 00:01:00
-#SBATCH -a 0-9
 
-srun -n 1 myprog $SLURM_ARRAY_TASK_ID
-```
+# SLURM good practices
 
-\$SLURM_ARRAY_TASK_ID contains a number 0-9 identifying each job in the array (defined with -a)
-
-**Note:** Too many short jobs is bad for performance and can slow down the whole queue system. Ideally each job should be at least 10 minutes long.
-
----
-# Job arrays
-
-Once submitted, the job array gets a job id assigned that can be used to manipulate all jobs at once:
-```
-> sbatch job_array.sh
-Submitted batch job 6975769
-> scancel 6975769
-```
-
-For more info on job arrays check the SLURM website:
-https://slurm.schedmd.com/job_array.html
+* Avoid too many short jobs
+* Avoid massive output to STDOUT
+* Try to provide a good estimate of the job duration before submitting
 
 ---
 
@@ -502,12 +467,5 @@ done
 
 wait
 ```
-  
+
 ---
-
-# Good SLURM practices
-
-* Avoid too many short jobs
-* Avoid massive output to STDOUT
-* Try to provide a good estimate of the job duration before submitting
-

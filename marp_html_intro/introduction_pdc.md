@@ -1,13 +1,18 @@
 ---
 marp: true
-backgroundImage: url('/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/background.png')
+backgroundImage: url('intro_pdc/img/background.png')
 style: |
   section h1 {
     text-align: center;
+    color: #1954A6;
+    }
+  section h2 {
+    text-align: center;
+    color: #65656C;
     }
   .column50 {
     float: left;
-    width: 48%;
+    width: 45%;
     border: 20px solid transparent;
     background-color: transparent;
     }
@@ -36,12 +41,22 @@ style: |
     display: table;
     clear: both;
     }
+  img[alt~="center"] {
+    display: block;
+    margin: 0 auto;
+    }
+
 ---
 <!-- paginate: true -->
 
 # Introduction to PDC
-![bg](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/first_slide.png)
-# Henric Zazzi 2022-08-16
+![bg](intro_pdc/img/first_slide.png)
+## Henric Zazzi
+## PDC Summer school, 2023-08-14
+#
+#
+#
+#
 #
 #
 
@@ -50,8 +65,8 @@ style: |
 # Overview
 
 1. General information about PDC
-1. Infrastructure at PDC
 1. How to apply to PDC resources
+1. Infrastructure at PDC
 1. How to login
 1. File systems, permissions and transfer
 1. Modules
@@ -65,38 +80,40 @@ style: |
 
 ---
 
-# SNIC Centra
+# NAISS
 
 <div class="row">
 <div class="column50">
 
-The Swedish National Infrastructure for Computing (SNIC) is a national research infrastructure that provides a balanced and cost-efficient set of resources and user support for large scale computation and data storage to meet the needs of researchers from all scientific disciplines and from all over Sweden (universities, university colleges, research institutes, etc). The resources are made available through open application procedures such that the best Swedish research is supported.
+The National Academic Infrastructure for Supercomputing in Sweden (NAISS) is a infrastructure organization for high-performance computing in Sweden. NAISS is hosted by Linköping University but acts independently with a national perspective and responsibility. NAISS main funding is provided by the Swedish Research council (VR) while the user support is built up in partnership with several Swedish universities.
 
 </div>
 <div class="column50">
 
-![height:570px](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/sweden.png)
+![height:570px center](intro_pdc/img/sweden.png)
 
 
 </div></div>
 
 ---
 
+<!-- _hide: true -->
+
 # PDC offers...
 
-![height:600px](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/pdc_offers.png)
+![height:600px center](intro_pdc/img/pdc_offers.png)
 
 ---
 
 # Research areas at PDC
 
-![height:450px](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/beskow_statistics.jpeg)
+![height:450px center](intro_pdc/img/beskow_statistics.jpeg)
 
 *Usage of beskow, march 2017*
 
 ---
 
-# PDC key assets: Support
+# Support levels
 
 ### First-line support
 Helps you have a smooth start to using PDC’s resources and provides assistance if you need help while using our facilities
@@ -109,7 +126,86 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 
 ---
 
+
+# How to apply for PDC resources
+
+---
+
+# Can I use PDC resources?
+
+* PDC resources are **free** for swedish academia
+* Please acknowledge NAISS/PDC in your publications
+  *"The computations/data handling/[SIMILAR] were/was enabled by resources provided by the National Academic Infrastructure for Supercomputing in Sweden (NAISS) at [NAISS AFFILIATED SITE] partially funded by the Swedish Research Council through grant agreement no. 2022-06725"*
+* More information at https://www.naiss.se/policies/acknowledge/
+
+---
+
+# How to access PDC resources
+
+### Time allocations
+
+* A measure for how many jobs you can run per month (corehours/month)
+* Which clusters you can access
+  * Every user must belong to at least one time allocation
+* Apply via a SUPR account at https://supr.naiss.se/
+
+More information at https://www.naiss.se/#section_allocations
+
+### User account (SUPR/PDC)
+
+* For projects you must have a linked SUPR and PDC account https://supr.naiss.se/
+* For courses a PDC account suffices
+
+---
+
+# Flavors of time allocations
+
+<div class="columnlightblue">
+
+**Small allocation** *<10000 corehours/month*
+Applicant can be a PhD student or higher
+Evaluated on a technical level only weekly
+   
+</div>
+<div class="columnblue">
+
+**Medium allocation** *10000-400000 corehours/month*
+Applicant must be a senior scientist in swedish academia
+Evaluated on a technical level only monthly
+	
+</div>
+<div class="columndarkblue">
+
+**Large allocation** *>400000 corehours/month*
+Applicant must be a senior scientist in swedish academia
+Evaluated on a technical and scientific level twice a year
+
+</div>
+
+---
+
 # Infrastructure at PDC
+
+---
+
+# What is a cluster
+
+<div class="row">
+<div class="column50">
+
+![center](intro_pdc/img/cluster_definition.png)
+
+</div>
+<div class="column50">
+
+# Cluster
+#
+# Nodes
+#
+# CPUs
+# Cores
+
+</div>
 
 ---
 
@@ -118,10 +214,10 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 <div class="row">
 <div class="column50">
 
-![](/afs/pdc.kth.se/home/h/hzazzi/Documents/Presentations/intro_pdc/img/dardel.png)
+![center](intro_pdc/img/dardel.png)
 
-**Nodes:** 794
-**Cores:** 101632
+**Nodes:** 1270
+**Cores:** 158976
 **Peak performance:** 13.5 PFLOPS
 
 </div>
@@ -129,76 +225,15 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 
 ### Node configuration
 
-* 2xAMD EPYC™ 2.25 GHz 64 cores
+* 2xAMD EPYC™ 2.25 GHz CPU with 64 cores each
 * RAM
-  * 524 nodes, 256 GB
-  * 256 nodes, 512 GB RAM
-  * 8 nodes, 1024 GB RAM
-  * 6 nodes, 2048 GB RAM
-* <span style="color:red;">4xAMD Instinct™ MI250X GPUs</span>
+  * 256 GB
+  * 512 GB RAM
+  * 1024 GB RAM
+  * 2048 GB RAM
+* 4xAMD Instinct™ MI250X GPUs
 
 </div></div>
-
----
-
-# How to apply for PDC resources
-
----
-
-# How to access PDC resources
-
-* User account (SUPR/PDC)
-  * For projects you must have a SUPR and a PDC account
-  * A PDC account suffices for courses
-* Every user must belong to at least one time allocation
-
-### Time allocation
-* A measure for how many jobs you can run per month (corehours/month)
-* Which clusters you can access
-
----
-
-# Flavors of time allocations
-
-<div class="columnlightblue">
-
-**Small allocation** *<5000 corehours/month*
-Applicant can be a PhD student or higher
-Evaluated on a technical level only
-   
-</div>
-<div class="columnblue">
-
-**Medium allocation** *5000-200000 corehours/month*
-Applicant must be a senior scientist in swedish academia
-Evaluated on a technical level only
-	
-</div>
-<div class="columndarkblue">
-
-**Large allocation** *200000 corehours/month*
-Applicant must be a senior scientist in swedish academia
-Evaluated on a technical and scientific level
-Proposal evaluated by SNAC twice a year
-
-</div>
-
----
-
-# Can I use PDC resources?
-
-* PDC resources are **free** for swedish academia
-* Please acknowledge SNIC/PDC in your publications
-  *"The computations/data handling/[SIMILAR] were/was enabled by resources provided by the Swedish National Infrastructure for Computing (SNIC), partially funded by the Swedish Research Council through grant agreement no. 2018-05973"*
-* More information at http://www.snic.se/allocations/apply4access/
-
----
-
-# How to get a time allocation
-
-* You can apply for a SUPR account at https://supr.snic.se
-* In SUPR send in a proposal for your project
-* More information at http://www.snic.se/allocations/apply4access/
 
 ---
 
@@ -208,7 +243,7 @@ Proposal evaluated by SNAC twice a year
 
 # Login with SSH pairs
 
-* Only available if you have a SUPR account
+* Only available if your PDC account is linked to a SUPR account
 * More information at https://www.pdc.kth.se/support/documents/login/ssh_login.html
 
 ---
@@ -222,18 +257,18 @@ Proposal evaluated by SNAC twice a year
 * Proof of users identity
 * Users use password to obtain tickets
 * Tickets are cached on users computer for a specified duration
-* <span style="color:red;">Tickets should always be created on your local computer</span>
 * As long as tickets are valid there is no need to enter password
+* <span style="color:red;">Tickets should always be created on your local computer</span>
 
 ---
 
-## Kerberos realm
+# Kerberos realm
 All resources available to access
-Example: NADA.KTH.SE
+Example: **NADA.KTH.SE**
 
-## Principal
+# Principal
 Unique identity to which kerberos can assign tickets
-Example: [username]@NADA.KTH.SE
+Example: **[username]@NADA.KTH.SE**
 
 ---
 
@@ -247,7 +282,7 @@ Example: [username]@NADA.KTH.SE
 | kpasswd | change your kerberos password |
 
 ```
-$ kinit -f [username[@NADA.KTH.SE
+$ kinit -f [username]@NADA.KTH.SE
 $ klist -T
 Principal: [username]@NADA.KTH.SE
 Issued Expires Flags Principal
@@ -274,7 +309,7 @@ Mar 25 09:45 Mar 25 19:45 FI krbtgt/NADA.KTH.SE@NADA.KTH.SE
 * You can reach PDC from any computer or network
 * The kerberos implementation heimdal can be installed on most operating systems
   * **Linux:** heimdal, openssh-client
-  * **Windows:** Network Identity Manager, PuTTY
+  * **Windows:** Windows Subsystemfor Linux (WSL), Network Identity Manager, PuTTY
   * **Mac:** homebrew/openssh
   * **KTH Computers:** pdc-[kerberos command]
 * Follow the instructions for your operating system https://www.pdc.kth.se/support/documents/login/login.html
@@ -309,7 +344,7 @@ Data deleted after 30 days
 ### Projects
 **Quota:** according to project
 ```
-/cfs/klemming/projects/snic/
+/cfs/klemming/projects/supr/
 ```
 
 </div></div>
@@ -364,7 +399,6 @@ prepend-path	 LD_LIBRARY_PATH /pdc/vol/R/4.0.0/lib64/
 | module show *[s]/[v]* | ml show *[s]/[v]* | Show info about software |
 | module list | ml | List currently loaded software |
 | ml spider *[s]* |  | searches for software |
-| module swap *[s1]/[v1]* *[s2]/[v2]* | ml *[s2]/[v2]* | Swap one module 1 for module 2 |
 
 **[s]:** Software. Optional for *avail* command
 **[v]:** Version. Optional. Latest by default
@@ -376,15 +410,14 @@ prepend-path	 LD_LIBRARY_PATH /pdc/vol/R/4.0.0/lib64/
 ```
 $ ml av PDC
 ---- /pdc/software/modules ---------------------
-   PDC/21.09    PDC/21.11 (L,D)    PDCTEST/22.04
-
+      PDC/21.09    PDC/21.11    PDC/22.06 (L,D)
 ```
 
 * Every PDC module relate to a specific version of **CPE**
 * Every software is installed under a specific **CPE**
 * To access the softwares you need to first...
   ```
-  $ ml PDC/21.11
+  $ ml PDC/22.06
   ```
 * Omitting the *[version]* you will load the latest stable **CPE**
 
@@ -444,14 +477,6 @@ Time limit: 24h
 </div>
 <div class="column50 columnlightblue">
 
-**Shared**
-Shared node access
-Time limit: 24h (most nodes), 7 days
-
-</div></div>
-<div class="row">
-<div class="column50 columnlightblue">
-
 **Long**
 Exclusive node access
 Time limit: 7 days
@@ -459,10 +484,24 @@ Time limit: 7 days
 </div>
 <div class="column50 columnlightblue">
 
-**Memory**
-Exclusive node access
+**GPU**
+4xGPUs Exclusive node access
 Time limit: 24h
-Nodes with 512 Gb RAM or more  
+
+</div>
+<div class="column50 columnlightblue">
+
+**Memory**
+512+ Gb RAM Exclusive node access
+Time limit: 24h
+
+</div></div>
+<div class="row">
+<div class="column50 columnlightblue">
+
+**Shared**
+Shared node access
+Time limit: 24h (most nodes), 7 days
 
 </div></div>
 
@@ -472,27 +511,41 @@ Nodes with 512 Gb RAM or more
 
 #### To book and execute on a dedicated node
 ```
-$ salloc -t <min> -N <nodes> -A <allocation> -p <partition> srun -n <processes> ./MyPrgm
+$ salloc -t <min> -N <nodes> -A <allocation> -p <partition> srun -n <ntasks> ./MyPrgm
 ```
 #### To run interactively
 ```
 $ salloc -t <min> -N <nodes> -A <allocation> -p <partition>
 $ ml [modulename]
-$ srun -n <processes> <executable>
-$ srun -n <cores> <executable>
+$ srun -n <ntasks> <executable>
+$ srun -n <ntasks> <executable>
 $ exit
 ```
+---
+
+# Working with shared nodes
+```
+$ salloc -t <min> -N <nodes> -A <allocation> -p shared ...
+```
+
+### When using a shared node you must specify the number of cores
+
+| Parameter | Description |
+| --- | --- |
+| -n [tasks] | Allocates n tasks |
+| --cpus-per-task [cores] | Allocates cores=ntasks*cpus-per-task (Default n=1) |
+
+
+### RAM will be allocated proportionally to the number of cores
+
 ---
 
 # Other SLURM flags
 
 | Command | Description |
 | --- | --- |
-| -p shared -n [processes] | Shared node. **-n Must be present on shared job** |
 | --reservation=[reservation] | Reserved nodes |
 | --mem=1000000 | At least 1TB RAM |
-| --mincpus=24 | At least 24 logical CPUs |
-| --gres=gpu:K80:2 | Node with a K80 GPU |
 
 #### If the cluster does not have enough nodes of that type then the request will fail with an error message.
 
@@ -514,13 +567,13 @@ $ exit
 #SBATCH -A <allocation ID>
 # Reservation if needed
 #SBATCH --reservation=<reservation ID>
-#SBATCH -t 10:00
-#SBATCH --nodes=1
-#SBATCH -p shared
-#SBATCH -n <processes>
+#SBATCH -t <min>
+#SBATCH --nodes=<nodes>
+#SBATCH -p <partition>
+#SBATCH -n <ntasks>
 # load modules and run
-ml PDC/21.11
-srun -n 1 ./MyPrgm
+ml PDC/22.06
+srun -n <ntasks> ./MyPrgm
 ```
 
 </div><div class="row">
@@ -531,7 +584,7 @@ srun -n 1 ./MyPrgm
 </div><div class="column50 column">
 
 ```
-$sbatch <myfile>
+$ sbatch <myfile>
 ```
 
 </div></div>
@@ -552,40 +605,9 @@ $ scancel [jobID]
 
 ---
 
-# Reservation
-
-| Reservation | Starttime | Endtime | Nodes | Partition |
-| --- | --- | --- | --- | --- |
-| summer-test | 2022-08-15T11:00 | 2022-08-15T12:00  | 2 |  shared |
-| summer-2022-08-16 | 2022-08-16T15:00 | 2022-08-16T17:30 | 8 | shared | 
-| summer-2022-08-17 | 2022-08-17T13:00 | 2022-08-17T17:30 | 8 | shared | 
-| summer-2022-08-18 | 2022-08-18T13:00 | 2022-08-18T15:30 | 8 | shared |
-| summer-2022-08-19 | 2022-08-19T13:00 | 2022-08-19T17:30 | 8 | shared |  
-| summer-2022-08-22 | 2022-08-22T13:00 | 2022-08-22T17:30 | 8 | shared | 
-| summer-2022-08-23 | 2022-08-23T13:00 | 2022-08-23T17:30 | 8 | shared |  
-
----
-
 # How to compile on Dardel
 
-<div class="column50 columnlightblue">
-
-### Dardel uses compiler wrappers
-
-</div>
-
-### PrgEnv module
-
-* PrgEnv-cray, PrgEnv-gnu, PrgEnv-aocc (AMD compiler)
-* By default **PrgEnv-cray** is loaded
-* Swap it by using command...
-  ```
-  $ ml swap PrgEnv-cray PrgEnv-<other>
-  ```
-
----
-
-# Compiler wrappers
+## Dardel uses compiler wrappers
 
 * Always use the wrappers
 
@@ -603,35 +625,36 @@ $ scancel [jobID]
 
 ---
 
-# Compiling serial code on Tegner
-```
-#GNU
-$ gfortran -o hello hello.f
-$ gcc -o hello hello.c
-$ g++ -o hello hello.cpp
-#Intel
-$ module add i-compilers
-$ ifort -FR -o hello hello.f
-$ icc -o hello hello.c
-$ icpc -o hello hello.cpp
-```
+# PrgEnv modules
 
+| Module | Compiler |
+| --- | --- |
+| PrgEnv-cray | CRAY |
+| PrgEnv-gnu | GNU |
+| PrgEnv-aocc | AMD |
+
+* By default **PrgEnv-cray** is loaded
+* Swap it by using command...
+  ```
+  $ ml PrgEnv-<other>
+  ```
+  
 ---
 
-# Compiling MPI/OpenMP code on Tegner
+# Compiling for AMD GPUs
 
+## Load the rocm module
 ```
-#GNU
-$ module add gcc/9.2 openmpi/4.1-gcc-9.2
-$ mpif90 -FR -fopenmp -o hello_mpi hello_mpi.f
-$ mpicc -fopenmp -o hello_mpi hello_mpi.c
-$ mpic++ -fopenmp -o hello_mpi hello_mpi.cpp
-#Intel
-$ module add i-compilers intelmpi
-$ mpiifort -openmp -o hello.f90 -o hello_mpi
-$ mpiicc -openmp -o hello_mpi hello_mpi.c
-$ mpiicpc -openmp -o hello_mpi hello_mpi.cpp
+$ ml rocm/5.0.2
+$ ml craype-accel-amd-gfx90a
 ```
+
+## Use the hipcc compiler for AMD GPUs
+```
+$ hipcc --offload-arch=gfx90a MyPrgm.cpp -o MyPrgm
+```
+
+More information at https://www.pdc.kth.se/support/documents/software_development/development_gpu.html
 
 ---
 

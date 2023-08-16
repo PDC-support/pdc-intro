@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH -A edu2210.intropdc
-#SBATCH --reservation intropdc-2022-10-28
+#SBATCH -A ...
+#SBATCH --reservation ...
 #SBATCH -p shared
 #SBATCH -t 00:10:00
 #SBATCH -J job-n2
@@ -10,8 +10,9 @@
 #SBATCH --ntasks=2
 #SBATCH --cpus-per-task=16
 
-ml PDC/21.11
-ml numpy/1.20.3-gcc11.2-py38
+ml PDC/22.06
+ml cpeGNU/22.06
+ml cray-python/3.9.12.1
 
 export OMP_PLACES=cores
 

@@ -19,7 +19,7 @@ style: |
 
 # <!--fit--> Introduction to PDC
 
-2023-03-08
+2023-04-13
 
 PDC staff
 
@@ -29,14 +29,4 @@ PDC staff
 
 # Contents
 
-* [Background and infrastructure](#3)
-* [Accounts, login, and file system](#20)
-* [Using Bash shell](#34)
-* [Building software with EasyBuild](#68)
-* [Using Singularity](#69)
-* [Compiling and running your own code](#70)
-* [Job script for efficient utilization of hardware](#93)
-* [Using Matlab](#126)
-* [Using Python virtual environment](#138)
-
-
+<!-- contents will be auto generated -->

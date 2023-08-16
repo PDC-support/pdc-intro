@@ -19,7 +19,7 @@ style: |
 
 # <!--fit--> Introduction to PDC
 
-2023-03-08
+2023-04-13
 
 PDC staff
 
@@ -30,15 +30,15 @@ PDC staff
 # Contents
 
 * [Background and infrastructure](#3)
-* [Accounts, login, and file system](#20)
-* [Using Bash shell](#34)
-* [Compiling and running code on CPU nodes](#68)
-* [Job script for efficient utilization of hardware](#91)
-* [Using ThinLinc](#124)
-* [Compiling and running code on GPU nodes](#125)
-* [Using Singularity](#134)
-* [Using Matlab](#135)
-* [Using Python virtual environment](#147)
+* [Accounts, login, and file system](#18)
+* [Using Bash shell](#31)
+* [Compiling and running code on CPU nodes](#64)
+* [Job script for efficient utilization of hardware](#86)
+* [Using ThinLinc](#117)
+* [Compiling and running code on GPU nodes](#118)
+* [Using Singularity](#135)
+* [Using Matlab](#136)
+* [Using Python virtual environment](#148)
 
 ---
 
@@ -76,15 +76,15 @@ PDC staff
 
 ---
 
-# PDC is a SNIC center
+# PDC is finansed by NAISS
 
-![bg left:30% width:100%](https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/dardel/images/snic.png)
+![bg left:25% width:100%](https://github.com/PDC-support/pdc-intro/raw/master/outreach/outreach_pdc/img/naiss_sweden.png)
 
-* SNIC (Swedish National Infrastructure for Computing)
+* NAISS: National Academic Infrastructure for Supercomputing in Sweden
 
-* SNIC is a national research infrastructure that provides a balanced and cost-efficient set of resources and user support for large scale computation and data storage to meet the needs of researchers from all scientific disciplines and from all over Sweden (universities, university colleges, research institutes, etc).
+* Resources: Chalmers Tek. Högskola, Kungliga Tek. Högskola, Linköping Universitet, Uppsala Universitet
 
-* SNIC is funded by the Swedish Research Council (VR-RFI) and the 10 participating universities: Chalmers, GU, KI, KTH, LiU, LU, SLU, SU, UmU, and UU.
+* Branches: Chalmers Tek. Högskola, Göteborg Universitet, Karolinska institutet, Kungliga Tek. Högskola, Linköpings Universitet, Lund Universitet, Stockholm Universitet, Umeå Universitet, Uppsala Universitet,
 
 ---
 
@@ -113,8 +113,6 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 * Summer School
 
     - Introduction to HPC held every year
-
-* Zoom-in (advertised in training newsletter)
 
 * Workshops (see [PDC events](https://www.pdc.kth.se/about/events))
 
@@ -147,7 +145,7 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
 # Introduction to Dardel supercomputer
 
-2023-03-08
+2023-04-13
 
 [About Dardel](https://www.pdc.kth.se/hpc-services/computing-systems/about-dardel-1.1053338)
 
@@ -155,47 +153,31 @@ PDC's largest industrial partner is Scania. The figure shows a volume rendering 
 
 # Dardel is an HPE Cray EX system
 
-* Phase 1: CPU partition
+* CPU partition
 
-    - 2.279 petaFlops (Top500 Nov 2021)
-    - 554 CPU nodes
-    - Dual AMD EPYC(TM) 64-core processors
+    - 1270 CPU nodes
+    - Each node has
+        + two AMD EPYC(TM) Zen2 2.25 GHz 64-core processors
 
-* Phase 2: GPU partition
+* GPU partition
 
     - 56 GPU nodes
-    - AMD EPYC(TM) processor with 64 cores
-    - four AMD Instinct(TM) MI250X GPUs
+    - Each node has
+        + one AMD EPYC(TM) processor with 64 cores
+        + four AMD Instinct(TM) MI250X GPUs
 
 ---
 
-![bg width:100%](https://pdc-web.eecs.kth.se/files/support/images/anatomy.png)
-
----
-
-# Supercomputer anatomy
-
-* Dardel consists of several cabinets (also known as racks)
-
-* Each cabinet is filled with many blades
-
-* A single blade hosts two nodes
-
-* A node has two AMD EPYC 7742 CPUs, each with 64 cores clocking at 2.25GHz
-
----
-
-# Compute nodes
+# More about the CPU nodes
 
 | Number of nodes | RAM per node | Name |
 | --- | --- | --- |
-| 488 | 256 GB | Thin nodes |
-| 20 | 512 GB | Large nodes |
-| 8 | 1 TB | Huge nodes |
-| 2 | 2 TB| Giant nodes |
-| 36 | 256 GB | Business nodes |
-
-Total: **554** Nodes (128 cores per node)
+| 736 | 256 GB | NAISS thin nodes |
+| 268 | 512 GB | NAISS large nodes |
+| 8 | 1024 GB | NAISS huge nodes |
+| 10 | 2048 GB | NAISS giant nodes |
+| 36 | 256 GB | KTH industry/business research nodes |
+| 248 | 512 GB | KTH industry/business research nodes |
 
 ---
 
@@ -253,7 +235,7 @@ node   0   1   2   3   4   5   6   7
 
 # Account, Login and File System
 
-2023-03-08
+2023-04-13
 
 [PDC support documentation](https://www.pdc.kth.se/support)
 
@@ -261,7 +243,7 @@ node   0   1   2   3   4   5   6   7
 
 # Getting a PDC account
 
-* From [SUPR](https://supr.snic.se/)
+* From [SUPR](https://supr.naiss.se/)
 
     - Get a SUPR account
     - Join a project with time allocation on Dardel
@@ -336,10 +318,6 @@ node   0   1   2   3   4   5   6   7
 
 ---
 
-# Exercise: Log in to Dardel
-
----
-
 # File System
 
 Lustre File System (Klemming, total size 12 PB (12,000 TB))
@@ -352,7 +330,7 @@ Lustre File System (Klemming, total size 12 PB (12,000 TB))
   ```
 * Project directory
   ```
-  /cfs/klemming/projects/snic/[projectname]
+  /cfs/klemming/projects/...
   ```
 * Scratch directory
   ```
@@ -361,7 +339,7 @@ Lustre File System (Klemming, total size 12 PB (12,000 TB))
 
 ---
 
-# Exercise: Home and project directories
+# Home and project directories
 
 * Home directory
   ```
@@ -379,7 +357,7 @@ Lustre File System (Klemming, total size 12 PB (12,000 TB))
 
 ---
 
-# Find out your groups
+# Groups
 
 In addition to ``projinfo``, your groups also indicate the projects that you have access to.
 
@@ -391,7 +369,7 @@ groups
 
 ---
 
-# Find out your storage quota
+# Storage quota
 
 ```
 projinfo
@@ -405,12 +383,12 @@ Number of files: ...
 ```
 
 ```
-Information for storage project: snicYYYY-X-XX (PI: ...)
+Information for storage project: naissYYYY-X-XX (PI: ...)
 ...
 Active from ... to ...
 Members: ...
 Max quota: ... GiB, ... files
-Path: /cfs/klemming/projects/snic/...
+Path: /cfs/klemming/projects/...
 Storage: ... TiB
 Number of files: ...
 ```
@@ -471,13 +449,13 @@ setfacl -x u:<uid> /cfs/klemming/home/u/user/test
 * Bash shell and basic commands
 * Files and Folders
 * Input/output
-* Searching in text
-* Processes
 * File/directory permissions
 * Environment variables
 
 
-#### Bonus material for self-studying
+### Bonus material for self-studying
+* Processes (including programs)
+* Searching in text
 * Finding files
 * Hotkeys
 * File archiving
@@ -492,16 +470,16 @@ setfacl -x u:<uid> /cfs/klemming/home/u/user/test
 
 * Multiple types of shells exist - this is about **bash shell**
 
-* This presentation contains the very basics, mixing in some hands-on exercises.
+* This presentation contains the very basics with hands-on exercises and type-alongs.
 
-* **No need to finish all exercises**.
+* **No need to finish all exercises now**.
 
 ---
 ### Getting a bash shell
 * Linux and Mac users - just open a terminal window (or login to Dardel)
 * Windows users - please login to Dardel.
 ---
-### Your very first commands
+### Your very first commands (type along)
 Explore the following commands, one at a time.
 
 ```
@@ -518,23 +496,23 @@ The last two lines downloads and extracts tutorial material we have borrowed fro
 https://carpentries.org/
 
 ---
-### Exercise 1
+### Exercise 1 (3 min)
 ```
-* Explore the contents of shell-lesson-data
+$ ls -l shell-lesson-data
 * Move back and forth into the subdirectories
-* Move into exercise-data and copy the file
- "numbers.txt" into a new file "numbers_copy.txt"
- by typing "cp numbers.txt numbers_copy.txt"
+* Move into exercise-data and type
+$ cp numbers.txt numbers_copy.txt
 ```
 verify that the new file was created.
  **NB! Do not use whitespace in file/folder names.**
 
 ```
-* Create a new directory with some name, and move this copy there
-mv numbers_copy.txt your_new_folder/.
+* Create a new directory with some name. Then type:
+$ mv numbers_copy.txt your_new_folder/.
+* what happened?
 ```
 ---
-### Some more commands
+### Exercise 2: Some more commands (5 min)
 
 ```
 cp -r dir1 dir2   (copy directory, NB "-r")
@@ -546,24 +524,18 @@ less file_example (view contents of file in pager)
 head file_example (print first lines of file)
 tail file_example (print last lines of file)
 
-```
----
-### Exercise 2
-
-```
 * Copy an existing directory
 * Display "numbers_copy.txt" in some way
 * Print your command line history
-* Take a peek at the manual for command ls:
-* Type man ls
-* Press up/down keys to scroll
-* Type / to start search mode
-* Try to search for the flag: -F
-* Type q to quit
+* Open manual for the command ls and then
+- press up/down keys to scroll
+- Type / to start search mode
+- Search for the flag: -F
+- Type q to quit
 ```
 ---
 ### Relative vs. absolute paths
-You can specify a location relative to current position, or give an absolute path to it.
+You can specify a location in two ways:
 
 ```
 (Relative)            
@@ -572,142 +544,78 @@ cd exercise_data
 (Absolute)
 cd /home/tkl/shell-lesson-data/exercise-data
 ```
-
+Both ways are useful. Determine which is best for the situation at hand.
 
 ---
+
 ### Text editors
-Most people are used to GUI text editors but it is often worthwhile to master at least one editor in the terminal.
+Very good idea to master at least one (non-graphical) editor in the terminal.
 
 List of common editors:
 
 * nano - easiest, minimal functionality
 * vi/vim - a bit more involved, but more functionality
 * emacs - even a bit more involved, but a lot of functionality
-
+* HOMEWORK: get used to one text editor.
 ---
 
 ### Input & Output: redirect and pipes
-* Programs can display something, e.g. **"echo hello world"**
+* Programs can display something, e.g. **echo hello world**
 
 * Programs can take input, e.g. **less**
 
-* "cat numbers_copy.txt" dumps the file to *stdout*
+* $ cat numbers_copy.txt
 
-* "cat numbers_copy.txt | less" gives the text as input to *less* (i.e. pipe)
+* $ cat numbers_copy.txt | less
+
 ---
-### Try it: pipes
+### Try it: pipes (3 min)
 ```
-# count number of logged in users
-w -h | wc -l
+# what sessions are logged in?
+$ w
 
-# to list all matching commands
-history | grep -w 'ls'
+# count number of sessions
+$ w -h | wc -l
+
+# list all matching commands
+$ history | grep -w 'ls'
 
 # print the name of the newest file in the directory (non-dot)
-ls -1tF | grep -v -E '*/|@' | head -1
+$ ls -1tF | grep -v -E '*/|@' | head -1
 
 ```
 ---
 ### Redirects
 * Like pipes, but data is sent to/from files and not processes
 
-* Replace a file: command > file.txt
+* Replace a file:
 
-* Append to a file: command >> file.txt (be careful to **not** mix them up!)
+* $ command > file.txt
 
-* Redirect file as STDIN: command < file (in case program accepts STDIN only)
+* Append to a file:
+
+* $ command >> file.txt (be careful to **not** mix them up!)
+
+* Redirect file as STDIN:
+
+* command < file (in case program accepts STDIN only)
 
 ---
-### Try it: Redirects
+### Try it: Redirects (3 min)
 ```
-echo Hello World > hello.txt
+$ echo Hello World > hello.txt
 
-ls -lH >> current_dir_ls.txt
+$ ls -lH >> current_dir_ls.txt
 
 # join two files (e.g. the two above) into one
-cat file1 file2 > file3
+$ cat file1 file2 > file3
 
 # go through file1 and replace spaces with a new line mark, then output to file2
-tr -s ' ' '\n' < file1 > file2
+$ tr -s ' ' '\n' < file1 > file2
 
 # -or- in more readable format
-cat file1 | tr -s ' ' '\n' > file2
+$ cat file1 | tr -s ' ' '\n' > file2
 ```
----
-### Exercise 4
-```
-* Step into the data-shell folder
-* Type history
-* Type history > history.txt
-* Type ls -l and then check time stamp of history.txt
-* Print the last 4 lines of history.txt using the tail command
-(explore the manpage if needed)
-* Instead of creating an intermediate file, find a more clever
-way to print the last 4 commands by piping history into tail
-```
----
-### grep
-This command is for searching keyword inside files.
-
-```
-grep <pattern> <filename>  # grep lines that match <pattern>
- -or-
-command | grep <pattern>  # grep lines from stdin
-
-```
----
-### Exercise 5 [grep]
-```
-* Go back to the data-shell directory
-* Type grep rabbit exercise-data/animal-counts/animals.csv
-* Try finding all occurences of the string “rabbit” using
-recursive search (adding the -R flag)
-
-grep + pipes:
-* Make a pipe that displays all files ending with "pdb" in the
- data-shell directory.
-
-```
----
-### Processes
-Uptil now we only discussed files/folders.
-But we also want to run **programs.**
-* All running programs and commands are *processes*
-* Processes have:
-  * Process ID, NAME, Command line arguments
-  * input and output, Return code (integer) when complete
-  * Working directory, Environment variables
-* These concepts bind together all UNIX programs
-* To see some runnings processes, type *top*
-
----
-### Foreground and background processes
-
-**Foreground**
-
- * Example: *Top*
- * Keyboard is connected as input, screen to output.
- * Only one such process active at a time.
- * Kill it: Ctrl-c
-
-**Background**
- * No input connected
- * You can have as many as resources allow
- * Add an *&* after a command to put it in background
- * To kill: use *kill* or *pkill*, or do it from within *top*
-
----
-### Foreground and background processes [cont]
-
- ```
- Example:
- ./my_prog.ex
- ./my_prog.ex 1> output.txt 2>error.txt &
-
- ```
-
-**NB: You will most likely not use Dardel like this, but it is possible to do so by logging into a compute node.**
-
 ---
 ### File/directory permissions
 #### The basics
@@ -756,13 +664,11 @@ chown -R folder        (Change owner of folder)
 
 * ACLs are controlled via getfacl and setfacl.
 
-* getfacl file                   (get current stage)
-* setfacl -m u:<user>:r file    (Allow read access for user)
+$ getfacl file                   (get current stage)
+$ setfacl -m u:<user>:r file    (Allow read access for user)
 ```
 
 In many support cases we ask users to apply the last line so we can access files.
-
-
 
 ---
 ### Environment variables
@@ -774,13 +680,76 @@ Defined text strings that your programs may use
 * List all defined variables with printenv
 
 Try it:
-* Type echo $HOME
-* Type echo $HOSTNAME
-* Type echo $PATH
+$ echo $HOME
+$ echo $HOSTNAME
+$ echo $PATH
 ```
 
 ---
-### Initialization and configuration
+## Bonus material
+* Processes (including Programs)
+* Initialization and configuration
+* Finding files and text patterns within files
+* Hotkeys
+* File archiving
+
+ [Jump to next section](#68)
+
+ ---
+ ### Processes [bonus slide]
+ Uptil now we only discussed files/folders.
+ But we also want to run **programs.**
+ * All running programs and commands are *processes*
+ * Processes have:
+   * Process ID, NAME, Command line arguments
+   * input and output, Return code (integer) when complete
+   * Working directory, Environment variables
+ * These concepts bind together all UNIX programs
+ * To see some runnings processes, type *top*
+
+ ---
+ ### Foreground and background processes [bonus slide]
+
+ **Foreground**
+
+  * Example: *top*
+  * Keyboard is connected as input, screen to output.
+  * Only one such process active at a time.
+  * Kill it: Ctrl-c
+
+ **Background**
+  * No input connected
+  * You can have as many as resources allow
+  * Add an *&* after a command to put it in background
+  * To kill: use *kill* or *pkill*, or do it from within *top*
+
+ ---
+ ### Foreground and background processes [bonus slide cont]
+
+  ```
+  Example:
+  ./my_prog.ex
+  ./my_prog.ex 1> output.txt 2>error.txt &
+
+  ```
+
+ **NB: You will most likely not use Dardel like this, but it is possible to do so by logging into a compute node.**
+
+
+---
+### Exercise: some more redirects [bonus slide]
+```
+* Step into the data-shell folder
+* Type history
+* Type history > history.txt
+* Type ls -l and then check time stamp of history.txt
+* Print the last 4 lines of history.txt using the tail command
+(explore the manpage if needed)
+* Instead of creating an intermediate file, find a more clever
+way to print the last 4 commands by piping history into tail
+```
+---
+### Initialization and configuration [bonus slide]
 * When the shell first starts (e.g. at login) it reads shell config files.
 
 * The config files give you power to customize your shell to your liking.
@@ -793,24 +762,38 @@ Config files are located in $HOME and are called:
  * .bash_profile
 
 ---
-
-### Initialization and configuration [cont]
-
-#### Example to try
+#### Example to try [bonus slide]
 ```
-* Type history
-* Type HISTTIMEFORMAT="%d/%m/%y %T "
-* Type history
+* Try to customize your shell to your liking. It can for instance be
+- define some environmental you will often used
+- get certain color scheme
+- get date and time information when typing the command history
 ```
 
 ---
-## Bonus material
-* Finding files
-* Hotkeys
-* File archiving
 
- [Jump to next section](#68)
+### Findings patterns in files: grep  [bonus slide]
+This command is for searching keyword inside files.
 
+```
+grep <pattern> <filename>  # grep lines that match <pattern>
+ -or-
+command | grep <pattern>  # grep lines from stdin
+
+```
+---
+### Exercise 5 [grep]  [bonus slide]
+```
+* Go back to the data-shell directory
+* Type grep rabbit exercise-data/animal-counts/animals.csv
+* Try finding all occurences of the string “rabbit” using
+recursive search (adding the -R flag)
+
+grep + pipes:
+* Make a pipe that displays all files ending with "pdb" in the
+ data-shell directory.
+
+```
 ---
 
 
@@ -928,11 +911,11 @@ Reference page: [Compilers and libraries](https://www.pdc.kth.se/support/documen
 The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
 
 * In practice, we recommend
-    - ``ml cpeCray/21.11``
-    - ``ml cpeGNU/21.11``
-    - ``ml cpeAMD/21.11``
+    - ``ml cpeCray/22.06``
+    - ``ml cpeGNU/22.06``
+    - ``ml cpeAOCC/22.06``
 
-* The ``cpeCray``, ``cpeGNU`` and ``cpeAMD`` modules are available after ``ml PDC/21.11``
+* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/22.06``
 
 * No need to ``module swap`` or ``module unload``
 
@@ -1007,7 +990,7 @@ user@uan01:> srun -n 8 ./hello_world_mpi.x
 Use cray-libsci
 
 ```
-ml PDC/21.11 cpeGNU/21.11
+ml PDC/22.06 cpeGNU/22.06
 ```
 
 ```
@@ -1021,15 +1004,11 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 Use openblas
 
 ```
-ml openblas/0.3.18-openmp
+ml openblas/0.3.20-cpeGNU-22.06
 ```
 
 ```
-export OPENBLASROOT=/pdc/software/21.11/spack/spack/opt/spack/cray-sles15-zen2/gcc-11.2.0/openblas-0.3.18-2hewsuvypaots3husxzoz6ohiuixj464
-```
-
-```
-cc dgemm_test.c -o dgemm_test_openblas.x -I$OPENBLASROOT/include -L$OPENBLASROOT/lib -lopenblas
+cc dgemm_test.c -o dgemm_test_openblas.x -I$EBROOTOPENBLAS/include -L$EBROOTOPENBLAS/lib -lopenblas
 ```
 
 ---
@@ -1060,7 +1039,7 @@ libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /.../openblas-0.3.18.../lib/libopenblas.so.0
+libopenblas.so.0 => /.../0.3.20-cpeGNU-22.06.../lib/libopenblas.so.0
 ...
 ```
 
@@ -1070,7 +1049,7 @@ libopenblas.so.0 => /.../openblas-0.3.18.../lib/libopenblas.so.0
 
 * Run on a single core in the ``shared`` partition
   ```
-  salloc -n 1 -t 10 -p shared -A edu23.sf2568 --reservation=lab-24-1
+  salloc -n 1 -t 10 -p shared -A <name-of-allocation> --reservation=<name-of-reservation>
   srun -n 1 ./dgemm_test_craylibsci.x
   srun -n 1 ./dgemm_test_openblas.x
   exit
@@ -1088,7 +1067,7 @@ libopenblas.so.0 => /.../openblas-0.3.18.../lib/libopenblas.so.0
 # Exercise: Compile and run ``fftw_test`` code
 
 ```
-ml cray-fftw/3.3.8.12
+ml cray-fftw/3.3.10.1
 
 wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
 
@@ -1097,7 +1076,7 @@ cc fftw_test.c -o fftw_test.x
 
 ldd fftw_test.x
 
-salloc -n 1 -t 10 -p shared -A edu23.sf2568 --reservation=lab-24-1
+salloc -n 1 -t 10 -p shared -A <name-of-allocation> --reservation=<name-of-reservation>
 srun -n 1 ./fftw_test.x
 ```
 
@@ -1105,13 +1084,7 @@ srun -n 1 ./fftw_test.x
 
 # Compilation of large program
 
-* [Compilation of NWChem](https://www.pdc.kth.se/software/software/NWChem/cpe21.11/7.0.2/index_building.html)
-
-* [Compilation of VASP](https://www.pdc.kth.se/software/software/VASP/cpe21.11/5.4.4-vanilla/index_building.html)
-
-* [Compilation of VeloxChem](https://www.pdc.kth.se/software/software/VeloxChem/cpe21.11/1.0rc3/index_building.html)
-
-* [Compilation of DFTD4](https://www.pdc.kth.se/software/software/dftd4/cpe21.11/3.3.0/index_building.html)
+* Examples at https://www.pdc.kth.se/software
 
 ---
 
@@ -1136,38 +1109,19 @@ srun -n 1 ./fftw_test.x
 # What happens when loading a module
 
 ```
-ml show nwchem/7.0.2
+ml show openblas/0.3.20-cpeGNU-22.06
 ```
 
 ```
-whatis("NWChem: Open Source High-Performance Computational Chemistry")
-whatis("Homepage: https://www.nwchem-sw.org/")
-whatis("URL: https://www.nwchem-sw.org/")
-conflict("nwchem")
-setenv("NWCHEM_TOP","/pdc/software/21.11/other/nwchem/7.0.2")
-setenv("NWCHEM_BASIS_LIBRARY","/pdc/software/21.11/other/nwchem/7.0.2/data/libraries/")
-setenv("NWCHEM_NWPW_LIBRARY","/pdc/software/21.11/other/nwchem/7.0.2/data/libraryps/")
-setenv("DEFAULT_NWCHEMRC","/pdc/software/21.11/other/nwchem/7.0.2/data/default.nwchemrc")
-prepend_path("PATH","/pdc/software/21.11/other/nwchem/7.0.2/bin")
-```
-
----
-
-# What happens when loading a module
-
-```
-ml show dftd4/3.3.0
-```
-
-```
-whatis("Generally Applicable Atomic-Charge Dependent London Dispersion Correction")
-whatis("Homepage: https://github.com/dftd4/dftd4")
-whatis("URL: https://github.com/dftd4/dftd4")
-conflict("dftd4")
-prepend_path("CMAKE_PREFIX_PATH","/pdc/software/21.11/other/dftd4/3.3.0")
-prepend_path("LD_LIBRARY_PATH","/pdc/software/21.11/other/dftd4/3.3.0/lib64")
-prepend_path("LIBRARY_PATH","/pdc/software/21.11/other/dftd4/3.3.0/lib64")
-prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
+whatis("Description: OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version.")
+conflict("openblas")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06")
+prepend_path("CPATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/include")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/lib")
+prepend_path("LIBRARY_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/lib")
+prepend_path("PKG_CONFIG_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/lib/pkgconfig")
+setenv("EBROOTOPENBLAS","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06")
+...
 ```
 
 ---
@@ -1244,22 +1198,16 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 # Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
 
 * Preparation
+
   ```
   mkdir -p matmul_test && cd matmul_test
   ```
 
-  ```
-  ml PDC/21.11
-  ml numpy/1.20.3-gcc11.2-py38
-  ```
-
-* If you are interested in how mpi4py and numpy were compiled, see [this page](https://www.pdc.kth.se/software/software/VeloxChem/cpe21.11/1.0rc3/index_building.html)
+* Copy python code [matmul_mpi_omp_test.py](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/matmul_mpi_omp_test.py) to the same folder
 
 ---
 
 # Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
-
-* Copy python code [matmul_mpi_omp_test.py](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/matmul_mpi_omp_test.py) to the same folder
 
 * Copy job script [job-n2.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n2.sh)
     - for running on 2 MPI processes with different number of OpenMP threads
@@ -1277,12 +1225,12 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 
   | Setting | Timing |
   | --- | --- |
-  | 2 MPI x 8 OMP | Time spent in matmul: 1.714 sec|
-  | 2 MPI x 4 OMP | Time spent in matmul: 3.110 sec|
-  | 2 MPI x 2 OMP | Time spent in matmul: 5.273 sec|
-  | 4 MPI x 4 OMP | Time spent in matmul: 1.698 sec|
-  | 4 MPI x 2 OMP | Time spent in matmul: 2.747 sec|
-  | 4 MPI x 1 OMP | Time spent in matmul: 4.559 sec|
+  | 2 MPI x 8 OMP | Time spent in matmul: 2.030 sec|
+  | 2 MPI x 4 OMP | Time spent in matmul: 3.361 sec|
+  | 2 MPI x 2 OMP | Time spent in matmul: 6.231 sec|
+  | 4 MPI x 4 OMP | Time spent in matmul: 1.774 sec|
+  | 4 MPI x 2 OMP | Time spent in matmul: 3.208 sec|
+  | 4 MPI x 1 OMP | Time spent in matmul: 5.720 sec|
 ---
 
 <!-- Section: Job script for efficient utilization of hardware -->
@@ -1293,7 +1241,7 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 
 ---
 
-# How we run jobs on a Supercomputer
+# How do we run jobs on a Supercomputer?
 
 ![bg right:60% width:100%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
 
@@ -1399,12 +1347,12 @@ srun ./myexe > my_output_file
 # Partitions
 
 * Nodes are logically grouped into partitions
-* There are four partitions that can be used on Dardel
+* There are several partitions that can be used on Dardel
   - **main**: Thin nodes (256 GB RAM), whole nodes, maximum 24 hours job time
   - **long**: Thin nodes (256 GB RAM), whole nodes, maximum 7 days job time
   - **shared**: Thin nodes (256 GB RAM), job shares node with other jobs, maximum 24 hours job time
-  - **memory**: Large/Huge/Giant nodes (512 Gb - 2 TB RAM), whole nodes, 24 hours job time
-
+  - **memory**: Large/Huge/Giant nodes (512 GB - 2 TB RAM), whole nodes, 24 hours job time
+  - **gpu**: GPU nodes, 512 GB RAM, and 4 AMD MI250X GPU cards
 
 ---
 
@@ -1441,6 +1389,37 @@ export OMP_PLACES=cores
 # Run the executable named myexe
 srun ./myexe > my_output_file
 ```
+
+
+---
+
+# Interactive jobs
+
+Request an interactive allocation
+```
+salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes> -n <cores>
+```
+
+Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
+```
+srun -n <number-of-processes> ./mybinary.x
+```
+It is also possible to ssh into one of the allocated nodes.
+
+---
+
+# Interactive jobs
+
+We can check what nodes have been granted with:
+
+  ```
+  squeue -u $USER
+  ```
+
+  or inspecting the environment variable:
+  ```
+  SLURM_NODELIST
+  ```
 
 ---
 
@@ -1487,7 +1466,7 @@ int main(int argc, char** argv) {
 
 * You can find the code from the previous slide [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/hello_mpi.c)
 
-* Save the file on Dardel, compile the code and generate a binary called *hello_mpi*
+* Save the file on Dardel, compile the code and generate a binary called *hello_mpi.x*
 
 ---
 
@@ -1496,7 +1475,6 @@ int main(int argc, char** argv) {
 # Exercise 1
 
 * Take the job script that you can find [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise1.sh) and modify it accordingly to:
-   - Use the proper allocation required, for this course it is *edu23.sf2568*
    - Use one node for the job
    - Use 4 cores from that node
 
@@ -1520,12 +1498,12 @@ int main(int argc, char** argv) {
 Notice that we run our program with just:
 
 ```
-srun ./hello_mpi
+srun ./hello_mpi.x
 ````
 
 It would be also possible to run our program with:
 ```
-srun -N 1 -n 4 ./hello_mpi
+srun -N 1 -n 4 ./hello_mpi.x
 ```
 
 However, we don't need to specify those flags because SLURM takes the *-N* and *-n* values from the *BATCH* directives in the script
@@ -1539,33 +1517,6 @@ However, we don't need to specify those flags because SLURM takes the *-N* and *
   - What's the partition with the highest number of nodes?
   - Name 1-2 nodes included in that same partition
 
----
-# Interactive jobs
-
-Request an interactive allocation
-```
-salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes> -n <cores>
-```
-
-Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
-```
-srun -n <number-of-processes> ./mybinary.x
-```
-It is also possible to ssh into one of the allocated nodes.
-
----
-# Interactive jobs
-
-We can check what nodes have been granted with:
-
-  ```
-  squeue -u $USER
-  ```
-
-  or inspecting the environment variable:
-  ```
-  SLURM_NODELIST
-  ```
 
 ---
 
@@ -1622,8 +1573,7 @@ seff <jobid>
 * Not all nodes allocated are used
 * Not all cores within a node are used (if it's not intentional)
 * Many more cores than the available are used
-* Inneficient use of the file system
-* Using the wrong partition
+* Inefficient use of the file system
 
 ---
 
@@ -1643,7 +1593,7 @@ seff <jobid>
 
 * You can find the sample code for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/vector_mpi.c)
 
-* Compile the code and generate a binary called *vector_mpi*
+* Compile the code and generate a binary called *vector_mpi.x*
 
 ---
 
@@ -1678,52 +1628,15 @@ seff <jobid>
    Memory Utilized: 549.25 MB (estimated maximum)
    Memory Efficiency: 7.73% of 6.94 GB (888.00 MB/core)
    ```
-  
----
 
-# Job arrays
-
-When we have several similar jobs that can be packed within a single job
-
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -t 00:10:00
-
-for i in $(seq 0 9); do
-        srun -n 1 myprog $i
-done
-```
 
 ---
-# Job arrays
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -t 00:01:00
-#SBATCH -a 0-9
 
-srun -n 1 myprog $SLURM_ARRAY_TASK_ID
-```
+# SLURM good practices
 
-\$SLURM_ARRAY_TASK_ID contains a number 0-9 identifying each job in the array (defined with -a)
-
-**Note:** Too many short jobs is bad for performance and can slow down the whole queue system. Ideally each job should be at least 10 minutes long.
-
----
-# Job arrays
-
-Once submitted, the job array gets a job id assigned that can be used to manipulate all jobs at once:
-```
-> sbatch job_array.sh
-Submitted batch job 6975769
-> scancel 6975769
-```
-
-For more info on job arrays check the SLURM website:
-https://slurm.schedmd.com/job_array.html
+* Avoid too many short jobs
+* Avoid massive output to STDOUT
+* Try to provide a good estimate of the job duration before submitting
 
 ---
 
@@ -1787,15 +1700,8 @@ done
 
 wait
 ```
-  
+
 ---
-
-# Good SLURM practices
-
-* Avoid too many short jobs
-* Avoid massive output to STDOUT
-* Try to provide a good estimate of the job duration before submitting
-
 ---
 
 <!-- Section: Using ThinLinc -->
@@ -1804,7 +1710,7 @@ wait
 
 ### Mustafa Arif
 
-Link to download the slides: To be added
+Link to download the slides: [ThinLinc_Tutorial.pdf](https://github.com/PDC-support/pdc-intro/raw/master/episodes/pdf-files/ThinLinc_Tutorial.pdf)
 
 ---
 
@@ -1816,24 +1722,56 @@ Link to download the slides: To be added
 
 Reference page: [Building for AMD GPUs](https://www.pdc.kth.se/support/documents/software_development/development_gpu.html)
 
+---
+
+# Generalized programming for GPUs
+
+Central processing units (CPU) and graphics processing units (GPU) do different work
+
+- CPUs have large instruction sets and execute general code.
+
+- GPUs have smaller instructions sets. Runs compute intensive work in parallel on large number of compute units (CU).
+
+- Code execution is started and controlled from the CPU. Compute intensive work is offloaded to the GPU.
+
+---
+
+# Dardel GPU nodes
+
+Dardel has 56 GPU nodes, each of which is equipped with
+
+- One AMD EPYC™ processor with 64 cores
+
+- 512 GB of shared fast HBM2E memory
+
+- Four AMD Instinct™ MI250X GPUs (with an impressive performance of up to 95.7 TFLOPS in double precision when using special matrix operations)
+
+![bg right:45% width:100%](https://www.pdc.kth.se/polopoly_fs/1.1242679.1679986622!/image/MI200_hpc_architecture_1000pW_heading_cut.png)
+
+---
+
+# AMD Radeon Open Compute (ROCm)
+
 The AMD Radeon Open Compute (ROCm) platform is a software stack for programming and running of programs on GPUs.
 
-* The ROCm platform supports different programming models
-    - Heterogeneous interface for portability (HIP),
+- The ROCm platform supports different programming models
+    - Heterogeneous interface for portability (HIP)
     - Offloading to GPU with OpenMP directives
     - The SYCL programming model
+
+- [AMD ROCm Information Portal](https://rocmdocs.amd.com/)
 
 ---
 
 # Setting up a GPU build environment
 
-* Load version 5.0.2 of ROCm with
+- Load version 5.0.2 of ROCm with
     - ``ml rocm/5.0.2``
 
-* Set the accelerator target to **amd-gfx90a** (AMD MI250X GPU)
+- Set the accelerator target to **amd-gfx90a** (AMD MI250X GPU)
     - ``ml craype-accel-amd-gfx90a``
 
-* Choose one of the available toolchains (Cray, Gnu, AOCC)
+- Choose one of the available toolchains (Cray, Gnu, AOCC)
     - ``ml cpeCray/22.06``
     - ``ml cpeGNU/22.06``
     - ``ml cpeAOCC/22.06``
@@ -1852,39 +1790,132 @@ The CPE version 22.12 is available **on the GPU nodes**. We recommend these vers
 
 ---
 
-# Runtime environment variables
+## The ROCM info command
 
-For executables that are built with the compilers of the Cray Compiler Environment (CCE), verbose runtime information can be enabled with the environment variable ``CRAY_ACC_DEBUG`` which takes values 1, 2 or 3. For the highest level of information
+Information on the available GPU hardware can be displayed with the ``rocminfo`` command. Example output (truncated)
 
-   - ``export CRAY_ACC_DEBUG=3``
+```
+ROCk module is loaded
+=====================
+HSA System Attributes
+=====================
+Runtime Version:         1.1
+System Timestamp Freq.:  1000.000000MHz
+
+==========
+HSA Agents
+==========
+*******
+Agent 1
+*******
+  Name:                    AMD EPYC 7A53 64-Core Processor
+  Uuid:                    CPU-XX
+```
 
 ---
 
-# Example 1: Offloading to GPU with HIP
+## The CRAY_ACC_DEBUG runtime environment variable
 
-Build and test run a Hello World C++ code which offloads to GPU via the heterogeneous interface for portability (HIP).
+For executables that are built with the compilers of the Cray Compiler Environment (CCE), verbose runtime information can be enabled with the environment variable ``CRAY_ACC_DEBUG`` which takes values 1, 2 or 3.
 
-* Download the source code
+For the highest level of information
+
+``export CRAY_ACC_DEBUG=3``
+
+---
+
+# Offloading to GPU with HIP
+
+The heterogeneous interface for portability (HIP) is a hardware close (low level) programming model for GPUs. Example lines of code:
+
+- Include statement for the HIP runtime
+
+```
+#include <hip/hip_runtime.h>
+```
+
+- HIP functions have names starting with ``hip``
+
+```
+// Get number of GPUs available
+if (hipGetDeviceCount(&ndevices) != hipSuccess) {
+    printf("No such devices\n");
+    return 1;
+    } 
+printf("You can access GPU devices: 0-%d\n", (ndevices - 1));
+```
+
+---
+
+- Explicit handling of memory on the GPU
+
+```
+// Allocate memory on device
+hipMalloc(&devs1, size);
+hipMalloc(&devs2, size);
+// Copy data host -> device
+hipMemcpy(devs1, hosts1, size, hipMemcpyHostToDevice);
+
+```
+
+- Call to run the compute kernel on the GPU
+
+```
+// Run kernel
+hipLaunchKernelGGL(MyKernel, ngrid, nblock, 0, 0, devs1, devs2);
+```
+
+---
+
+# Offloading to GPU with OpenMP
+
+The OpenMP programming model can be used for directive based offloading to GPUs.
+
+Example: A serial code that operates on arrays ``vecA``, ``vecB``, and ``vecC``
+
+```
+! Dot product of two vectors
+do i = 1, nx
+   vecC(i) =  vecA(i) * vecB(i)
+end do
+```
+
+Implement OpenMP offloading by inserting OpenMP directives. In Fortran the directives starts with ``!$omp``
+
+```
+! Dot product of two vectors
+!$omp target teams distribute map(from:vecC) map(to:vecA,vecB)
+do i = 1, nx
+   vecC(i) =  vecA(i) * vecB(i)
+end do
+!$omp end target teams distribute
+```
+
+---
+
+# Exercise 1: Hello world with HIP
+
+Build and test run a Hello World C++ code which offloads to GPU via HIP.
+
+- Download the [source code](https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp)
    - ``wget https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp``
 
-* Load the ROCm module and set the accelerator target to amd-gfx90a (AMD MI250X GPU)
+- Load the ROCm module and set the accelerator target to amd-gfx90a (AMD MI250X GPU)
    - ``ml rocm/5.0.2``
    - ``ml craype-accel-amd-gfx90a``
 
-* Compile the code with the AMD hipcc compiler on the login node
+- Compile the code with the AMD hipcc compiler on the login node
    - ``hipcc --offload-arch=gfx90a hello_world_gpu.cpp -o hello_world_gpu.x``
 
 ---
 
-* Test the code in an interactive session.
+## Run the code as a batch job
 
-* First queue to get one GPU node reserved for 10 minutes
-    - ``salloc -N 1 -t 0:10:00 -A <project name> -p gpu``
+- Edit [job_gpu_helloworld.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job_gpu_helloworld.sh) to specify the compute project and reservation
 
-* wait for a node, then run the program
-    - ``srun -n 1 ./hello_world_gpu.x``
+- Submit the script with ``sbatch job_gpu_helloworld.sh``
 
-* with program output to standard out
+with program output written to ``output.txt``
 
 ```
 You can access GPU devices: 0-7
@@ -1894,41 +1925,53 @@ GPU 0: hello world```
 
 ---
 
-# Example 2: Offloading to GPU with OpenMP
+# Exercise 2: Dot product with OpenMP
 
-In this example we build and test run a Fortran program that calculates the dot product of two long vectors by means of offloading to GPU with OpenMP. The build is done within the PrgEnv-cray environment using the Cray Compiler
+Build and test run a Fortran program that calculates the dot product of vectors.
 
-* Download the source code
+- Activate the PrgEnv-cray environment ``ml PrgEnv-cray``
+
+- Download the [source code](https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90)
     - ``wget https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90``
 
-* Load the ROCm module and set the accelerator target to amd-gfx90a
+- Load the ROCm module and set the accelerator target to amd-gfx90a
     - ``ml rocm/5.0.2 craype-accel-amd-gfx90a``
 
-* Compile the code on the login node
+- Compile the code on the login node
     - ``ftn -fopenmp ex04.F90 -o ex04.x``
 
 ---
 
-* Test the code in interactive session.
+## Run the code as a batch job
 
-* First queue to get one GPU node reserved for 10 minutes
-    - ``salloc -N 1 -t 0:10:00 -A <project name> -p gpu``
+- Edit [job_gpu_ex04.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job_gpu_ex04.sh) to specify the compute project and reservation
 
-* wait for a node, then run the program ``srun -n 1 ./ex04.x``
+- Submit the script with ``sbatch job_gpu_ex04.sh``
 
-* with program output to standard out ``The sum is:  1.25``
+- with program output ``The sum is:  1.25`` written to ``output.txt``
 
 ---
 
-* Alternatively, login to the reserved GPU node
-    - ``ssh nid002792 #nid002792 is one of the GPU nodes``
+## Optionally, test the code in interactive session.
 
-* Load ROCm, activate verbose runtime information, and run the program
+- First queue to get one GPU node reserved for 10 minutes
+
+    - ``salloc -N 1 -t 0:10:00 -A <project name> -p gpu``
+
+- wait for a node, then run the program ``srun -n 1 ./ex04.x``
+
+- with program output to standard out ``The sum is:  1.25``
+
+---
+
+- Alternatively, login to the reserved GPU node (here nid002792) ``ssh nid002792``.
+
+- Load ROCm, activate verbose runtime information, and run the program
     - ``ml rocm/5.0.2``
     - ``export CRAY_ACC_DEBUG=3``
     - ``./ex04.x``
 
-* with program output to standard out
+- with program output to standard out
 
 ```
 ACC: Version 5.0 of HIP already initialized, runtime version 50013601
@@ -2209,13 +2252,13 @@ python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ```
-ml cray-python/3.9.4.2
+ml cray-python/3.9.12.1
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ```
-ml PDC/21.11 Anaconda3/2021.05
+ml PDC/22.06 anaconda3/2021.05
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
 ```
@@ -2236,7 +2279,7 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 * Recommendation: use with cray-python
   ```
-  ml cray-python/3.9.4.2
+  ml cray-python/3.9.12.1
 
   cd $HOME
   python3 -m venv myenv
@@ -2280,9 +2323,9 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 # Virtual environment with ``conda``
 
-* Load Anaconda3
+* Load anaconda3
   ```
-  ml PDC/21.11 Anaconda3/2021.05
+  ml PDC/22.06 anaconda3/2021.05
   ```
 
 * Initialize conda
@@ -2303,14 +2346,14 @@ python3 -c 'import site; print(site.getsitepackages())'
     ```
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/pdc/software/21.11/eb/software/Anaconda3/2021.05/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    __conda_setup="$('/pdc/software/22.06/eb/software/anaconda3/2021.05/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "/pdc/software/21.11/eb/software/Anaconda3/2021.05/etc/profile.d/conda.sh" ]; then
-            . "/pdc/software/21.11/eb/software/Anaconda3/2021.05/etc/profile.d/conda.sh"
+        if [ -f "/pdc/software/22.06/eb/software/anaconda3/2021.05/etc/profile.d/conda.sh" ]; then
+            . "/pdc/software/22.06/eb/software/anaconda3/2021.05/etc/profile.d/conda.sh"
         else
-            export PATH="/pdc/software/21.11/eb/software/Anaconda3/2021.05/bin:$PATH"
+            export PATH="/pdc/software/22.06/eb/software/anaconda3/2021.05/bin:$PATH"
         fi
     fi
     unset __conda_setup
@@ -2339,9 +2382,9 @@ python3 -c 'import site; print(site.getsitepackages())'
   ```
   (my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
   ```
-* Why is ``site-packages`` still under ``Anaconda3``?
+* Why is ``site-packages`` still under ``anaconda3``?
   ```
-  ['/pdc/software/21.11/eb/software/Anaconda3/2021.05/lib/python3.8/site-packages']
+  ['/pdc/software/22.06/eb/software/anaconda3/2021.05/lib/python3.8/site-packages']
   ```
 
 ---

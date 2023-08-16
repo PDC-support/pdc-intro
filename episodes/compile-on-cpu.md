@@ -15,11 +15,11 @@ Reference page: [Compilers and libraries](https://www.pdc.kth.se/support/documen
 The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
 
 * In practice, we recommend
-    - ``ml cpeCray/21.11``
-    - ``ml cpeGNU/21.11``
-    - ``ml cpeAMD/21.11``
+    - ``ml cpeCray/22.06``
+    - ``ml cpeGNU/22.06``
+    - ``ml cpeAOCC/22.06``
 
-* The ``cpeCray``, ``cpeGNU`` and ``cpeAMD`` modules are available after ``ml PDC/21.11``
+* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/22.06``
 
 * No need to ``module swap`` or ``module unload``
 
@@ -94,7 +94,7 @@ user@uan01:> srun -n 8 ./hello_world_mpi.x
 Use cray-libsci
 
 ```
-ml PDC/21.11 cpeGNU/21.11
+ml PDC/22.06 cpeGNU/22.06
 ```
 
 ```
@@ -108,15 +108,11 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 Use openblas
 
 ```
-ml openblas/0.3.18-openmp
+ml openblas/0.3.20-cpeGNU-22.06
 ```
 
 ```
-export OPENBLASROOT=/pdc/software/21.11/spack/spack/opt/spack/cray-sles15-zen2/gcc-11.2.0/openblas-0.3.18-2hewsuvypaots3husxzoz6ohiuixj464
-```
-
-```
-cc dgemm_test.c -o dgemm_test_openblas.x -I$OPENBLASROOT/include -L$OPENBLASROOT/lib -lopenblas
+cc dgemm_test.c -o dgemm_test_openblas.x -I$EBROOTOPENBLAS/include -L$EBROOTOPENBLAS/lib -lopenblas
 ```
 
 ---
@@ -147,7 +143,7 @@ libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /.../openblas-0.3.18.../lib/libopenblas.so.0
+libopenblas.so.0 => /.../0.3.20-cpeGNU-22.06.../lib/libopenblas.so.0
 ...
 ```
 
@@ -157,7 +153,7 @@ libopenblas.so.0 => /.../openblas-0.3.18.../lib/libopenblas.so.0
 
 * Run on a single core in the ``shared`` partition
   ```
-  salloc -n 1 -t 10 -p shared -A edu23.sf2568 --reservation=lab-24-1
+  salloc -n 1 -t 10 -p shared -A <name-of-allocation> --reservation=<name-of-reservation>
   srun -n 1 ./dgemm_test_craylibsci.x
   srun -n 1 ./dgemm_test_openblas.x
   exit
@@ -175,7 +171,7 @@ libopenblas.so.0 => /.../openblas-0.3.18.../lib/libopenblas.so.0
 # Exercise: Compile and run ``fftw_test`` code
 
 ```
-ml cray-fftw/3.3.8.12
+ml cray-fftw/3.3.10.1
 
 wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
 
@@ -184,7 +180,7 @@ cc fftw_test.c -o fftw_test.x
 
 ldd fftw_test.x
 
-salloc -n 1 -t 10 -p shared -A edu23.sf2568 --reservation=lab-24-1
+salloc -n 1 -t 10 -p shared -A <name-of-allocation> --reservation=<name-of-reservation>
 srun -n 1 ./fftw_test.x
 ```
 
@@ -192,13 +188,7 @@ srun -n 1 ./fftw_test.x
 
 # Compilation of large program
 
-* [Compilation of NWChem](https://www.pdc.kth.se/software/software/NWChem/cpe21.11/7.0.2/index_building.html)
-
-* [Compilation of VASP](https://www.pdc.kth.se/software/software/VASP/cpe21.11/5.4.4-vanilla/index_building.html)
-
-* [Compilation of VeloxChem](https://www.pdc.kth.se/software/software/VeloxChem/cpe21.11/1.0rc3/index_building.html)
-
-* [Compilation of DFTD4](https://www.pdc.kth.se/software/software/dftd4/cpe21.11/3.3.0/index_building.html)
+* Examples at https://www.pdc.kth.se/software
 
 ---
 
@@ -223,38 +213,19 @@ srun -n 1 ./fftw_test.x
 # What happens when loading a module
 
 ```
-ml show nwchem/7.0.2
+ml show openblas/0.3.20-cpeGNU-22.06
 ```
 
 ```
-whatis("NWChem: Open Source High-Performance Computational Chemistry")
-whatis("Homepage: https://www.nwchem-sw.org/")
-whatis("URL: https://www.nwchem-sw.org/")
-conflict("nwchem")
-setenv("NWCHEM_TOP","/pdc/software/21.11/other/nwchem/7.0.2")
-setenv("NWCHEM_BASIS_LIBRARY","/pdc/software/21.11/other/nwchem/7.0.2/data/libraries/")
-setenv("NWCHEM_NWPW_LIBRARY","/pdc/software/21.11/other/nwchem/7.0.2/data/libraryps/")
-setenv("DEFAULT_NWCHEMRC","/pdc/software/21.11/other/nwchem/7.0.2/data/default.nwchemrc")
-prepend_path("PATH","/pdc/software/21.11/other/nwchem/7.0.2/bin")
-```
-
----
-
-# What happens when loading a module
-
-```
-ml show dftd4/3.3.0
-```
-
-```
-whatis("Generally Applicable Atomic-Charge Dependent London Dispersion Correction")
-whatis("Homepage: https://github.com/dftd4/dftd4")
-whatis("URL: https://github.com/dftd4/dftd4")
-conflict("dftd4")
-prepend_path("CMAKE_PREFIX_PATH","/pdc/software/21.11/other/dftd4/3.3.0")
-prepend_path("LD_LIBRARY_PATH","/pdc/software/21.11/other/dftd4/3.3.0/lib64")
-prepend_path("LIBRARY_PATH","/pdc/software/21.11/other/dftd4/3.3.0/lib64")
-prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
+whatis("Description: OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version.")
+conflict("openblas")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06")
+prepend_path("CPATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/include")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/lib")
+prepend_path("LIBRARY_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/lib")
+prepend_path("PKG_CONFIG_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/lib/pkgconfig")
+setenv("EBROOTOPENBLAS","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06")
+...
 ```
 
 ---
@@ -331,22 +302,16 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 # Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
 
 * Preparation
+
   ```
   mkdir -p matmul_test && cd matmul_test
   ```
 
-  ```
-  ml PDC/21.11
-  ml numpy/1.20.3-gcc11.2-py38
-  ```
-
-* If you are interested in how mpi4py and numpy were compiled, see [this page](https://www.pdc.kth.se/software/software/VeloxChem/cpe21.11/1.0rc3/index_building.html)
+* Copy python code [matmul_mpi_omp_test.py](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/matmul_mpi_omp_test.py) to the same folder
 
 ---
 
 # Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
-
-* Copy python code [matmul_mpi_omp_test.py](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/matmul_mpi_omp_test.py) to the same folder
 
 * Copy job script [job-n2.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n2.sh)
     - for running on 2 MPI processes with different number of OpenMP threads
@@ -364,9 +329,9 @@ prepend_path("PATH","/pdc/software/21.11/other/dftd4/3.3.0/bin")
 
   | Setting | Timing |
   | --- | --- |
-  | 2 MPI x 8 OMP | Time spent in matmul: 1.714 sec|
-  | 2 MPI x 4 OMP | Time spent in matmul: 3.110 sec|
-  | 2 MPI x 2 OMP | Time spent in matmul: 5.273 sec|
-  | 4 MPI x 4 OMP | Time spent in matmul: 1.698 sec|
-  | 4 MPI x 2 OMP | Time spent in matmul: 2.747 sec|
-  | 4 MPI x 1 OMP | Time spent in matmul: 4.559 sec|
+  | 2 MPI x 8 OMP | Time spent in matmul: 2.030 sec|
+  | 2 MPI x 4 OMP | Time spent in matmul: 3.361 sec|
+  | 2 MPI x 2 OMP | Time spent in matmul: 6.231 sec|
+  | 4 MPI x 4 OMP | Time spent in matmul: 1.774 sec|
+  | 4 MPI x 2 OMP | Time spent in matmul: 3.208 sec|
+  | 4 MPI x 1 OMP | Time spent in matmul: 5.720 sec|
