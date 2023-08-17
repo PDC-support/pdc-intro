@@ -126,6 +126,31 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 
 ---
 
+# Flagship codes at PDC
+
+### VeloxChem - quantum chemistry
+  - A modern code for quantum chemistry
+  - Applications for research and for teaching
+
+### Neko - computational fluid dynamics
+  - Simulations of the incompressible Navier-Stokes equations
+  - State-of-the art performance and scaling
+
+### GROMACS - molecular dynamics
+  - A leading code for molecular dynamics
+  - Engineered for extreme performance on multiple hardware architectures
+
+---
+
+# VeloxChem
+
+### Modular structure
+### Python and C++
+### GPU backend(s): HIP
+
+![bg right:65% width:90%](./intro_pdc/img/veloxchemcomponents.jpg)
+
+---
 
 # How to apply for PDC resources
 
