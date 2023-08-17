@@ -51,8 +51,8 @@ style: |
 
 # Introduction to PDC
 ![bg](intro_pdc/img/first_slide.png)
-## Henric Zazzi
-## PDC Summer school, 2023-08-14
+## Johan Hellsvik
+## 2023-08-30
 #
 #
 #
