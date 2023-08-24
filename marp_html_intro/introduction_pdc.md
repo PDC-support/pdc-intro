@@ -51,28 +51,27 @@ style: |
 
 # Introduction to PDC
 ![bg](intro_pdc/img/first_slide.png)
-## Henric Zazzi
-## PDC Summer school, 2023-08-14
+## Johan Hellsvik
+## 2023-08-30
 #
 #
 #
 #
 #
 #
-
 ---
 
 # Overview
 
-1. General information about PDC
-1. How to apply to PDC resources
-1. Infrastructure at PDC
-1. How to login
-1. File systems, permissions and transfer
-1. Modules
-1. How to run jobs
-1. How to compile
-1. Conclusion
+1. [General information about PDC](#3)
+1. [How to apply to PDC resources](#10)
+1. [Infrastructure at PDC](#14)
+1. [How to login](#17)
+1. [File systems, permissions and transfer](#24)
+1. [Modules](#26)
+1. [How to run jobs](#29)
+1. [How to compile](#38)
+1. [How to contact PDC support](#41)
 
 ---
 
@@ -126,6 +125,31 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 
 ---
 
+# Flagship codes at PDC
+
+### VeloxChem - quantum chemistry
+  - A modern code for quantum chemistry
+  - Applications for research and for teaching
+
+### Neko - computational fluid dynamics
+  - Simulations of the incompressible Navier-Stokes equations
+  - State-of-the art performance and scaling
+
+### GROMACS - molecular dynamics
+  - A leading code for molecular dynamics
+  - Engineered for extreme performance on multiple hardware architectures
+
+---
+
+# VeloxChem
+
+### Modular structure
+### Python and C++
+### GPU backend(s): HIP
+
+![bg right:65% width:90%](./intro_pdc/img/veloxchemcomponents.jpg)
+
+---
 
 # How to apply for PDC resources
 
