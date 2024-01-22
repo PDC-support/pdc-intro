@@ -383,7 +383,7 @@ Tickets should always be created on your local computer
 * You can reach PDC from any computer or network
 * The kerberos implementation heimdal can be installed on most operating systems
   * **Linux:** heimdal, openssh-client
-  * **Windows:** Windows Subsystemfor Linux (WSL), Network Identity Manager, PuTTY
+  * **Windows:** Windows Subsystem for Linux (WSL), Network Identity Manager, PuTTY
   * **Mac:** homebrew/openssh
   * **KTH Computers:** pdc-[kerberos command]
 
@@ -760,7 +760,7 @@ $ scancel [jobID]
       
 * Wrappers automatically link with math libraries if their modules are loaded
   ```
-  $ ml cray-libsci fftw
+  $ ml cray-fftw
   ```
 
 * Other libraries are lapack, blas scalapack, blacs,...
