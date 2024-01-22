@@ -1,41 +1,59 @@
 ---
 marp: true
-backgroundImage: url('intro_pdc/img/background.png')
+backgroundImage: url('intro_pdc/img/background.jpg')
 style: |
   section h1 {
     text-align: center;
-    color: #1954A6;
+    color: #e96a57;
     }
   section h2 {
     text-align: center;
-    color: #65656C;
+    color: #323232;
     }
   .column50 {
     float: left;
     width: 45%;
     border: 20px solid transparent;
     background-color: transparent;
+    margin-left: 10px;
+    }
+  .column33 {
+    float: left;
+    width: 28%;
+    border: 20px solid transparent;
+    background-color: transparent;
+    margin-left: 10px;
     }
   .columnlightblue {
     border: 10px solid #b6e0ff;
     background-color: #b6e0ff;
     box-shadow: 10px 10px 10px #888888;
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-top: 10px;
     }
   .columnblue {
     border: 10px solid #99c0ff;
     background-color: #99c0ff;
     box-shadow: 10px 10px 10px #888888;
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-top: 10px;
     }
   .columndarkblue {
     border: 10px solid #77a0ff;
     background-color: #77a0ff;
     box-shadow: 10px 10px 10px #888888;
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-top: 10px;
+    }
+  .attention {
+    border: 10px solid #dcd8c8;
+    background-color: #dcd8c8;
+    box-shadow: 10px 10px 10px #888888;
+    color: red;
+    margin-top: 10px;
+    }
+  .information {
+    border: 10px solid #dedddc;
+    background-color: #dedddc;
+    box-shadow: 10px 10px 10px #888888;
+    margin-top: 10px;
     }
   .row:after {
     display: table;
@@ -49,29 +67,28 @@ style: |
 ---
 <!-- paginate: true -->
 
+#
+#
+#
+#
 # Introduction to PDC
-![bg](intro_pdc/img/first_slide.png)
-## Johan Hellsvik
-## 2023-08-30
-#
-#
-#
-#
-#
-#
+![bg](intro_pdc/img/first_slide.jpg)
+## XX
+## 2024-01-22
+
 ---
 
 # Overview
 
 1. [General information about PDC](#3)
-1. [How to apply to PDC resources](#10)
-1. [Infrastructure at PDC](#14)
-1. [How to login](#17)
-1. [File systems, permissions and transfer](#24)
-1. [Modules](#26)
-1. [How to run jobs](#29)
-1. [How to compile](#38)
-1. [How to contact PDC support](#41)
+1. [How to apply to PDC resources](#11)
+1. [Infrastructure at PDC](#15)
+1. [How to login](#18)
+1. [File systems, permissions and transfer](#25)
+1. [Modules](#27)
+1. [How to run jobs](#30)
+1. [How to compile](#39)
+1. [How to contact PDC support](#42)
 
 ---
 
@@ -98,12 +115,6 @@ The National Academic Infrastructure for Supercomputing in Sweden (NAISS) is a i
 
 <!-- _hide: true -->
 
-# PDC offers...
-
-![height:600px center](intro_pdc/img/pdc_offers.png)
-
----
-
 # Research areas at PDC
 
 ![height:450px center](intro_pdc/img/beskow_statistics.jpeg)
@@ -112,20 +123,94 @@ The National Academic Infrastructure for Supercomputing in Sweden (NAISS) is a i
 
 ---
 
-# Support levels
+# PDC offers...
 
-### First-line support
-Helps you have a smooth start to using PDC’s resources and provides assistance if you need help while using our facilities
+<div class="columnlightblue">
 
-### Advanced support
-Application experts that can support in development of code, how to submit jobs, scaling, projects and allocations
+* HPC facilities
+* Access to international HPC facilities
+* Data storage facilities
+* Research collaboration with academia and industry
+* Expertise in HPC software enhancement
+* Support for using PDC services
+* Training
 
-### System administrators
-System managers/administrators that ensure that PDC’s HPC and storage facilities run smoothly and securely
+</div></div>
 
 ---
 
-# Flagship codes at PDC
+# Courses
+
+<div class="row">
+<div class="column50">
+
+![height:270px](intro_pdc/img/class1.png)
+![height:270px](intro_pdc/img/class2.png)
+
+</div>
+<div class="column50 columnlightblue">
+
+* Summer school/Introduction to HPC development
+* Introduction to PDC
+* Programming languages
+* Advanced development
+* Software specific courses
+
+</div></div>
+
+---
+
+# Groups at PDC
+
+<div class="row">
+<div class="columnlightblue column33">
+
+### System administrators
+
+* Hardware management
+* Accounts
+* Security
+* Job scheduling
+
+</div><div class="columnlightblue column33">
+
+### Scientific services
+
+* Basic -> Advanced software support
+* User driven software development
+
+</div><div class="columnlightblue column33">
+
+### Software services
+
+* Software development of flagship codes
+* Optimization
+
+</div>
+</div>
+
+---
+
+# User driven software development
+
+* Software development targeting user needs
+  * Parallelisation of existing software in collaboration with researchers
+  * Optimization of existing software in collaboration with researchers
+* Scientific area specific user support
+* Installation of scientific softwares
+
+<div class="columnlightblue">
+
+* PDC expert development support is free for swedish academia
+* The support is time limited
+* Funded by KTH and NAISS
+* Acknowledgement and/or co-authorship for PDC and supporting expert
+
+</div>
+
+---
+
+# Software services - Flagship codes at PDC
 
 ### VeloxChem - quantum chemistry
   - A modern code for quantum chemistry
@@ -141,16 +226,6 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 
 ---
 
-# VeloxChem
-
-### Modular structure
-### Python and C++
-### GPU backend(s): HIP
-
-![bg right:65% width:90%](./intro_pdc/img/veloxchemcomponents.jpg)
-
----
-
 # How to apply for PDC resources
 
 ---
@@ -160,7 +235,11 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
 * PDC resources are **free** for swedish academia
 * Please acknowledge NAISS/PDC in your publications
   *"The computations/data handling/[SIMILAR] were/was enabled by resources provided by the National Academic Infrastructure for Supercomputing in Sweden (NAISS) at [NAISS AFFILIATED SITE] partially funded by the Swedish Research Council through grant agreement no. 2022-06725"*
-* More information at https://www.naiss.se/policies/acknowledge/
+
+<div class="information">
+
+https://www.naiss.se/policies/acknowledge/
+</div>
 
 ---
 
@@ -173,7 +252,10 @@ System managers/administrators that ensure that PDC’s HPC and storage faciliti
   * Every user must belong to at least one time allocation
 * Apply via a SUPR account at https://supr.naiss.se/
 
-More information at https://www.naiss.se/#section_allocations
+<div class="information">
+
+https://www.naiss.se/#section_allocations
+</div>
 
 ### User account (SUPR/PDC)
 
@@ -268,7 +350,14 @@ Evaluated on a technical and scientific level twice a year
 # Login with SSH pairs
 
 * Only available if your PDC account is linked to a SUPR account
-* More information at https://www.pdc.kth.se/support/documents/login/ssh_login.html
+
+<div class="attention">
+You must be a member of an allocation in SUPR
+</div>
+<div class="information">
+
+https://www.pdc.kth.se/support/documents/login/ssh_login.html
+</div>
 
 ---
 
@@ -282,17 +371,39 @@ Evaluated on a technical and scientific level twice a year
 * Users use password to obtain tickets
 * Tickets are cached on users computer for a specified duration
 * As long as tickets are valid there is no need to enter password
-* <span style="color:red;">Tickets should always be created on your local computer</span>
+
+<div class="attention">
+Tickets should always be created on your local computer
+</div>
 
 ---
 
-# Kerberos realm
-All resources available to access
-Example: **NADA.KTH.SE**
+# Kerberos login from any OS
 
-# Principal
-Unique identity to which kerberos can assign tickets
-Example: **[username]@NADA.KTH.SE**
+* You can reach PDC from any computer or network
+* The kerberos implementation heimdal can be installed on most operating systems
+  * **Linux:** heimdal, openssh-client
+  * **Windows:** Windows Subsystemfor Linux (WSL), Network Identity Manager, PuTTY
+  * **Mac:** homebrew/openssh
+  * **KTH Computers:** pdc-[kerberos command]
+
+<div class="information">
+
+https://www.pdc.kth.se/support/documents/login/login.html
+</div>
+
+---
+
+# Login using kerberos ticket
+
+1. Get a 7 days forwardable ticket on your local system
+   ```
+   $ kinit -f -l 7d [username]@NADA.KTH.SE
+   ```
+1. Forward your ticket via ssh and login
+   ```
+   $ ssh [username]@dardel.pdc.kth.se
+   ```
 
 ---
 
@@ -315,28 +426,27 @@ Mar 25 09:45 Mar 25 19:45 FI krbtgt/NADA.KTH.SE@NADA.KTH.SE
 
 ---
 
-# Login using kerberos ticket
+# Thinlinc
 
-1. Get a 7 days forwardable ticket on your local system
-   ```
-   $ kinit -f -l 7d [username]@NADA.KTH.SE
-   ```
-1. Forward your ticket via ssh and login
-   ```
-   $ ssh [username]@dardel.pdc.kth.se
-   ```
+<div class="row">
+<div class="column50">
 
----
+![center](intro_pdc/img/thinlinc.png)
 
-# Login from any OS
+</div>
+<div class="column50 columnlightblue">
 
-* You can reach PDC from any computer or network
-* The kerberos implementation heimdal can be installed on most operating systems
-  * **Linux:** heimdal, openssh-client
-  * **Windows:** Windows Subsystemfor Linux (WSL), Network Identity Manager, PuTTY
-  * **Mac:** homebrew/openssh
-  * **KTH Computers:** pdc-[kerberos command]
-* Follow the instructions for your operating system https://www.pdc.kth.se/support/documents/login/login.html
+* Remote desktop environment 
+* Graphical user interface for many softwares
+* Interactive job launcher
+
+<div class="information">
+
+https://www.pdc.kth.se/support/documents/login/interactive_hpc.html
+</div>
+
+</div>
+</div>
 
 ---
 
@@ -379,8 +489,6 @@ Data deleted after 30 days
 
 Files can be transfered to PDC clusters using **scp**
 
-https://www.pdc.kth.se/support/documents/data_management/data_management.html
-
 ### From my laptop to $HOME at dardel
 ```
 scp file.txt [username]@dardel.pdc.kth.se:~
@@ -390,6 +498,11 @@ scp file.txt [username]@dardel.pdc.kth.se:~
 ```
 scp file.txt [username]@dardel.pdc.kth.se:/cfs/klemming/scratch/[u]/[username]
 ```
+
+<div class="information">
+
+https://www.pdc.kth.se/support/documents/data_management/data_management.html
+</div>
 
 ---
 
@@ -441,7 +554,7 @@ $ ml av PDC
 * Every software is installed under a specific **CPE**
 * To access the softwares you need to first...
   ```
-  $ ml PDC/22.06
+  $ ml PDC/[VERSION]
   ```
 * Omitting the *[version]* you will load the latest stable **CPE**
 
@@ -489,8 +602,6 @@ https://pdc-web.eecs.kth.se/cluster_usage/
 
 # Partitions
 
-#### Partition are a mandatory entry for running jobs on Dardel
-
 <div class="row">
 <div class="column50 columnlightblue">
 
@@ -528,6 +639,10 @@ Shared node access
 Time limit: 24h (most nodes), 7 days
 
 </div></div>
+<div class="attention">
+Partition are a mandatory entry for running jobs on Dardel
+</div>
+
 
 ---
 
@@ -560,7 +675,9 @@ $ salloc -t <min> -N <nodes> -A <allocation> -p shared ...
 | --cpus-per-task [cores] | Allocates cores=ntasks*cpus-per-task (Default n=1) |
 
 
-### RAM will be allocated proportionally to the number of cores
+<div class="attention">
+RAM will be allocated proportionally to the number of cores</span>
+</div>
 
 ---
 
@@ -571,7 +688,9 @@ $ salloc -t <min> -N <nodes> -A <allocation> -p shared ...
 | --reservation=[reservation] | Reserved nodes |
 | --mem=1000000 | At least 1TB RAM |
 
-#### If the cluster does not have enough nodes of that type then the request will fail with an error message.
+<div class="attention">
+If the cluster does not have enough nodes of that type then the request will fail with an error message.
+</div>
 
 ---
 
@@ -669,7 +788,7 @@ $ scancel [jobID]
 
 ## Load the rocm module
 ```
-$ ml rocm/5.0.2
+$ ml rocm
 $ ml craype-accel-amd-gfx90a
 ```
 
@@ -677,17 +796,19 @@ $ ml craype-accel-amd-gfx90a
 ```
 $ hipcc --offload-arch=gfx90a MyPrgm.cpp -o MyPrgm
 ```
+<div class="information">
 
-More information at https://www.pdc.kth.se/support/documents/software_development/development_gpu.html
+https://www.pdc.kth.se/support/documents/software_development/development_gpu.html
+</div>
 
 ---
 
 # PDC Support
 
 1. A lot of question can be answered via our web http://www.pdc.kth.se/support
-1. The best way to contact us is via e-mail https://www.pdc.kth.se/support/documents/contact/contact_support.html
+1. The best way to contact us is via our ticketing system https://www.pdc.kth.se/support/documents/contact/contact_support.html
 1. The support request will be tracked
-1. Use a descriptive subject in your email
-1. Give your PDC user name.
+1. Use a descriptive subject
+1. Provide your PDC user name.
 1. Provide all necessary information to reproduce the problem.
 1. For follow ups always reply to our emails
