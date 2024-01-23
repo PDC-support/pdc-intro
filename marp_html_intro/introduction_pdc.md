@@ -84,11 +84,11 @@ style: |
 1. [How to apply to PDC resources](#11)
 1. [Infrastructure at PDC](#15)
 1. [How to login](#18)
-1. [File systems, permissions and transfer](#25)
-1. [Modules](#27)
-1. [How to run jobs](#30)
-1. [How to compile](#39)
-1. [How to contact PDC support](#42)
+1. [File systems, permissions and transfer](#28)
+1. [Modules](#30)
+1. [How to run jobs](#33)
+1. [How to compile](#42)
+1. [How to contact PDC support](#45)
 
 ---
 
@@ -197,7 +197,7 @@ The National Academic Infrastructure for Supercomputing in Sweden (NAISS) is a i
   * Parallelisation of existing software in collaboration with researchers
   * Optimization of existing software in collaboration with researchers
 * Scientific area specific user support
-* Installation of scientific softwares
+* Installation of scientific software
 
 <div class="columnlightblue">
 
@@ -349,11 +349,57 @@ Evaluated on a technical and scientific level twice a year
 
 # Login with SSH pairs
 
-* Only available if your PDC account is linked to a SUPR account
+<div class="row">
+<div class="column50">
+
+![](intro_pdc/img/pdc_login_portal.png)
+
+</div><div class="column50">
+
+Only available if your PDC account is linked to a SUPR account
+
+</div></div>
 
 <div class="attention">
 You must be a member of an allocation in SUPR
 </div>
+
+---
+
+# Generate SSH keys
+
+* Generate a private and a public key
+* Supported SSH key types are...
+  * ed25519 (EdDSA Elliptic Curve, recommended)
+  * rsa
+
+<div class="information">
+
+https://www.pdc.kth.se/support/documents/login/ssh_keys.html#ssh-keys
+</div>
+
+---
+
+# Login portal
+
+* For uploading your *public key* goto https://loginportal.pdc.kth.se/
+* You need to **log in to SUPR** to verify your account
+* In SUPR Press **Prove my identity to PDC** 
+* Back in *PDC login* Press **Add new key** and set...
+  * Name
+  * IP adress/range
+  * When the key expires
+
+<div class="attention">
+By default PIs, staff and administrators will be asked to authenticate themselves with a second factor in SUPR, a Time-based One-time Password (TOTP)
+</div>
+
+---
+
+# Logging in with SSH keys
+
+* Once your SSH public key is properly registered, you can login from a terminal, or by using Putty.
+
 <div class="information">
 
 https://www.pdc.kth.se/support/documents/login/ssh_login.html
@@ -437,7 +483,7 @@ Mar 25 09:45 Mar 25 19:45 FI krbtgt/NADA.KTH.SE@NADA.KTH.SE
 <div class="column50 columnlightblue">
 
 * Remote desktop environment 
-* Graphical user interface for many softwares
+* Graphical user interface for many software
 * Interactive job launcher
 
 <div class="information">
@@ -552,7 +598,7 @@ $ ml av PDC
 
 * Every PDC module relate to a specific version of **CPE**
 * Every software is installed under a specific **CPE**
-* To access the softwares you need to first...
+* To access the software you need to first...
   ```
   $ ml PDC/[VERSION]
   ```
