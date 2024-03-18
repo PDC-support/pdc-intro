@@ -160,8 +160,11 @@ https://singularity-hub.org/
 
 ### singularityCE (Community Edition)
 
-- Latest version: 3.11.0 (2023-02-17)
-- Installed on Dardel: 3.10.4
+- Installed on Dardel: 4.1.1
+
+### AppTainer
+
+- Installed on Dardel: 1.2.5
 
 ---
 
