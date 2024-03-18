@@ -51,28 +51,17 @@ The AMD Radeon Open Compute (ROCm) platform is a software stack for programming 
 
 # Setting up a GPU build environment
 
-- Load version 5.0.2 of ROCm with
+- Load the PDC/23.03 module and version 5.0.2 of ROCm with
+    - ``ml PDC/23.03``
     - ``ml rocm/5.0.2``
 
 - Set the accelerator target to **amd-gfx90a** (AMD MI250X GPU)
     - ``ml craype-accel-amd-gfx90a``
 
 - Choose one of the available toolchains (Cray, Gnu, AOCC)
-    - ``ml cpeCray/22.06``
-    - ``ml cpeGNU/22.06``
-    - ``ml cpeAOCC/22.06``
-
----
-
-# Experimental GPU build environment
-
-Some programs a require a more recent version of the CPE and of ROCm. We have CPE 22.12 and ROCm 5.3.3 available on the GPUs. This combination of software is not officially supported by HPE but seems to work quite well and contains some additional functionality.
-
-   - ``ml cpe/22.12``
-   - ``ml rocm/5.3.3``
-   - ``ml craype-accel-amd-gfx90a``
-
-The CPE version 22.12 is available **on the GPU nodes**. We recommend these versions to more advanced users.
+    - ``ml cpeCray/23.03``
+    - ``ml cpeGNU/23.03``
+    - ``ml cpeAOCC/23.03``
 
 ---
 
