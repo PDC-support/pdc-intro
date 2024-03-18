@@ -199,3 +199,20 @@ python3 -c 'import site; print(site.getsitepackages())'
 (base) user@uan01:~>
 ```
 
+---
+# Working with Jupyter Notebooks
+- Disclaimer: Jupyter notebooks can be run trough Thinlinc. 
+- Make sure you have installed jupyter notebooks in your conda environment:
+```
+conda install jupyterlab
+```
+- Then start a Jupyter notebooks without browser:
+```
+jupyter-notebook 
+```
+**Important:** Do not run a Jupyter notebook in the login node, instead get an interactive node allocation:
+```
+salloc --nodes=<n> -t 1:00:00 -A <project>
+```
+
+

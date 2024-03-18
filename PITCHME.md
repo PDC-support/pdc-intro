@@ -2201,7 +2201,7 @@ wait
 
 # Using Python virtual environment
 
-### Xin Li
+### Xin Li (Updated by Juan de Gracia)
 
 ---
 
@@ -2241,13 +2241,13 @@ python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ```
-ml cray-python/3.9.12.1
+ml cray-python/3.9.13.1
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ```
-ml PDC/22.06 anaconda3/2021.05
+ml PDC/23.03 anaconda3/2023.09-0
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
 ```
@@ -2268,7 +2268,7 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 * Recommendation: use with cray-python
   ```
-  ml cray-python/3.9.12.1
+  ml cray-python/3.9.13.1
 
   cd $HOME
   python3 -m venv myenv
@@ -2314,7 +2314,7 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 * Load anaconda3
   ```
-  ml PDC/22.06 anaconda3/2021.05
+  ml PDC/23.03 anaconda3/2023.09-0
   ```
 
 * Initialize conda
@@ -2335,14 +2335,14 @@ python3 -c 'import site; print(site.getsitepackages())'
     ```
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/pdc/software/22.06/eb/software/anaconda3/2021.05/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    __conda_setup="$('/pdc/software/23.03/eb/software/anaconda3/2023.09-0/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "/pdc/software/22.06/eb/software/anaconda3/2021.05/etc/profile.d/conda.sh" ]; then
-            . "/pdc/software/22.06/eb/software/anaconda3/2021.05/etc/profile.d/conda.sh"
+        if [ -f "/pdc/software/23.03/eb/software/anaconda3/2023.09-0/etc/profile.d/conda.sh" ]; then
+            . "/pdc/software/23.03/eb/software/anaconda3/2023.09-0/etc/profile.d/conda.sh"
         else
-            export PATH="/pdc/software/22.06/eb/software/anaconda3/2021.05/bin:$PATH"
+            export PATH="/pdc/software/23.03/eb/software/anaconda3/2023.09-0/bin:$PATH"
         fi
     fi
     unset __conda_setup
@@ -2395,4 +2395,21 @@ python3 -c 'import site; print(site.getsitepackages())'
 (my-conda-env) user@uan01:~> conda deactivate
 (base) user@uan01:~>
 ```
+
+---
+# Working with Jupyter Notebooks
+- Disclaimer: Jupyter notebooks can be run trough Thinlinc. 
+- Make sure you have installed jupyter notebooks in your conda environment:
+```
+conda install jupyterlab
+```
+- Then start a Jupyter notebooks without browser:
+```
+jupyter-notebook 
+```
+**Important:** Do not run a Jupyter notebook in the login node, instead get an interactive node allocation:
+```
+salloc --nodes=<n> -t 1:00:00 -A <project>
+```
+
 
