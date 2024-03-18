@@ -45,7 +45,7 @@ The AMD Radeon Open Compute (ROCm) platform is a software stack for programming 
     - Offloading to GPU with OpenMP directives
     - The SYCL programming model
 
-- [AMD ROCm Information Portal](https://rocmdocs.amd.com/)
+- [AMD ROCm Information Portal](https://rocm.docs.amd.com/en/latest/)
 
 ---
 
