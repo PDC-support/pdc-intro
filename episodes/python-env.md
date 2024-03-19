@@ -4,7 +4,7 @@
 
 # Using Python virtual environment
 
-### Xin Li (Updated by Juan de Gracia)
+### Xin Li, Juan de Gracia
 
 ---
 
@@ -176,7 +176,7 @@ python3 -c 'import site; print(site.getsitepackages())'
   ```
 * Why is ``site-packages`` still under ``anaconda3``?
   ```
-  ['/pdc/software/22.06/eb/software/anaconda3/2021.05/lib/python3.8/site-packages']
+  ['/pdc/software/23.03/eb/software/anaconda3/2023.09-0/lib/python3.11/site-packages']
   ```
 
 ---
@@ -184,10 +184,10 @@ python3 -c 'import site; print(site.getsitepackages())'
 # Virtual environment with ``conda``
 
 ```
-(my-conda-env) user@uan01:~> conda install python=3.8
+(my-conda-env) user@uan01:~> conda install python=3.9
 
 (my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
-['/cfs/klemming/home/u/user/.conda/envs/my-conda-env/lib/python3.8/site-packages']
+['/cfs/klemming/home/u/user/.conda/envs/my-conda-env/lib/python3.9/site-packages']
 ```
 
 ---
