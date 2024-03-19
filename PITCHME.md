@@ -1008,7 +1008,7 @@ ml openblas/0.3.24-gcc-s34
 ```
 
 ```
-export $ROOTOPENBLAS=/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2
+export ROOTOPENBLAS=/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2
 cc dgemm_test.c -o dgemm_test_openblas.x -I$ROOTOPENBLAS/include -L$ROOTOPENBLAS/lib -lopenblas
 ```
 
@@ -1040,7 +1040,7 @@ libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /.../0.3.24-gcc-s34.../lib/libopenblas.so.0
+libopenblas.so.0 => /.../openblas-0.3.24-s34z4q2/lib/libopenblas.so.0
 ...
 ```
 
@@ -1115,11 +1115,10 @@ ml show openblas/0.3.24-gcc-s34
 
 ```
 whatis("OpenBLAS: An optimized BLAS library")
-conflict("openblas")
+prepend_path("PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/bin")
 prepend_path("LD_LIBRARY_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/lib")
 prepend_path("PKG_CONFIG_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/lib/pkgconfig")
 prepend_path("CMAKE_PREFIX_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/.")
-prepend_path("PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/bin")
 ...
 ```
 
@@ -1208,11 +1207,11 @@ prepend_path("PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/bin")
 
 # Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
 
+* Copy job script [job-n1.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n1.sh)
+    - for running on 1 MPI processes with different number of OpenMP threads
+
 * Copy job script [job-n2.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n2.sh)
     - for running on 2 MPI processes with different number of OpenMP threads
-
-* Copy job script [job-n4.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n4.sh)
-    - for running on 4 MPI processes with different number of OpenMP threads
 
 * Submit two jobs
 
@@ -1224,12 +1223,12 @@ prepend_path("PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/bin")
 
   | Setting | Timing |
   | --- | --- |
-  | 2 MPI x 8 OMP | Time spent in matmul: 2.030 sec|
-  | 2 MPI x 4 OMP | Time spent in matmul: 3.361 sec|
-  | 2 MPI x 2 OMP | Time spent in matmul: 6.231 sec|
-  | 4 MPI x 4 OMP | Time spent in matmul: 1.774 sec|
-  | 4 MPI x 2 OMP | Time spent in matmul: 3.208 sec|
-  | 4 MPI x 1 OMP | Time spent in matmul: 5.720 sec|
+  | 1 MPI x 16 OMP | Time spent in matmul: 2.307 sec|
+  | 1 MPI x  8 OMP | Time spent in matmul: 3.924 sec|
+  | 1 MPI x  4 OMP | Time spent in matmul: 6.626 sec|
+  | 2 MPI x  8 OMP | Time spent in matmul: 2.034 sec|
+  | 2 MPI x  4 OMP | Time spent in matmul: 3.287 sec|
+  | 2 MPI x  2 OMP | Time spent in matmul: 6.188 sec|
 ---
 
 <!-- Section: Job script for efficient utilization of hardware -->
@@ -2200,7 +2199,7 @@ wait
 
 # Using Python virtual environment
 
-### Xin Li (Updated by Juan de Gracia)
+### Xin Li, Juan de Gracia
 
 ---
 
@@ -2372,7 +2371,7 @@ python3 -c 'import site; print(site.getsitepackages())'
   ```
 * Why is ``site-packages`` still under ``anaconda3``?
   ```
-  ['/pdc/software/22.06/eb/software/anaconda3/2021.05/lib/python3.8/site-packages']
+  ['/pdc/software/23.03/eb/software/anaconda3/2023.09-0/lib/python3.11/site-packages']
   ```
 
 ---
@@ -2380,10 +2379,10 @@ python3 -c 'import site; print(site.getsitepackages())'
 # Virtual environment with ``conda``
 
 ```
-(my-conda-env) user@uan01:~> conda install python=3.8
+(my-conda-env) user@uan01:~> conda install python=3.9
 
 (my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
-['/cfs/klemming/home/u/user/.conda/envs/my-conda-env/lib/python3.8/site-packages']
+['/cfs/klemming/home/u/user/.conda/envs/my-conda-env/lib/python3.9/site-packages']
 ```
 
 ---
