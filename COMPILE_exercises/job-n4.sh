@@ -10,9 +10,9 @@
 #SBATCH --ntasks=4
 #SBATCH --cpus-per-task=8
 
-ml PDC/22.06
-ml cpeGNU/22.06
-ml cray-python/3.9.12.1
+ml PDC/23.03
+ml cpeGNU/23.03
+ml cray-python/3.9.13.1
 
 export OMP_PLACES=cores
 

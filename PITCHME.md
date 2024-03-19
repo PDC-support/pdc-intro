@@ -911,11 +911,11 @@ Reference page: [Compilers and libraries](https://www.pdc.kth.se/support/documen
 The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
 
 * In practice, we recommend
-    - ``ml cpeCray/22.06``
-    - ``ml cpeGNU/22.06``
-    - ``ml cpeAOCC/22.06``
+    - ``ml cpeCray/23.03``
+    - ``ml cpeGNU/23.03``
+    - ``ml cpeAOCC/23.03``
 
-* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/22.06``
+* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/23.03``
 
 * No need to ``module swap`` or ``module unload``
 
@@ -957,7 +957,7 @@ The Cray Programming Environment (CPE) provides consistent interface to multiple
 
 ---
 
-# What flags do the ``ftn`` wrapper activate?
+# What flags does the ``ftn`` wrapper activate?
 
 * Use the flag ``-craype-verbose``
 
@@ -990,7 +990,7 @@ user@uan01:> srun -n 8 ./hello_world_mpi.x
 Use cray-libsci
 
 ```
-ml PDC/22.06 cpeGNU/22.06
+ml PDC/23.03 cpeGNU/23.03
 ```
 
 ```
@@ -1004,11 +1004,12 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 Use openblas
 
 ```
-ml openblas/0.3.20-cpeGNU-22.06
+ml openblas/0.3.24-gcc-s34
 ```
 
 ```
-cc dgemm_test.c -o dgemm_test_openblas.x -I$EBROOTOPENBLAS/include -L$EBROOTOPENBLAS/lib -lopenblas
+export $ROOTOPENBLAS=/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2
+cc dgemm_test.c -o dgemm_test_openblas.x -I$ROOTOPENBLAS/include -L$ROOTOPENBLAS/lib -lopenblas
 ```
 
 ---
@@ -1039,7 +1040,7 @@ libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /.../0.3.20-cpeGNU-22.06.../lib/libopenblas.so.0
+libopenblas.so.0 => /.../0.3.24-gcc-s34.../lib/libopenblas.so.0
 ...
 ```
 
@@ -1049,7 +1050,7 @@ libopenblas.so.0 => /.../0.3.20-cpeGNU-22.06.../lib/libopenblas.so.0
 
 * Run on a single core in the ``shared`` partition
   ```
-  salloc -n 1 -t 10 -p shared -A <name-of-allocation> --reservation=<name-of-reservation>
+  salloc -n 1 -t 10 -p shared -A <name-of-allocation>
   srun -n 1 ./dgemm_test_craylibsci.x
   srun -n 1 ./dgemm_test_openblas.x
   exit
@@ -1067,7 +1068,7 @@ libopenblas.so.0 => /.../0.3.20-cpeGNU-22.06.../lib/libopenblas.so.0
 # Exercise: Compile and run ``fftw_test`` code
 
 ```
-ml cray-fftw/3.3.10.1
+ml cray-fftw/3.3.10.3
 
 wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
 
@@ -1076,7 +1077,7 @@ cc fftw_test.c -o fftw_test.x
 
 ldd fftw_test.x
 
-salloc -n 1 -t 10 -p shared -A <name-of-allocation> --reservation=<name-of-reservation>
+salloc -n 1 -t 10 -p shared -A <name-of-allocation>
 srun -n 1 ./fftw_test.x
 ```
 
@@ -1109,18 +1110,16 @@ srun -n 1 ./fftw_test.x
 # What happens when loading a module
 
 ```
-ml show openblas/0.3.20-cpeGNU-22.06
+ml show openblas/0.3.24-gcc-s34
 ```
 
 ```
-whatis("Description: OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version.")
+whatis("OpenBLAS: An optimized BLAS library")
 conflict("openblas")
-prepend_path("CMAKE_PREFIX_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06")
-prepend_path("CPATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/include")
-prepend_path("LD_LIBRARY_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/lib")
-prepend_path("LIBRARY_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/lib")
-prepend_path("PKG_CONFIG_PATH","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06/lib/pkgconfig")
-setenv("EBROOTOPENBLAS","/pdc/software/22.06/eb/software/openblas/0.3.20-cpeGNU-22.06")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/lib")
+prepend_path("PKG_CONFIG_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/lib/pkgconfig")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/.")
+prepend_path("PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/bin")
 ...
 ```
 
