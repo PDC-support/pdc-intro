@@ -8,6 +8,7 @@ episodes = {
     'compile-on-gpu.md': 'Compiling and running code on GPU nodes',
     'singularity.md': 'Using Singularity',
     'matlab.md': 'Using Matlab',
+    'mattheocodes.md': 'Materials theory codes',
     'python-env.md': 'Using Python virtual environment',
 }
 
