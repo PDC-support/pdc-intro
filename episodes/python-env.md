@@ -8,28 +8,28 @@
 
 ---
 
-# Why virtual environment?
+# Why Use a Virtual Environment?
 
-* We often need to use a number of Python packages
+* **Python packages are essential tools** that help us accomplish various tasks in programming. Examples include:
   ```
-  import A
-  from B import C
-  import D as E
+  import numpy
+  from pandas import DataFrame
+  import matplotlib.pyplot as plt
   ```
-* When working with multiple projects, it is not uncommon that different projects have conflicting requirements of packages
-* On HPC platform, different users may have conflicting needs of packages
+* **Projects have unique needs:** Different projects may require different versions of the same package, leading to conflicts.
+* **Shared systems complicate package management:** On High-Performance Computing (HPC) platforms, multiple users' needs might clash due to different package requirements.
 
 ---
 
 # Why virtual environment?
 
-Without virtual environment, Python packages are installed
+Without virtual environment, Python packages are installed globally:
 
-* either in system site directory
+* **System site directory:** Where Python is installed and accessible by all users.
   ```
   python3 -c 'import site; print(site.getsitepackages())'
   ```
-* or in the so-called user base
+* **User base directory:** A user-specific area to avoid needing system-wide permissions.
   ```
   echo $HOME/.local
   ```
@@ -59,11 +59,10 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 # Python virtual environment
 
-* Isolated run-time environment
-* Install and execute Python packages without interfering with the outside world
-* Two ways of creating and managing virtual environment
-    - ``venv``
-    - ``conda``
+* **What is a Virtual Environment?** An isolated environment allowing you to manage packages for individual projects without conflicts and without interfering with the outside world.
+* **How to Manage Virtual Environments?**
+    - Using Python's built-in `venv` module.
+    - Using `conda`, a powerful package manager and environment manager.
 
 ---
 
@@ -78,7 +77,7 @@ python3 -c 'import site; print(site.getsitepackages())'
 
   source myenv/bin/activate
   ```
-
+  Your prompt changes to indicate the active environment:
   ```
   (myvenv) user@uan01:~>
   ```
