@@ -2500,16 +2500,16 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 # Virtual environment with ``conda``
 
-* Load anaconda3
+* Load Anaconda: Prepares your system to use Anaconda packages and tools.
   ```
   ml PDC/23.03 anaconda3/2023.09-0
   ```
 
-* Initialize conda
+* Initialize Conda: Sets up Conda in your current shell session.
   ```
   source conda_init_bash.sh
   ```
-
+* Your prompt changes to show (base), indicating Conda is ready.
   ```
   (base) user@uan01:~>
   ```
@@ -2543,23 +2543,29 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 # Virtual environment with ``conda``
 
-```
-(base) user@uan01:~> conda create --name my-conda-env
+  * Create and activate a conda environment:
 
-(base) user@uan01:~> conda activate my-conda-env
+    ```
+    (base) user@uan01:~> conda create --name my-conda-env
 
-(my-conda-env) user@uan01:~>
-```
+    (base) user@uan01:~> conda activate my-conda-env
+    ```
+
+  * Your prompt now indicates the active environment, e.g., (my-conda-env).
+
+    ```
+    (my-conda-env) user@uan01:~>
+    ```
 
 ---
 
 # Virtual environment with ``conda``
 
-* Now try the site-packages directory again
+* Check Installation Path: Understand where Conda places your environment's packages.
   ```
   (my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
   ```
-* Why is ``site-packages`` still under ``anaconda3``?
+* Anaconda's Default Directory: Packages are placed in Anaconda's directory unless specified otherwise.
   ```
   ['/pdc/software/23.03/eb/software/anaconda3/2023.09-0/lib/python3.11/site-packages']
   ```
@@ -2568,36 +2574,59 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 # Virtual environment with ``conda``
 
-```
-(my-conda-env) user@uan01:~> conda install python=3.9
+* Customize Python Version: Tailor your environment to use a particular Python version.
 
-(my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
-['/cfs/klemming/home/u/user/.conda/envs/my-conda-env/lib/python3.9/site-packages']
-```
+  ```
+  (my-conda-env) user@uan01:~> conda install python=3.9
+  ```
+
+* Verify Package Location: Confirm that packages are in your environment's directory.
+  ```
+  (my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
+  ['/cfs/klemming/home/u/user/.conda/envs/my-conda-env/lib/python3.9/site-packages']
+  ```
 
 ---
 
 # Virtual environment with ``conda``
+* Deactivate: Return to the base environment or your system's default settings.
+
+  ```
+  (my-conda-env) user@uan01:~> conda deactivate
+  (base) user@uan01:~>
+  ```
+
+
+---
+# Customizing Environment Location with --prefix
+
 
 ```
-(my-conda-env) user@uan01:~> conda deactivate
-(base) user@uan01:~>
+conda create --prefix /path/to/myenv python=3.8
 ```
+Replace /path/to/myenv with your desired location.
+Activating with --prefix:
+```
+conda activate /path/to/myenv
+```
+Advantage: One can install the environment in a project directory and not be bounded to the memory limitation of the `$HOME`
 
 ---
 # Working with Jupyter Notebooks
-- Disclaimer: Jupyter notebooks can be run trough Thinlinc. 
-- Make sure you have installed jupyter notebooks in your conda environment:
-```
-conda install jupyterlab
-```
-- Then start a Jupyter notebooks without browser:
-```
-jupyter-notebook 
-```
-**Important:** Do not run a Jupyter notebook in the login node, instead get an interactive node allocation:
-```
-salloc --nodes=<n> -t 1:00:00 -A <project>
-```
+
+* Disclaimer: Jupyter notebooks can be run trough Thinlinc. 
+
+* Make sure you have installed jupyter notebooks in your conda environment:
+  ```
+  conda install jupyterlab
+  ```
+* Then start a Jupyter notebooks without browser:
+  ```
+  jupyter-notebook 
+  ```
+* **Important:** Do not run a Jupyter notebook in the login node, instead get an interactive node allocation:
+  ```
+  salloc --nodes=<n> -t 1:00:00 -A <project>
+  ```
 
 
