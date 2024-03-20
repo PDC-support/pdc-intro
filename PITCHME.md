@@ -2208,7 +2208,7 @@ Reference page: [Available software](https://www.pdc.kth.se/software)
 ---
 
 ## Types of computer codes for materials theory modelling
-  - Density functional theory (DFT) programs. Often with the DFT extended with for intance dynamical mean field theory (DMFT), GW, hybrid functionals.
+  - Density functional theory (DFT) programs. Often with the DFT extended with for instance dynamical mean field theory (DMFT), GW, hybrid functionals.
   - Atomistic modelling of magnetic or lattice degree of freedom with Monte Carlo or equations of motion solvers
   - Modelling of quantum mechanical many body Hamiltonians
   - ... and more
@@ -2259,10 +2259,8 @@ Reference page: [General information about VASP](https://www.pdc.kth.se/software
 #SBATCH -t 04:00:00
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=128
-
 ml PDC/23.03
 ml abinit/9.10.3-cpeGNU-23.03
-
 export ABI_PSPDIR=<pseudo potentials directory>
 srun -n 128 abinit <input file>.abi > out.log
 ```
@@ -2303,8 +2301,7 @@ Reference page: [General information about Elk](https://www.pdc.kth.se/software/
 - For maintaining and installing (new versions) of materials theory codes on Dardel, we are mainly using the EasyBuild system. To build Elk 9.2.12 under CPE 23.03, load and launch an EasyBuild with
 
 ```
-ml PDC/23.03
-ml easybuild-user/4.8.2
+ml PDC/23.03 easybuild-user/4.8.2
 eb elk-9.2.12-cpeGNU-23.03.eb --robot
 ```
 
@@ -2329,8 +2326,7 @@ Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/sup
 
 # Materials theory codes available on Dardel via Spack
 
-Some codes can be built and installed in your own file area using Spack. Load a Spack user module with
-`ml PDC/23.03 spack-user/0.21.0`.
+Some codes can be built and installed in your own file area using Spack. Load a Spack user module with `ml PDC/23.03 spack-user/0.21.0`.
 
 Examples of Spack specs for building on Dardel
 - Siesta `spack install siesta@4.0.2%gcc@12.2.0`
@@ -2354,8 +2350,7 @@ Reference page: [Installing software using Spack](https://www.pdc.kth.se/support
 
 # Exercise 1: Run a DFT simulation with ABINIT
 
-Perform a calculation on two Dardel CPU compute nodes with the ABINIT package for modeling of condensed matter.
-The example calculation is a DFT simulation with of the properties of the material SrVO3.
+Perform a calculation on two Dardel CPU compute nodes with the ABINIT package for modeling of condensed matter. The example calculation is a DFT simulatio of the properties of the material SrVO3.
 
 
 Exercise instructions: See [Submit a batch job to the queue](https://www.pdc.kth.se/support/documents/basics/quickstart.html#submit-a-batch-job-to-the-queue) and scroll down to the heading *Example 2: Submit a batch job to queue for a center installed software*
@@ -2364,7 +2359,7 @@ Exercise instructions: See [Submit a batch job to the queue](https://www.pdc.kth
 
 # Exercise 2: Build the most recent version of Elk
 
-As of 20240314, the most recent version of Elk globally installed on Dardel is 9.2.12. How to build and make local intall of the newer version 9.5.1?
+As of 20240320, the most recent version of Elk globally installed on Dardel is 9.2.12. How to build and make local intall of the newer version 9.5.1?
 
 - First make a local installation of Elk 9.2.12. Why is the `--rebuild` flag needed?
 
