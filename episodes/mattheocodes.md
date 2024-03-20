@@ -6,6 +6,9 @@
 
 ### Johan Hellsvik
 
+
+Reference page: (Available software](https://www.pdc.kth.se/software)
+
 ---
 
 ## Types of computer codes for materials theory modelling
@@ -32,7 +35,7 @@
 
 ## The Vienna Ab initio Simulation Package (VASP)
 
-- General purpose program for electronic structure calculations and quantum-mechanical molecular dynamics, from first principles.
+- General purpose program for electronic structure calculations and quantum-mechanical molecular dynamics from first principles.
 
 - VASP is licensed software. For NAISS systems, the VASP licenses are managed on the [SUPR](https://supr.naiss.se/) web portal.
 
@@ -52,13 +55,7 @@ Reference page: [General information about VASP](https://www.pdc.kth.se/software
 
 - General purpose program for electronic structure calculations and quantum-mechanical molecular dynamics, from first principles, using pseudopotentials and a planewave or wavelet basis.
 
-- To use ABINIT on the Dardel CPU nodes
-
-```
-ml PDC/23.03
-ml abinit/9.10.3-cpeGNU-23.03
-```
-- Example job script
+- Example ABINIT job script
 
 ```
 #!/bin/bash
@@ -82,9 +79,7 @@ Reference page: [General information about ABINIT](https://www.pdc.kth.se/softwa
 
 ## Elk
 
-- Elk is an all-electron full-potential linearised augmented-planewave (FP-LAPW) code.
-
-- Example job script for a hybrid MPI and OpenMP Elk calculation on Dardel
+- Elk is an all-electron full-potential linearised augmented-planewave (FP-LAPW) code. Example job script for a hybrid MPI and OpenMP Elk calculation on Dardel
 
 ```
 #!/bin/bash
@@ -95,16 +90,13 @@ Reference page: [General information about ABINIT](https://www.pdc.kth.se/softwa
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
 #SBATCH --cpus-per-task=16
-
 ml PDC/23.03
 ml elk/9.2.12-cpeGNU-23.03
-
 export OMP_NUM_THREADS=8
 export OMP_PLACES=cores
 export OMP_PROC_BIND=false
 export OMP_STACKSIZE=256M
 ulimit -Ss unlimited
-
 echo "Script initiated at `date` on `hostname`"
 srun -n 16 elk > out.log
 echo "Script finished at `date` on `hostname`"
@@ -119,12 +111,12 @@ Reference page: [General information about Elk](https://www.pdc.kth.se/software/
 
 - For maintaining and installing (new versions) of materials theory codes on Dardel, we are mainly using the EasyBuild system.
 
-- To build Elk 8.8.26 under CPE 22.06, load and launch an EasyBuild with
+- To build Elk 9.2.12 under CPE 23.03, load and launch an EasyBuild with
 
 ```
-ml PDC/22.06
-ml easybuild-user/4.6.2
-eb elk-8.8.26-cpeGNU-22.06.eb --robot
+ml PDC/23.03
+ml easybuild-user/4.8.2
+eb elk-9.2.12-cpeGNU-23.03.eb --robot
 ```
 
 - The easyconfig build configuration for Elk on Dardel has been ported to LUMI. See and compare the easyconfigs
@@ -145,11 +137,11 @@ Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/sup
 
 - The [Quantum ESPRESSO](https://www.pdc.kth.se/software/software/Quantum-ESPRESSO/index_general.html) integrated suite of open-Source computer codes for electronic-structure calculations and materials modeling at the nanoscale
 
-- [CP2K](https://www.pdc.kth.se/software/software/cp2k/index_general.html) is a program to perform atomistic and molecular simulations of solid state, liquid, molecular, and biological systems.
+- [CP2K](https://www.pdc.kth.se/software/software/cp2k/index_general.html), a program to perform atomistic and molecular simulations of solid state, liquid, molecular, and biological systems.
 
 ---
 
-# DFT codes available on Dardel via Spack
+# Materials theory codes available on Dardel via Spack
 
 Some codes can be built and installed in your own file area using Spack. To load a Spack user module
 
@@ -164,8 +156,6 @@ Examples of Spack specs for building on Dardel
 - BerkeleyGW `spack install berkeleygw@3.0.1%gcc@12.2.0`
 - Yambo `spack install yambo@5.1.1%gcc@12.2.0 +dp +openmp`
 - BigDFT `spack install bigdft-core@1.9.2%gcc@12.2.0`
-- Phonopy `spack install py-phonopy@1.10.0%gcc@12.2.0`
-- Wannier90 `spack install wannier90@3.1.0%gcc@12.2.0`
 
 Reference page: [Installing software using Spack](https://www.pdc.kth.se/support/documents/software_development/spack.html)
 
@@ -174,7 +164,7 @@ Reference page: [Installing software using Spack](https://www.pdc.kth.se/support
 # Other materials theory programs and tools
 
 - The [Spglib](https://www.pdc.kth.se/software/software/Spglib/index_general.html) library for finding and handling crystal symmetries
-- The [Uppsala Atomistic Spin Dynamics (UppASD)](https://www.pdc.kth.se/software/software/UppASD/index_general.html) software package is a simulation suite to study magnetization dynamics by means of the atomistic version of the Landau-Lifshitz-Gilbert (LLG) equation.
+- The [Uppsala Atomistic Spin Dynamics (UppASD)](https://www.pdc.kth.se/software/software/UppASD/index_general.html) software package, a simulation suite to study magnetization dynamics by means of the atomistic version of the Landau-Lifshitz-Gilbert (LLG) equation.
 - The [Wannier90](https://www.pdc.kth.se/software/software/Wannier90/index_general.html) open-source code for generating maximally-localized Wannier functions and using them to compute advanced electronic properties of materials with high efficiency and accuracy.
 - Phonopy for modelling of phonons `spack install py-phonopy@1.10.0%gcc@12.2.0`
 
@@ -182,10 +172,47 @@ Reference page: [Installing software using Spack](https://www.pdc.kth.se/support
 
 # Exercise 1: Run a DFT simulation with ABINIT
 
+Perform a calculation on two Dardel CPU compute nodes with the ABINIT package for modeling of condensed matter.
+The example calculation is a DFT simulation with of the properties of the material SrVO3.
+
+
+Exercise instructions: See [Submit a batch job to the queue](https://www.pdc.kth.se/support/documents/basics/quickstart.html#submit-a-batch-job-to-the-queue) and scroll down to the heading *Example 2: Submit a batch job to queue for a center installed software*
+
 ---
 
 # Exercise 2: Make a build of the most recent version of Elk
 
+As of 20240314, the most recent version of Elk globally installed on Dardel is 9.2.12. How to build and make local intall of the newer version 9.5.1?
+
+- Make a local installation of Elk 9.2.12
+
+```
+ml PDC/23.03
+ml easybuild-user/4.8.2
+ml eb elk-9.2.12-cpeGNU-23.03.eb --robot --rebuild
+```
+
+- Use the easyfonfig ´elk-9.2.12-cpeGNU-23.03.eb´ as a template to construct a file ´elk-9.5.1-cpeGNU-23.03.eb´
+
+- Build and install locally with
+
+```
+ml eb elk-9.5.1-cpeGNU-23.03.eb --robot --rebuild
+```
+
+
+Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/support/documents/software_development/easybuild.html)
+
 ---
 
-# Exercise 3: Calculate phase diagram of bcc Fe with UppASD
+# Exercise 3: Calculate the magnetic phase diagram of bcc Fe with UppASD
+
+UppASD is a program for simulating atomistic spin dynamics at finite temperatures, which makes it possible to describe magnetization dynamics on an atomic level. Magnetic phase diagrams and thermodynamical properties of a magnetic Hamiltonian can be investigated with techniques for Monte Carlo simulations.
+
+In this exercise you will calculate the magnetic phase diagram of bulk bcc Fe. Exercise instructions: [Determination of Tc
+of a ferromagnetic material](https://uppasd.github.io/UppASD-manual/tutorial/#determination-of-t-c-of-a-ferromagnetic-material)
+
+Reference pages:
+- [UppASD manual](https://uppasd.github.io/UppASD-manual/)
+- [UppASD tutorial](https://uppasd.github.io/UppASD-tutorial/)
+- [UppASD autumn school 2022](https://www.pdc.kth.se/about/events/training/uppasd-autumn-school-2022-1.1187827)
