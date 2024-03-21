@@ -323,6 +323,18 @@ Singularity>
 
 ---
 
+# Use a writeable image
+
+When opening a container for write you can install software in the container.
+
+```
+$ sudo singularity shell -w my_sandbox
+Singularity> apt-get update
+```
+<span style="color:red;">**Tip:** No root is needed for *update* as we are already root</span>
+
+---
+
 # Transfer files into container
 
 **Read mode:** You can read/write to file system outside container and

@@ -73,8 +73,8 @@ style: |
 #
 # Introduction to PDC
 ![bg](intro_pdc/img/first_slide.jpg)
-## XX
-## 2024-01-22
+## Henric Zazzi
+## 2024-03-21
 
 ---
 
@@ -85,10 +85,10 @@ style: |
 1. [Infrastructure at PDC](#15)
 1. [How to login](#18)
 1. [File systems, permissions and transfer](#28)
-1. [Modules](#30)
-1. [How to run jobs](#33)
-1. [How to compile](#42)
-1. [How to contact PDC support](#45)
+1. [Modules](#31)
+1. [How to run jobs](#34)
+1. [How to compile](#43)
+1. [How to contact PDC support](#46)
 
 ---
 
@@ -382,8 +382,8 @@ https://www.pdc.kth.se/support/documents/login/ssh_keys.html#ssh-keys
 
 # Login portal
 
-* For uploading your *public key* goto https://loginportal.pdc.kth.se/
-* You need to **log in to SUPR** to verify your account
+* Goto https://loginportal.pdc.kth.se/
+* **log in to SUPR** to verify your account
 * In SUPR Press **Prove my identity to PDC** 
 * Back in *PDC login* Press **Add new key** and set...
   * Name
@@ -496,6 +496,10 @@ https://www.pdc.kth.se/support/documents/login/interactive_hpc.html
 
 ---
 
+# File systems, permissions and transfer
+
+---
+
 # File systems at PDC
 
 <div class="row">
@@ -590,15 +594,17 @@ prepend-path	 LD_LIBRARY_PATH /pdc/vol/R/4.0.0/lib64/
 
 # Accessing the Cray Programming Environment
 
+* Simple softwares are available directly
+* Optimized softwares are available under **PDC** module
+
 ```
 $ ml av PDC
 ---- /pdc/software/modules ---------------------
-      PDC/21.09    PDC/21.11    PDC/22.06 (L,D)
+      PDC/22.06    PDC/23.03 (L,D)
 ```
 
-* Every PDC module relate to a specific version of **CPE**
-* Every software is installed under a specific **CPE**
-* To access the software you need to first...
+* Every **PDC** module relate to a specific version of **CPE**
+* To access parallel software you need to first...
   ```
   $ ml PDC/[VERSION]
   ```
@@ -641,7 +647,11 @@ Usage: projinfo [-u <username>] [-c <clustername>] [-a] [-o] [-m] [-c <cluster>]
 -p [DNR] : only print information about this project
 -h : prints this help
 ```
-Statistics are also available at… 
+<div class="column columnlightblue">
+Shows information about membership, allocation use, storage paths, and stored quota
+</div>
+
+Usage statistics for every allocation are also available at… 
 https://pdc-web.eecs.kth.se/cluster_usage/
 
 ---
@@ -718,7 +728,8 @@ $ salloc -t <min> -N <nodes> -A <allocation> -p shared ...
 | Parameter | Description |
 | --- | --- |
 | -n [tasks] | Allocates n tasks |
-| --cpus-per-task [cores] | Allocates cores=ntasks*cpus-per-task (Default n=1) |
+| --cpus-per-task [cores] | Allocates cores=ntasks*cpus-per-task |
+| | (Default cpus-per-task=1) |
 
 
 <div class="attention">

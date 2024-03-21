@@ -45,7 +45,8 @@ style: |
 
 # Introduction to Singularity
 
-# Henric Zazzi
+## Henric Zazzi
+## 2024-03-21
 ![height:200px center](img/singularity/SingularityLogos_CE.png)
 
 ---
@@ -312,6 +313,18 @@ INFO:    Build complete: my_sandbox
 $ singularity shell my_sandbox
 Singularity>
 ```
+
+---
+
+# Use a writeable image
+
+When opening a container for write you can install software in the container.
+
+```
+$ sudo singularity shell -w my_sandbox
+Singularity> apt-get update
+```
+<span style="color:red;">**Tip:** No root is needed for *update* as we are already root</span>
 
 ---
 
