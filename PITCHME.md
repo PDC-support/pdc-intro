@@ -2538,6 +2538,7 @@ python3 -c 'import site; print(site.getsitepackages())'
     ```
 
 * ``conda init bash`` may append the above script to your ``~/.bashrc`` but this is not recommended on an HPC system.
+* *Note:* Alternatively we can create a ``~/.bashrc.conda.dardel`` file and source it.
 
 ---
 
@@ -2565,25 +2566,30 @@ python3 -c 'import site; print(site.getsitepackages())'
   ```
   (my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
   ```
-* Anaconda's Default Directory: Packages are placed in Anaconda's directory unless specified otherwise.
+* Anaconda's Default Directory: Packages are placed in Anaconda's directory **unless specified otherwise**.
   ```
   ['/pdc/software/23.03/eb/software/anaconda3/2023.09-0/lib/python3.11/site-packages']
   ```
+* **Important:** We do not want to create our environments under the `anaconda3` instalation directory!
 
 ---
 
 # Virtual environment with ``conda``
 
-* Customize Python Version: Tailor your environment to use a particular Python version.
+* We have seen that we cannot rely on the default behaviour of `conda create`.
+* To circumvent this issue we will add a `~/.condarc` file specifying where environments and packages are installed
+  ```
+  pkgs_dirs:
+      - /cfs/klemming/home/u/username/conda-dirs/pkgs
+  envs_dirs:
+      - /cfs/klemming/home/u/username/conda-dirs/envs 
+  ```
 
-  ```
-  (my-conda-env) user@uan01:~> conda install python=3.9
-  ```
 
 * Verify Package Location: Confirm that packages are in your environment's directory.
   ```
   (my-conda-env) user@uan01:~> python3 -c 'import site; print(site.getsitepackages())'
-  ['/cfs/klemming/home/u/user/.conda/envs/my-conda-env/lib/python3.9/site-packages']
+  ['/cfs/klemming/home/u/user/conda-dirs/envs/my-conda-env/lib/python3.9/site-packages']
   ```
 
 ---
@@ -2601,15 +2607,15 @@ python3 -c 'import site; print(site.getsitepackages())'
 # Customizing Environment Location with --prefix
 
 
-```
-conda create --prefix /path/to/myenv python=3.8
-```
-Replace /path/to/myenv with your desired location.
-Activating with --prefix:
-```
-conda activate /path/to/myenv
-```
-Advantage: One can install the environment in a project directory and not be bounded to the memory limitation of the `$HOME`
+  ```
+  conda create --prefix /path/to/myenv python=3.8
+  ```
+  - Replace /path/to/myenv with your desired location.
+  Activating with --prefix:
+  ```
+  conda activate /path/to/myenv
+  ```
+  - Advantage: One can install the environment in a project directory and not be bounded to the memory limitation of the `$HOME`
 
 ---
 # Working with Jupyter Notebooks
