@@ -2350,7 +2350,7 @@ Reference page: [Installing software using Spack](https://www.pdc.kth.se/support
 
 # Exercise 1: Run a DFT simulation with ABINIT
 
-Perform a calculation on two Dardel CPU compute nodes with the ABINIT package for modeling of condensed matter. The example calculation is a DFT simulatio of the properties of the material SrVO3.
+Perform a calculation on two Dardel CPU compute nodes with the ABINIT package for modeling of condensed matter. The example calculation is a DFT simulation of the properties of the material SrVO3.
 
 
 Exercise instructions: See [Submit a batch job to the queue](https://www.pdc.kth.se/support/documents/basics/quickstart.html#submit-a-batch-job-to-the-queue) and scroll down to the heading *Example 2: Submit a batch job to queue for a center installed software*
@@ -2365,10 +2365,10 @@ As of 20240320, the most recent version of Elk globally installed on Dardel is 9
 
 ```
 ml PDC/23.03 easybuild-user/4.8.2
-ml eb elk-9.2.12-cpeGNU-23.03.eb --robot --rebuild
+eb elk-9.2.12-cpeGNU-23.03.eb --robot --rebuild
 ```
 
-- Use the easyfonfig ´elk-9.2.12-cpeGNU-23.03.eb´ as a template to construct a file ´elk-9.5.1-cpeGNU-23.03.eb´. Then build and install locally with `ml eb elk-9.5.1-cpeGNU-23.03.eb --robot`.
+- Use the easyfonfig `elk-9.2.12-cpeGNU-23.03.eb` as a template to construct a file `elk-9.5.1-cpeGNU-23.03.eb`. Then build and install locally with `eb elk-9.5.1-cpeGNU-23.03.eb --robot`.
 
 Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/support/documents/software_development/easybuild.html)
 
@@ -2376,7 +2376,7 @@ Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/sup
 
 # Exercise 3: Calculate the magnetic phase diagram of bcc Fe with UppASD
 
-UppASD is a program for simulating atomistic spin dynamics at finite temperatures, which makes it possible to describe magnetization dynamics on an atomic level. Magnetic phase diagrams and thermodynamical properties of a magnetic Hamiltonian can be investigated with techniques for Monte Carlo simulations.
+[UppASD](https://www.pdc.kth.se/software/software/UppASD/index_general.html) is a program for simulating atomistic spin dynamics at finite temperatures, which makes it possible to describe magnetization dynamics on an atomic level. Magnetic phase diagrams and thermodynamical properties of a magnetic Hamiltonian can be investigated with techniques for Monte Carlo simulations.
 
 In this exercise you will calculate the magnetic phase diagram of bulk bcc Fe. Exercise instructions: [Determination of Tc of a ferromagnetic material](https://uppasd.github.io/UppASD-manual/tutorial/#determination-of-t-c-of-a-ferromagnetic-material)
 
