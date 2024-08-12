@@ -74,7 +74,7 @@ style: |
 # Introduction to PDC
 ![bg](intro_pdc/img/first_slide.jpg)
 ## Henric Zazzi
-## 2024-03-21
+## 2024-08-16
 
 ---
 
@@ -322,9 +322,9 @@ Evaluated on a technical and scientific level twice a year
 
 ![center](intro_pdc/img/dardel.png)
 
-**Nodes:** 1270
-**Cores:** 158976
-**Peak performance:** 13.5 PFLOPS
+**Nodes:** 1278
+**Cores:** 163584
+**Peak performance:** 13.32 PFLOPS
 
 </div>
 <div class="column50 columnlightblue">
@@ -600,7 +600,7 @@ prepend-path	 LD_LIBRARY_PATH /pdc/vol/R/4.0.0/lib64/
 ```
 $ ml av PDC
 ---- /pdc/software/modules ---------------------
-      PDC/22.06    PDC/23.03 (L,D)
+      PDC/23.03    PDC/23.12 (L,D)
 ```
 
 * Every **PDC** module relate to a specific version of **CPE**
