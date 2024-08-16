@@ -435,7 +435,7 @@ Tickets should always be created on your local computer
 
 <div class="information">
 
-https://www.pdc.kth.se/support/documents/login/login.html
+https://www.pdc.kth.se/support/documents/login/kerberos_login.html
 </div>
 
 ---
