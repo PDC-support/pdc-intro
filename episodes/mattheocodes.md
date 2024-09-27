@@ -42,8 +42,8 @@ Reference page: [Available software](https://www.pdc.kth.se/software)
 - To use VASP on the Dardel CPU nodes
 
 ```
-ml PDC/23.03 # Load the PDC/23.03 module
-ml av vasp # List all VASP modules in PDC/23.03
+ml PDC/23.12 # Load the PDC/23.12 module
+ml av vasp # List all VASP modules in PDC/23.12
 ml vasp/6.3.2-vanilla # Load one of the VASP modules
 ```
 
@@ -63,8 +63,8 @@ Reference page: [General information about VASP](https://www.pdc.kth.se/software
 #SBATCH -t 04:00:00
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=128
-ml PDC/23.03
-ml abinit/9.10.3-cpeGNU-23.03
+ml PDC/23.12
+ml abinit/10.0.5-cpeGNU-23.12
 export ABI_PSPDIR=<pseudo potentials directory>
 srun -n 128 abinit <input file>.abi > out.log
 ```
@@ -86,7 +86,7 @@ Reference page: [General information about ABINIT](https://www.pdc.kth.se/softwa
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
 #SBATCH --cpus-per-task=16
-ml PDC/23.03 elk/9.2.12-cpeGNU-23.03
+ml PDC/23.12 elk/9.5.14-cpeGNU-23.12
 export OMP_NUM_THREADS=8
 export OMP_PLACES=cores
 export OMP_PROC_BIND=false
@@ -102,16 +102,16 @@ Reference page: [General information about Elk](https://www.pdc.kth.se/software/
 
 ## How to build Elk
 
-- For maintaining and installing (new versions) of materials theory codes on Dardel, we are mainly using the EasyBuild system. To build Elk 9.2.12 under CPE 23.03, load and launch an EasyBuild with
+- For maintaining and installing (new versions) of materials theory codes on Dardel, we are mainly using the EasyBuild system. To build Elk 9.5.14 under CPE 23.12, load and launch an EasyBuild with
 
 ```
-ml PDC/23.03 easybuild-user/4.8.2
-eb elk-9.2.12-cpeGNU-23.03.eb --robot
+ml PDC/23.12 easybuild-user/4.9.2
+eb elk-9.5.14-cpeGNU-23.12.eb --robot
 ```
 
 - A program that has been EasyBuilt and installed on Dardel can (often) be straightforwardly ported to a build configuration for LUMI. Or vice versa, a build on LUMI can be ported for Dardel. The easyconfig build configuration for Elk on Dardel has been ported to LUMI. See and compare the easyconfigs
 
-  - Dardel [elk-9.2.12-cpeGNU-23.03.eb](https://github.com/PDC-support/PDC-SoftwareStack/blob/master/easybuild/easyconfigs/e/elk-9.2.12-cpeGNU-23.03.eb)
+  - Dardel [elk-9.5.14-cpeGNU-23.12.eb](https://github.com/PDC-support/PDC-SoftwareStack/blob/master/easybuild/easyconfigs/e/elk-9.5.14-cpeGNU-23.12.eb)
   - LUMI [Elk-8.7.10-cpeGNU-22.12.eb](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib/blob/main/easybuild/easyconfigs/e/Elk/Elk-8.7.10-cpeGNU-22.12.eb)
 
 Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/support/documents/software_development/easybuild.html)
@@ -130,14 +130,14 @@ Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/sup
 
 # Materials theory codes available on Dardel via Spack
 
-Some codes can be built and installed in your own file area using Spack. Load a Spack user module with `ml PDC/23.03 spack-user/0.21.0`.
+Some codes can be built and installed in your own file area using Spack. Load a Spack user module with `ml PDC/23.12 spack-user/0.21.2`.
 
 Examples of Spack specs for building on Dardel
-- Siesta `spack install siesta@4.0.2%gcc@12.2.0`
-- Sirius `spack install sirius@7.4.3%gcc@12.2.0 ^spla@1.5.5%cce@15.0.1`
-- BerkeleyGW `spack install berkeleygw@3.0.1%gcc@12.2.0`
-- Yambo `spack install yambo@5.1.1%gcc@12.2.0 +dp +openmp`
-- BigDFT `spack install bigdft-core@1.9.2%gcc@12.2.0`
+- Siesta `spack install siesta@4.0.2%gcc@12.3.0`
+- Sirius `spack install sirius@7.4.3%gcc@12.3.0 ^spla@1.5.5%cce@15.0.1`
+- BerkeleyGW `spack install berkeleygw@3.0.1%gcc@12.3.0`
+- Yambo `spack install yambo@5.1.1%gcc@12.3.0 +dp +openmp`
+- BigDFT `spack install bigdft-core@1.9.2%gcc@12.3.0`
 
 Reference page: [Installing software using Spack](https://www.pdc.kth.se/support/documents/software_development/spack.html)
 
@@ -148,7 +148,7 @@ Reference page: [Installing software using Spack](https://www.pdc.kth.se/support
 - The [Spglib](https://www.pdc.kth.se/software/software/Spglib/index_general.html) library for finding and handling crystal symmetries
 - The [Uppsala Atomistic Spin Dynamics (UppASD)](https://www.pdc.kth.se/software/software/UppASD/index_general.html) software package, a simulation suite to study magnetization dynamics by means of the atomistic version of the Landau-Lifshitz-Gilbert (LLG) equation.
 - The [Wannier90](https://www.pdc.kth.se/software/software/Wannier90/index_general.html) open-source code for generating maximally-localized Wannier functions and using them to compute advanced electronic properties of materials with high efficiency and accuracy.
-- Phonopy for modelling of phonons `spack install py-phonopy@1.10.0%gcc@12.2.0`
+- Phonopy for modelling of phonons `spack install py-phonopy@1.10.0%gcc@12.3.0`
 
 ---
 
@@ -163,16 +163,16 @@ Exercise instructions: See [Submit a batch job to the queue](https://www.pdc.kth
 
 # Exercise 2: Build the most recent version of Elk
 
-As of 20240320, the most recent version of Elk globally installed on Dardel is 9.2.12. How to build and make local intall of the newer version 9.5.1?
+As of 20240320, the most recent version of Elk globally installed on Dardel is 9.5.14. How to build and make local intall of the newer version 10.0.15?
 
-- First make a local installation of Elk 9.2.12. Why is the `--rebuild` flag needed?
+- First make a local installation of Elk 9.5.14. Why is the `--rebuild` flag needed?
 
 ```
-ml PDC/23.03 easybuild-user/4.8.2
-eb elk-9.2.12-cpeGNU-23.03.eb --robot --rebuild
+ml PDC/23.12 easybuild-user/4.8.2
+eb elk-9.5.14-cpeGNU-23.12.eb --robot --rebuild
 ```
 
-- Use the easyfonfig `elk-9.2.12-cpeGNU-23.03.eb` as a template to construct a file `elk-9.5.1-cpeGNU-23.03.eb`. Then build and install locally with `eb elk-9.5.1-cpeGNU-23.03.eb --robot`.
+- Use the easyfonfig `elk-9.5.14-cpeGNU-23.12.eb` as a template to construct a file `elk-10.0.15-cpeGNU-23.12.eb`. Then build and install locally with `eb elk-10.0.15-cpeGNU-23.12.eb --robot`.
 
 Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/support/documents/software_development/easybuild.html)
 
