@@ -15,11 +15,11 @@ Reference page: [Compilers and libraries](https://www.pdc.kth.se/support/documen
 The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
 
 * In practice, we recommend
-    - ``ml cpeCray/23.03``
-    - ``ml cpeGNU/23.03``
-    - ``ml cpeAOCC/23.03``
+    - ``ml cpeCray/23.12``
+    - ``ml cpeGNU/23.12``
+    - ``ml cpeAOCC/23.12``
 
-* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/23.03``
+* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/23.12``
 
 * No need to ``module swap`` or ``module unload``
 
@@ -94,7 +94,7 @@ user@uan01:> srun -n 8 ./hello_world_mpi.x
 Use cray-libsci
 
 ```
-ml PDC/23.03 cpeGNU/23.03
+ml PDC/23.12 cpeGNU/23.12
 ```
 
 ```
@@ -108,11 +108,11 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 Use openblas
 
 ```
-ml openblas/0.3.24-gcc-s34
+ml openblas/0.3.24-gcc-lt3
 ```
 
 ```
-export ROOTOPENBLAS=/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2
+export ROOTOPENBLAS=/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7
 cc dgemm_test.c -o dgemm_test_openblas.x -I$ROOTOPENBLAS/include -L$ROOTOPENBLAS/lib -lopenblas
 ```
 
@@ -144,7 +144,7 @@ libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /.../openblas-0.3.24-s34z4q2/lib/libopenblas.so.0
+libopenblas.so.0 => /.../openblas-0.3.24-lt3cwy7/lib/libopenblas.so.0
 ...
 ```
 
@@ -214,15 +214,15 @@ srun -n 1 ./fftw_test.x
 # What happens when loading a module
 
 ```
-ml show openblas/0.3.24-gcc-s34
+ml show openblas/0.3.24-gcc-lt3
 ```
 
 ```
 whatis("OpenBLAS: An optimized BLAS library")
-prepend_path("PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/bin")
-prepend_path("LD_LIBRARY_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/lib")
-prepend_path("PKG_CONFIG_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/lib/pkgconfig")
-prepend_path("CMAKE_PREFIX_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/.")
+prepend_path("PATH","/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7/bin")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7/lib")
+prepend_path("PKG_CONFIG_PATH","/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7/lib/pkgconfig")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7/.")
 ...
 ```
 
