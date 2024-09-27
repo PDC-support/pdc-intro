@@ -44,13 +44,13 @@ python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ```
-ml cray-python/3.9.13.1
+ml cray-python/3.11.5
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ```
-ml PDC/23.03 anaconda3/2023.09-0
+ml PDC/23.12 anaconda3/2024.02-1
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
 ```
@@ -70,7 +70,7 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 * Recommendation: use with cray-python
   ```
-  ml cray-python/3.9.13.1
+  ml cray-python/3.11.5
 
   cd $HOME
   python3 -m venv myenv
@@ -116,7 +116,7 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 * Load Anaconda: Prepares your system to use Anaconda packages and tools.
   ```
-  ml PDC/23.03 anaconda3/2023.09-0
+  ml PDC/23.12 anaconda3/2024.02-1
   ```
 
 * Initialize Conda: Sets up Conda in your current shell session.
@@ -136,15 +136,17 @@ python3 -c 'import site; print(site.getsitepackages())'
 
     ```
     # >>> conda initialize >>>
+
+    # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/pdc/software/23.03/eb/software/anaconda3/2023.09-0/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    __conda_setup="$('//pdc/software/23.12/eb/software/anaconda3/2024.02-1-cpeGNU-23.12/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "/pdc/software/23.03/eb/software/anaconda3/2023.09-0/etc/profile.d/conda.sh" ]; then
-            . "/pdc/software/23.03/eb/software/anaconda3/2023.09-0/etc/profile.d/conda.sh"
+        if [ -f "/pdc/software/23.12/eb/software/anaconda3/2024.02-1-cpeGNU-23.12/etc/profile.d/conda.sh" ]; then
+            . "/pdc/software/23.12/eb/software/anaconda3/2024.02-1-cpeGNU-23.12/etc/profile.d/conda.sh"
         else
-            export PATH="/pdc/software/23.03/eb/software/anaconda3/2023.09-0/bin:$PATH"
+            export PATH="/pdc/software/23.12/eb/software/anaconda3/2024.02-1-cpeGNU-23.12/bin:$PATH"
         fi
     fi
     unset __conda_setup
@@ -182,7 +184,7 @@ python3 -c 'import site; print(site.getsitepackages())'
   ```
 * Anaconda's Default Directory: Packages are placed in Anaconda's directory **unless specified otherwise**.
   ```
-  ['/pdc/software/23.03/eb/software/anaconda3/2023.09-0/lib/python3.11/site-packages']
+  ['/pdc/software/23.12/eb/software/anaconda3/2024.02-1/lib/python3.11/site-packages']
   ```
 * **Important:** We do not want to create our environments under the `anaconda3` instalation directory!
 
