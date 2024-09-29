@@ -113,7 +113,7 @@ ml openblas/0.3.24-gcc-lt3
 
 ```
 export ROOTOPENBLAS=/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7
-cc dgemm_test.c -o dgemm_test_openblas.x -I$ROOTOPENBLAS/include -L$ROOTOPENBLAS/lib -lopenblas
+cc dgemm_test.c -o dgemm_test_openblas.x -I$ROOTOPENBLAS/include -L$ROOTOPENBLAS/lib -lopenblas64__zen-r0.3.24
 ```
 
 ---
@@ -136,7 +136,7 @@ ldd dgemm_test_openblas.x
 ldd dgemm_test_craylibsci.x
 
 ...
-libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
+libsci_gnu_123.so.6 => /opt/cray/pe/lib64/libsci_gnu_123.so.6
 ...
 ```
 
@@ -144,7 +144,7 @@ libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /.../openblas-0.3.24-lt3cwy7/lib/libopenblas.so.0
+libopenblas64_.so.0 => /pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7/lib/libopenblas64_.so.0
 ...
 ```
 

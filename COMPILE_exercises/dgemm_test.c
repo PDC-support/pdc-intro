@@ -23,7 +23,7 @@ int main (int argc, char* argv[])
 
     double* c = (double*)malloc(sizeof(double) * narow * nbcol);
 
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, narow, nbcol, nacol, 1.0, a, nacol, b, nbcol, 0.0, c, nbcol);
+    cblas_dgemm64_(CblasRowMajor, CblasNoTrans, CblasNoTrans, narow, nbcol, nacol, 1.0, a, nacol, b, nbcol, 0.0, c, nbcol);
 
     for (int i = 0; i < narow; i++) {
         for (int j = 0; j < nbcol; j++) {
