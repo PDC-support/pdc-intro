@@ -172,7 +172,7 @@ libopenblas64_.so.0 => /pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7/lib/lib
 # Exercise: Compile and run ``fftw_test`` code
 
 ```
-ml cray-fftw/3.3.10.3
+ml cray-fftw/3.3.10.6
 
 wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
 
