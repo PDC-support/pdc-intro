@@ -1005,12 +1005,19 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 Use openblas
 
 ```
-ml openblas/0.3.24-gcc-lt3
+ml PDC/23.12 openblas/0.3.28-cpeGNU-23.12
 ```
 
 ```
-export ROOTOPENBLAS=/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7
-cc dgemm_test.c -o dgemm_test_openblas.x -I$ROOTOPENBLAS/include -L$ROOTOPENBLAS/lib -lopenblas
+cc dgemm_test.c -o dgemm_test_openblas.x -I$EBROOTOPENBLAS/include -L$EBROOTOPENBLAS/lib -lopenblas
+```
+where the environment variable `EBROOTOPENBLAS` had been set when loading the OpenBLAS module. Its module file includes a statement
+```
+setenv("EBROOTOPENBLAS","/pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12")
+```
+which corresponds to an export statement
+```
+export EBROOTOPENBLAS=/pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12
 ```
 
 ---
@@ -1033,7 +1040,7 @@ ldd dgemm_test_openblas.x
 ldd dgemm_test_craylibsci.x
 
 ...
-libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
+libsci_cray.so.6 => /opt/cray/pe/lib64/libsci_cray.so.6
 ...
 ```
 
@@ -1041,13 +1048,13 @@ libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /.../openblas-0.3.24-lt3cwy7/lib/libopenblas.so.0
+libopenblas.so.0 => /pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12/lib/libopenblas.so.0
 ...
 ```
 
 ---
 
-# Exercise: Compile and run the dgemm_test code
+# Test run the dgemm_test code
 
 * Run on a single core in the ``shared`` partition
   ```
@@ -1069,7 +1076,7 @@ libopenblas.so.0 => /.../openblas-0.3.24-lt3cwy7/lib/libopenblas.so.0
 # Exercise: Compile and run ``fftw_test`` code
 
 ```
-ml cray-fftw/3.3.10.3
+ml cray-fftw/3.3.10.6
 
 wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
 
@@ -1111,15 +1118,16 @@ srun -n 1 ./fftw_test.x
 # What happens when loading a module
 
 ```
-ml show openblas/0.3.24-gcc-lt3
+ml show elpa/2023.05.001-cpeGNU-23.12
 ```
 
 ```
-whatis("OpenBLAS: An optimized BLAS library")
-prepend_path("PATH","/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7/bin")
-prepend_path("LD_LIBRARY_PATH","/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7/lib")
-prepend_path("PKG_CONFIG_PATH","/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7/lib/pkgconfig")
-prepend_path("CMAKE_PREFIX_PATH","/pdc/software/23.12/spack/openblas-0.3.24-lt3cwy7/.")
+whatis("Description: ELPA - Eigenvalue SoLvers for Petaflop-Applications")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib")
+prepend_path("LIBRARY_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib")
+prepend_path("PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/bin")
+prepend_path("PKG_CONFIG_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib/pkgconfig")
 ...
 ```
 
