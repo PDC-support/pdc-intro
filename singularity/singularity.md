@@ -501,6 +501,34 @@ Recipes for images that can be used on PDC clusters can be found at https://gith
 
 ---
 
+# How to build from a recipe on Dardel
+
+#### Create sylabs token
+1. Login into sylabs https://cloud.sylabs.io/builder
+1. Press USERNAME -> Access tokens
+1. Enter a name for your token and press Create Access Token
+1. Copy or download the token.
+
+<div class="row">
+<div class="column50">
+
+```
+ml PDC singularity
+singularity remote login
+```
+
+</div><div class="column50">
+
+The first time you run this command on the cluster, it will save your access token to your profile.
+
+</div></div>
+
+```
+singularity build --remote --sandbox <sandbox name> <recipe name>
+```
+
+---
+
 # Printing how a container was built
 
 ```
