@@ -912,11 +912,11 @@ Reference page: [Compilers and libraries](https://www.pdc.kth.se/support/documen
 The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
 
 * In practice, we recommend
-    - ``ml cpeCray/23.03``
-    - ``ml cpeGNU/23.03``
-    - ``ml cpeAOCC/23.03``
+    - ``ml cpeCray/23.12``
+    - ``ml cpeGNU/23.12``
+    - ``ml cpeAOCC/23.12``
 
-* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/23.03``
+* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/23.12``
 
 * No need to ``module swap`` or ``module unload``
 
@@ -991,7 +991,7 @@ user@uan01:> srun -n 8 ./hello_world_mpi.x
 Use cray-libsci
 
 ```
-ml PDC/23.03 cpeGNU/23.03
+ml PDC/23.12 cpeGNU/23.12
 ```
 
 ```
@@ -1005,12 +1005,19 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 Use openblas
 
 ```
-ml openblas/0.3.24-gcc-s34
+ml PDC/23.12 openblas/0.3.28-cpeGNU-23.12
 ```
 
 ```
-export ROOTOPENBLAS=/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2
-cc dgemm_test.c -o dgemm_test_openblas.x -I$ROOTOPENBLAS/include -L$ROOTOPENBLAS/lib -lopenblas
+cc dgemm_test.c -o dgemm_test_openblas.x -I$EBROOTOPENBLAS/include -L$EBROOTOPENBLAS/lib -lopenblas
+```
+where the environment variable `EBROOTOPENBLAS` had been set when loading the OpenBLAS module. Its module file includes a statement
+```
+setenv("EBROOTOPENBLAS","/pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12")
+```
+which corresponds to an export statement
+```
+export EBROOTOPENBLAS=/pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12
 ```
 
 ---
@@ -1033,7 +1040,7 @@ ldd dgemm_test_openblas.x
 ldd dgemm_test_craylibsci.x
 
 ...
-libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
+libsci_cray.so.6 => /opt/cray/pe/lib64/libsci_cray.so.6
 ...
 ```
 
@@ -1041,13 +1048,13 @@ libsci_gnu_82.so.5 => /opt/cray/pe/lib64/libsci_gnu_82.so.5
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /.../openblas-0.3.24-s34z4q2/lib/libopenblas.so.0
+libopenblas.so.0 => /pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12/lib/libopenblas.so.0
 ...
 ```
 
 ---
 
-# Exercise: Compile and run the dgemm_test code
+# Test run the dgemm_test code
 
 * Run on a single core in the ``shared`` partition
   ```
@@ -1069,7 +1076,7 @@ libopenblas.so.0 => /.../openblas-0.3.24-s34z4q2/lib/libopenblas.so.0
 # Exercise: Compile and run ``fftw_test`` code
 
 ```
-ml cray-fftw/3.3.10.3
+ml cray-fftw/3.3.10.6
 
 wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
 
@@ -1111,15 +1118,16 @@ srun -n 1 ./fftw_test.x
 # What happens when loading a module
 
 ```
-ml show openblas/0.3.24-gcc-s34
+ml show elpa/2023.05.001-cpeGNU-23.12
 ```
 
 ```
-whatis("OpenBLAS: An optimized BLAS library")
-prepend_path("PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/bin")
-prepend_path("LD_LIBRARY_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/lib")
-prepend_path("PKG_CONFIG_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/lib/pkgconfig")
-prepend_path("CMAKE_PREFIX_PATH","/pdc/software/23.03/spack/openblas-0.3.24-s34z4q2/.")
+whatis("Description: ELPA - Eigenvalue SoLvers for Petaflop-Applications")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib")
+prepend_path("LIBRARY_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib")
+prepend_path("PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/bin")
+prepend_path("PKG_CONFIG_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib/pkgconfig")
 ...
 ```
 
@@ -1766,17 +1774,17 @@ The AMD Radeon Open Compute (ROCm) platform is a software stack for programming 
 
 # Setting up a GPU build environment
 
-- Load the PDC/23.03 module and version 5.0.2 of ROCm with
-    - ``ml PDC/23.03``
-    - ``ml rocm/5.0.2``
+- Load the PDC/23.12 module and version 5.7.0 of ROCm with
+    - ``ml PDC/23.12``
+    - ``ml rocm/5.7.0``
 
 - Set the accelerator target to **amd-gfx90a** (AMD MI250X GPU)
     - ``ml craype-accel-amd-gfx90a``
 
 - Choose one of the available toolchains (Cray, Gnu, AOCC)
-    - ``ml cpeCray/23.03``
-    - ``ml cpeGNU/23.03``
-    - ``ml cpeAOCC/23.03``
+    - ``ml cpeCray/23.12``
+    - ``ml cpeGNU/23.12``
+    - ``ml cpeAOCC/23.12``
 
 ---
 
@@ -1891,7 +1899,7 @@ Build and test run a Hello World C++ code which offloads to GPU via HIP.
    - ``wget https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp``
 
 - Load the ROCm module and set the accelerator target to amd-gfx90a (AMD MI250X GPU)
-   - ``ml rocm/5.0.2``
+   - ``ml rocm/5.7.0``
    - ``ml craype-accel-amd-gfx90a``
 
 - Compile the code with the AMD hipcc compiler on the login node
@@ -1925,7 +1933,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
     - ``wget https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90``
 
 - Load the ROCm module and set the accelerator target to amd-gfx90a
-    - ``ml rocm/5.0.2 craype-accel-amd-gfx90a``
+    - ``ml rocm/5.7.0 craype-accel-amd-gfx90a``
 
 - Compile the code on the login node
     - ``ftn -fopenmp ex04.F90 -o ex04.x``
@@ -1957,7 +1965,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
 - Alternatively, login to the reserved GPU node (here nid002792) ``ssh nid002792``.
 
 - Load ROCm, activate verbose runtime information, and run the program
-    - ``ml rocm/5.0.2``
+    - ``ml rocm/5.7.0``
     - ``export CRAY_ACC_DEBUG=3``
     - ``./ex04.x``
 
@@ -2240,8 +2248,8 @@ Reference page: [Available software](https://www.pdc.kth.se/software)
 - To use VASP on the Dardel CPU nodes
 
 ```
-ml PDC/23.03 # Load the PDC/23.03 module
-ml av vasp # List all VASP modules in PDC/23.03
+ml PDC/23.12 # Load the PDC/23.12 module
+ml av vasp # List all VASP modules in PDC/23.12
 ml vasp/6.3.2-vanilla # Load one of the VASP modules
 ```
 
@@ -2261,8 +2269,8 @@ Reference page: [General information about VASP](https://www.pdc.kth.se/software
 #SBATCH -t 04:00:00
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=128
-ml PDC/23.03
-ml abinit/9.10.3-cpeGNU-23.03
+ml PDC/23.12
+ml abinit/10.0.5-cpeGNU-23.12
 export ABI_PSPDIR=<pseudo potentials directory>
 srun -n 128 abinit <input file>.abi > out.log
 ```
@@ -2284,7 +2292,7 @@ Reference page: [General information about ABINIT](https://www.pdc.kth.se/softwa
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
 #SBATCH --cpus-per-task=16
-ml PDC/23.03 elk/9.2.12-cpeGNU-23.03
+ml PDC/23.12 elk/9.5.14-cpeGNU-23.12
 export OMP_NUM_THREADS=8
 export OMP_PLACES=cores
 export OMP_PROC_BIND=false
@@ -2300,16 +2308,16 @@ Reference page: [General information about Elk](https://www.pdc.kth.se/software/
 
 ## How to build Elk
 
-- For maintaining and installing (new versions) of materials theory codes on Dardel, we are mainly using the EasyBuild system. To build Elk 9.2.12 under CPE 23.03, load and launch an EasyBuild with
+- For maintaining and installing (new versions) of materials theory codes on Dardel, we are mainly using the EasyBuild system. To build Elk 9.5.14 under CPE 23.12, load and launch an EasyBuild with
 
 ```
-ml PDC/23.03 easybuild-user/4.8.2
-eb elk-9.2.12-cpeGNU-23.03.eb --robot
+ml PDC/23.12 easybuild-user/4.9.2
+eb elk-9.5.14-cpeGNU-23.12.eb --robot
 ```
 
 - A program that has been EasyBuilt and installed on Dardel can (often) be straightforwardly ported to a build configuration for LUMI. Or vice versa, a build on LUMI can be ported for Dardel. The easyconfig build configuration for Elk on Dardel has been ported to LUMI. See and compare the easyconfigs
 
-  - Dardel [elk-9.2.12-cpeGNU-23.03.eb](https://github.com/PDC-support/PDC-SoftwareStack/blob/master/easybuild/easyconfigs/e/elk-9.2.12-cpeGNU-23.03.eb)
+  - Dardel [elk-9.5.14-cpeGNU-23.12.eb](https://github.com/PDC-support/PDC-SoftwareStack/blob/master/easybuild/easyconfigs/e/elk-9.5.14-cpeGNU-23.12.eb)
   - LUMI [Elk-8.7.10-cpeGNU-22.12.eb](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib/blob/main/easybuild/easyconfigs/e/Elk/Elk-8.7.10-cpeGNU-22.12.eb)
 
 Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/support/documents/software_development/easybuild.html)
@@ -2328,14 +2336,14 @@ Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/sup
 
 # Materials theory codes available on Dardel via Spack
 
-Some codes can be built and installed in your own file area using Spack. Load a Spack user module with `ml PDC/23.03 spack-user/0.21.0`.
+Some codes can be built and installed in your own file area using Spack. Load a Spack user module with `ml PDC/23.12 spack-user/0.21.2`.
 
 Examples of Spack specs for building on Dardel
-- Siesta `spack install siesta@4.0.2%gcc@12.2.0`
-- Sirius `spack install sirius@7.4.3%gcc@12.2.0 ^spla@1.5.5%cce@15.0.1`
-- BerkeleyGW `spack install berkeleygw@3.0.1%gcc@12.2.0`
-- Yambo `spack install yambo@5.1.1%gcc@12.2.0 +dp +openmp`
-- BigDFT `spack install bigdft-core@1.9.2%gcc@12.2.0`
+- Siesta `spack install siesta@4.0.2%gcc@12.3.0`
+- Sirius `spack install sirius@7.4.3%gcc@12.3.0 ^spla@1.5.5%cce@15.0.1`
+- BerkeleyGW `spack install berkeleygw@3.0.1%gcc@12.3.0`
+- Yambo `spack install yambo@5.1.1%gcc@12.3.0 +dp +openmp`
+- BigDFT `spack install bigdft-core@1.9.2%gcc@12.3.0`
 
 Reference page: [Installing software using Spack](https://www.pdc.kth.se/support/documents/software_development/spack.html)
 
@@ -2346,7 +2354,7 @@ Reference page: [Installing software using Spack](https://www.pdc.kth.se/support
 - The [Spglib](https://www.pdc.kth.se/software/software/Spglib/index_general.html) library for finding and handling crystal symmetries
 - The [Uppsala Atomistic Spin Dynamics (UppASD)](https://www.pdc.kth.se/software/software/UppASD/index_general.html) software package, a simulation suite to study magnetization dynamics by means of the atomistic version of the Landau-Lifshitz-Gilbert (LLG) equation.
 - The [Wannier90](https://www.pdc.kth.se/software/software/Wannier90/index_general.html) open-source code for generating maximally-localized Wannier functions and using them to compute advanced electronic properties of materials with high efficiency and accuracy.
-- Phonopy for modelling of phonons `spack install py-phonopy@1.10.0%gcc@12.2.0`
+- Phonopy for modelling of phonons `spack install py-phonopy@1.10.0%gcc@12.3.0`
 
 ---
 
@@ -2361,16 +2369,16 @@ Exercise instructions: See [Submit a batch job to the queue](https://www.pdc.kth
 
 # Exercise 2: Build the most recent version of Elk
 
-As of 20240320, the most recent version of Elk globally installed on Dardel is 9.2.12. How to build and make local intall of the newer version 9.5.1?
+As of 20240320, the most recent version of Elk globally installed on Dardel is 9.5.14. How to build and make local intall of the newer version 10.0.15?
 
-- First make a local installation of Elk 9.2.12. Why is the `--rebuild` flag needed?
+- First make a local installation of Elk 9.5.14. Why is the `--rebuild` flag needed?
 
 ```
-ml PDC/23.03 easybuild-user/4.8.2
-eb elk-9.2.12-cpeGNU-23.03.eb --robot --rebuild
+ml PDC/23.12 easybuild-user/4.8.2
+eb elk-9.5.14-cpeGNU-23.12.eb --robot --rebuild
 ```
 
-- Use the easyfonfig `elk-9.2.12-cpeGNU-23.03.eb` as a template to construct a file `elk-9.5.1-cpeGNU-23.03.eb`. Then build and install locally with `eb elk-9.5.1-cpeGNU-23.03.eb --robot`.
+- Use the easyfonfig `elk-9.5.14-cpeGNU-23.12.eb` as a template to construct a file `elk-10.0.15-cpeGNU-23.12.eb`. Then build and install locally with `eb elk-10.0.15-cpeGNU-23.12.eb --robot`.
 
 Reference page: [Installing software using EasyBuild](https://www.pdc.kth.se/support/documents/software_development/easybuild.html)
 
@@ -2432,13 +2440,13 @@ python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ```
-ml cray-python/3.9.13.1
+ml cray-python/3.11.5
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
 ```
 
 ```
-ml PDC/23.03 anaconda3/2023.09-0
+ml PDC/23.12 anaconda3/2024.02-1
 which python3
 python3 -c 'import site; print(site.getsitepackages())'
 ```
@@ -2458,7 +2466,7 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 * Recommendation: use with cray-python
   ```
-  ml cray-python/3.9.13.1
+  ml cray-python/3.11.5
 
   cd $HOME
   python3 -m venv myenv
@@ -2504,7 +2512,7 @@ python3 -c 'import site; print(site.getsitepackages())'
 
 * Load Anaconda: Prepares your system to use Anaconda packages and tools.
   ```
-  ml PDC/23.03 anaconda3/2023.09-0
+  ml PDC/23.12 anaconda3/2024.02-1
   ```
 
 * Initialize Conda: Sets up Conda in your current shell session.
@@ -2524,15 +2532,17 @@ python3 -c 'import site; print(site.getsitepackages())'
 
     ```
     # >>> conda initialize >>>
+
+    # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/pdc/software/23.03/eb/software/anaconda3/2023.09-0/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    __conda_setup="$('//pdc/software/23.12/eb/software/anaconda3/2024.02-1-cpeGNU-23.12/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "/pdc/software/23.03/eb/software/anaconda3/2023.09-0/etc/profile.d/conda.sh" ]; then
-            . "/pdc/software/23.03/eb/software/anaconda3/2023.09-0/etc/profile.d/conda.sh"
+        if [ -f "/pdc/software/23.12/eb/software/anaconda3/2024.02-1-cpeGNU-23.12/etc/profile.d/conda.sh" ]; then
+            . "/pdc/software/23.12/eb/software/anaconda3/2024.02-1-cpeGNU-23.12/etc/profile.d/conda.sh"
         else
-            export PATH="/pdc/software/23.03/eb/software/anaconda3/2023.09-0/bin:$PATH"
+            export PATH="/pdc/software/23.12/eb/software/anaconda3/2024.02-1-cpeGNU-23.12/bin:$PATH"
         fi
     fi
     unset __conda_setup
@@ -2570,7 +2580,7 @@ python3 -c 'import site; print(site.getsitepackages())'
   ```
 * Anaconda's Default Directory: Packages are placed in Anaconda's directory **unless specified otherwise**.
   ```
-  ['/pdc/software/23.03/eb/software/anaconda3/2023.09-0/lib/python3.11/site-packages']
+  ['/pdc/software/23.12/eb/software/anaconda3/2024.02-1/lib/python3.11/site-packages']
   ```
 * **Important:** We do not want to create our environments under the `anaconda3` instalation directory!
 

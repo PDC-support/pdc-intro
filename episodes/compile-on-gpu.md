@@ -53,17 +53,17 @@ The AMD Radeon Open Compute (ROCm) platform is a software stack for programming 
 
 # Setting up a GPU build environment
 
-- Load the PDC/23.03 module and version 5.0.2 of ROCm with
-    - ``ml PDC/23.03``
-    - ``ml rocm/5.0.2``
+- Load the PDC/23.12 module and version 5.7.0 of ROCm with
+    - ``ml PDC/23.12``
+    - ``ml rocm/5.7.0``
 
 - Set the accelerator target to **amd-gfx90a** (AMD MI250X GPU)
     - ``ml craype-accel-amd-gfx90a``
 
 - Choose one of the available toolchains (Cray, Gnu, AOCC)
-    - ``ml cpeCray/23.03``
-    - ``ml cpeGNU/23.03``
-    - ``ml cpeAOCC/23.03``
+    - ``ml cpeCray/23.12``
+    - ``ml cpeGNU/23.12``
+    - ``ml cpeAOCC/23.12``
 
 ---
 
@@ -178,7 +178,7 @@ Build and test run a Hello World C++ code which offloads to GPU via HIP.
    - ``wget https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp``
 
 - Load the ROCm module and set the accelerator target to amd-gfx90a (AMD MI250X GPU)
-   - ``ml rocm/5.0.2``
+   - ``ml rocm/5.7.0``
    - ``ml craype-accel-amd-gfx90a``
 
 - Compile the code with the AMD hipcc compiler on the login node
@@ -212,7 +212,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
     - ``wget https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90``
 
 - Load the ROCm module and set the accelerator target to amd-gfx90a
-    - ``ml rocm/5.0.2 craype-accel-amd-gfx90a``
+    - ``ml rocm/5.7.0 craype-accel-amd-gfx90a``
 
 - Compile the code on the login node
     - ``ftn -fopenmp ex04.F90 -o ex04.x``
@@ -244,7 +244,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
 - Alternatively, login to the reserved GPU node (here nid002792) ``ssh nid002792``.
 
 - Load ROCm, activate verbose runtime information, and run the program
-    - ``ml rocm/5.0.2``
+    - ``ml rocm/5.7.0``
     - ``export CRAY_ACC_DEBUG=3``
     - ``./ex04.x``
 
