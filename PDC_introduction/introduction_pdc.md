@@ -73,8 +73,8 @@ style: |
 #
 # Introduction to PDC
 ![bg](intro_pdc/img/first_slide.jpg)
-## Henric Zazzi
-## 2024-08-16
+## Arash Banaei
+## 2025-03-03
 
 ---
 
@@ -95,7 +95,6 @@ style: |
 # General information about PDC
 
 ---
-
 # NAISS
 
 <div class="row">
@@ -106,7 +105,7 @@ The National Academic Infrastructure for Supercomputing in Sweden (NAISS) is a i
 </div>
 <div class="column50">
 
-![height:570px center](intro_pdc/img/sweden.png)
+![height:520px center](intro_pdc/img/sweden.png)
 
 
 </div></div>
@@ -684,7 +683,7 @@ Time limit: 24h
 
 **Memory**
 512+ Gb RAM Exclusive node access
-Time limit: 24h
+Time limit: 7 days
 
 </div></div>
 <div class="row">
@@ -692,23 +691,26 @@ Time limit: 24h
 
 **Shared**
 Shared node access
-Time limit: 24h (most nodes), 7 days
+Time limit: 7 days
 
-</div></div>
+</div>
 <div class="attention">
-Partition are a mandatory entry for running jobs on Dardel
+<div class="column50 columnlightblue">
+
+**Partition is a mandatory entry for running jobs on Dardel**
+
 </div>
 
 
 ---
 
-# Using salloc
+# Running interactively
 
+#### One-time execution with srun
+```
+$ srun -t <min> -N <nodes> -A <allocation> -p <partition> -n <ntasks> ./MyPrgm
+```
 #### To book and execute on a dedicated node
-```
-$ salloc -t <min> -N <nodes> -A <allocation> -p <partition> srun -n <ntasks> ./MyPrgm
-```
-#### To run interactively
 ```
 $ salloc -t <min> -N <nodes> -A <allocation> -p <partition>
 $ ml [modulename]
@@ -728,7 +730,7 @@ $ salloc -t <min> -N <nodes> -A <allocation> -p shared ...
 | Parameter | Description |
 | --- | --- |
 | -n [tasks] | Allocates n tasks |
-| --cpus-per-task [cores] | Allocates cores=ntasks*cpus-per-task |
+| -c/--cpus-per-task [cores] | Allocates cores=ntasks*cpus-per-task |
 | | (Default cpus-per-task=1) |
 
 
@@ -819,9 +821,8 @@ $ scancel [jobID]
   ```
   $ ml cray-fftw
   ```
-
 * Other libraries are lapack, blas scalapack, blacs,...
-  https://www.pdc.kth.se/software/#libraries
+  https://support.pdc.kth.se/doc/support-docs/software_development/development/
 
 ---
 
@@ -855,14 +856,15 @@ $ hipcc --offload-arch=gfx90a MyPrgm.cpp -o MyPrgm
 ```
 <div class="information">
 
-https://www.pdc.kth.se/support/documents/software_development/development_gpu.html
+https://support.pdc.kth.se/doc/support-docs/software_development/development_gpu/
+
 </div>
 
 ---
 
 # PDC Support
 
-1. A lot of question can be answered via our web http://www.pdc.kth.se/support
+1. A lot of question can be answered via our web https://support.pdc.kth.se/doc
 1. The best way to contact us is via our ticketing system https://www.pdc.kth.se/support/documents/contact/contact_support.html
 1. The support request will be tracked
 1. Use a descriptive subject
