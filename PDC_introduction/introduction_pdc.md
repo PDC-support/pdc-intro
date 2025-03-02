@@ -374,7 +374,7 @@ You must be a member of an allocation in SUPR
 
 <div class="information">
 
-https://www.pdc.kth.se/support/documents/login/ssh_keys.html#ssh-keys
+https://support.pdc.kth.se/doc/support-docs/login/ssh_keys/
 </div>
 
 ---
@@ -401,7 +401,7 @@ By default PIs, staff and administrators will be asked to authenticate themselve
 
 <div class="information">
 
-https://www.pdc.kth.se/support/documents/login/ssh_login.html
+https://support.pdc.kth.se/doc/support-docs/login/ssh_login/
 </div>
 
 ---
@@ -434,7 +434,7 @@ Tickets should always be created on your local computer
 
 <div class="information">
 
-https://www.pdc.kth.se/support/documents/login/kerberos_login.html
+https://support.pdc.kth.se/doc/support-docs/login/kerberos_login/
 </div>
 
 ---
@@ -487,7 +487,7 @@ Mar 25 09:45 Mar 25 19:45 FI krbtgt/NADA.KTH.SE@NADA.KTH.SE
 
 <div class="information">
 
-https://www.pdc.kth.se/support/documents/login/interactive_hpc.html
+https://support.pdc.kth.se/doc/support-docs/login/interactive_hpc/
 </div>
 
 </div>
@@ -550,7 +550,7 @@ scp file.txt [username]@dardel.pdc.kth.se:/cfs/klemming/scratch/[u]/[username]
 
 <div class="information">
 
-https://www.pdc.kth.se/support/documents/data_management/data_management.html
+https://support.pdc.kth.se/doc/support-docs/data_management/data_management/
 </div>
 
 ---
@@ -651,7 +651,7 @@ Shows information about membership, allocation use, storage paths, and stored qu
 </div>
 
 Usage statistics for every allocation are also available at… 
-https://pdc-web.eecs.kth.se/cluster_usage/
+https://support.pdc.kth.se/doc/stats
 
 ---
 
@@ -865,7 +865,7 @@ https://support.pdc.kth.se/doc/support-docs/software_development/development_gpu
 # PDC Support
 
 1. A lot of question can be answered via our web https://support.pdc.kth.se/doc
-1. The best way to contact us is via our ticketing system https://www.pdc.kth.se/support/documents/contact/contact_support.html
+1. The best way to contact us is via our ticketing system https://support.pdc.kth.se/doc/support-docs/contact/contact_support/
 1. The support request will be tracked
 1. Use a descriptive subject
 1. Provide your PDC user name.
