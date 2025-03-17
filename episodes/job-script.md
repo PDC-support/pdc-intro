@@ -4,7 +4,7 @@
 
 # Running jobs with efficient utilization of hardware
 
-### Xavier Aguilar
+### Arash Banaei
 
 ---
 
@@ -12,11 +12,12 @@
 
 ![bg right:60% width:100%](https://pdc-web.eecs.kth.se/files/support/images/LoginNodeWarning.PNG)
 
+On the login node you:
+
 * Edit files
 * Compile programs
-* Run light tasks
 * Submit jobs
-* **Do not** run parallel jobs on the login node!
+* **Do not** run computations on the login node!
 
 
 ---
@@ -27,6 +28,15 @@
   - Allocates access to resources
   - Provides a framework for work monitoring on the set of allocated nodes
   - Arbitrates contention for resources
+---
+
+# How jobs are scheduled?
+
+* **Age**: the time the job has been in the queue
+* **Job size**: number of nodes or cores requested
+* **Partition**: a factor associated with each node partition
+* **Fair-share**: the difference between the computing resources promissed and the amount of resources used
+
 ---
 
 # Types of jobs?
@@ -42,17 +52,12 @@
 
 ---
 
-# How jobs are scheduled?
-
-* **Age**: the time the job has been in the queue
-* **Job size**: number of nodes or cores requested
-* **Partition**: a factor associated with each node partition
-* **Fair-share**: the difference between the computing resources promissed and the amount of resources computed
-
-
----
-
 # SLURM basic commands
+
+### Requests resources for interactive use:
+```
+salloc <options>
+```
 
 ### Submit a job to the queue:
 ```
@@ -68,46 +73,30 @@ squeue -u <username>
 ```
 scancel <job-id>
 ```
-
-### Get information on partitions and nodes
-```
-sinfo
-```
 ---
 
-# Job scripts (pure MPI)
+# Which allocation I am a member of
+
+### projinfo
 
 ```
-#!/bin/bash -l
-# The -l above is required to get the full environment with modules
-
-# Set the allocation to be charged for this job
-# not required if you have set a default allocation
-#SBATCH -A snicYYYY-X-XX
-
-# The name of the script is myjob
-#SBATCH -J myjob
-
-# The partition
-#SBATCH -p main
-
-# 10 hours wall-clock time will be given to this job
-#SBATCH -t 10:00:00
-
-# Number of nodes
-#SBATCH --nodes=4
-
-# Number of MPI processes per node
-#SBATCH --ntasks-per-node=128
-
-# Loading modules needed by your job
-module add X
-module add Y
-
-# Run the executable named myexe
-# and write the output into my_output_file
-srun ./myexe > my_output_file
+$ projinfo -h
+Usage: projinfo [-u <username>] [-c <clustername>] [-a] [-o] [-m] [-c <cluster>] [-d] [-p <DNR>] [-h]
+-u [user] : print information about specific user
+-o : print information about all (old) projects, not just current
+-m : print usage of all months of the project
+-c [cluster] : only print allocations on specific cluster
+-a : Only print membership in projects
+-d : Usage by all project members
+-p [DNR] : only print information about this project
+-h : prints this help
 ```
+<div class="column columnlightblue">
+Shows information about membership, allocation use, storage paths, and stored quota
+</div>
+
+Usage statistics for every allocation are also available at…
+https://support.pdc.kth.se/doc/stats
 
 ---
 
@@ -115,49 +104,197 @@ srun ./myexe > my_output_file
 
 * Nodes are logically grouped into partitions
 * There are several partitions that can be used on Dardel
-  - **main**: Thin nodes (256 GB RAM), whole nodes, maximum 24 hours job time
-  - **long**: Thin nodes (256 GB RAM), whole nodes, maximum 7 days job time
-  - **shared**: Thin nodes (256 GB RAM), job shares node with other jobs, maximum 24 hours job time
-  - **memory**: Large/Huge/Giant nodes (512 GB - 2 TB RAM), whole nodes, 24 hours job time
-  - **gpu**: GPU nodes, 512 GB RAM, and 4 AMD MI250X GPU cards
+  - **main**: 256 GB -512 GB- 1 TB RAM, exclusive access, maximum job time 24 hours
+  - **long**: 256 GB - 512 GB RAM, exclusive access, maximum job time 7 days
+  - **shared**: 256 GB RAM, job shares node with other jobs, maximum job time 7 days
+  - **memory**: 512 GB - 1 TB - 2 TB RAM, exclusive access, maximum job time 7 days
+  - **gpu**: GPU nodes, 512 GB RAM, and 4 AMD MI250X GPU cards, exclusive access, maximum job time 24 hours
+
 
 ---
 
-# Job scripts (MPI + OpenMP)
+# Important note about memory
+
+*  A certain amount of the memory on the nodes is used by system operations
+
+ | Total memory | Approximate available memory for user job |
+ | --- | --- |
+ | 256 GB | 230 GB |
+ | 512 GB | 480 GB |
+ | 1 TB | 980 GB |
+ | 2 TB | 1760 GB |
+
+---
+
+# Job submission with job scripts
+
+Create a file so called "job script" containing all the required information for resource allocation and running job
+
+```
+#!/bin/bash -l
+
+#SBATCH -J myjob 
+
+#SBATCH -A edu25.intro
+
+#SBATCH -p shared
+
+#SBATCH -t 1-00:00:00
+
+module load X
+module load Y
+
+srun ./myexe > my_output_file
+```
+---
+
+# Job scripts (serial)
 
 ```
 #!/bin/bash -l
 # The -l above is required to get the full environment with modules
 
-# Set the allocation to be charged for this job
-#SBATCH -A snicYYYY-X-XX
-
-# The name of the script is myjob
+# The name of the job is myjob
 #SBATCH -J myjob
 
+# Set the allocation to be charged for this job
+#SBATCH -A naissYYYY-X-XX
+
 # The partition
-#SBATCH -p main
+#SBATCH -p memory
 
-# 10 hours wall-clock time will be given to this job
-#SBATCH -t 10:00:00
+# Required memory
 
-# Number of Nodes
-#SBATCH --nodes=4
+#SBATCH --mem 494G
 
-# Number of MPI tasks per node
-#SBATCH --ntasks-per-node=16
-# Number of logical cores hosting OpenMP threads. Note that cpus-per-task is set as 2x OMP_NUM_THREADS
-#SBATCH --cpus-per-task=16
-
-# Number and placement of OpenMP threads
-export OMP_NUM_THREADS=8
-export OMP_PLACES=cores
+# 7 days time will be given to this job
+#SBATCH -t 7-00:00:00
 
 # Run the executable named myexe
 srun ./myexe > my_output_file
 ```
 
+---
 
+# Job scripts (OpenMP) 
+
+```
+#!/bin/bash -l
+# The -l above is required to get the full environment with modules
+
+# The name of the job is myjob
+#SBATCH -J myjob
+
+# Set the allocation to be charged for this job
+#SBATCH -A naissYYYY-X-XX
+
+# Number of cores
+#SBATCH -c 10
+
+# The partition
+#SBATCH -p shared
+
+# Required memory
+
+#SBATCH --mem 50G
+
+# 10 hours wall-clock time will be given to this job
+#SBATCH -t 10:00:00
+
+export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
+
+# Run the executable named myexe
+srun --hint=nomultithread ./myexe > my_output_file
+```
+
+---
+
+# Job scripts (MPI)
+
+```
+#!/bin/bash -l
+# The -l above is required to get the full environment with modules
+
+# The name of the job is myjob
+#SBATCH -J myjob
+
+# Set the allocation to be charged for this job
+#SBATCH -A naissYYYY-X-XX
+
+# Number of nodes
+
+#SBATCH --nodes=4
+
+# Number of MPI tasks
+#SBATCH -n 256
+
+# Number of MPI tasks per node
+
+#SBATCH --ntasks-per-node=64
+
+# The partition
+#SBATCH -p main
+
+# Required memory
+
+#SBATCH --mem 494G
+
+# 10 hours wall-clock time will be given to this job
+#SBATCH -t 10:00:00
+
+export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
+
+# Run the executable named myexe
+srun -n 256 ./myexe > my_output_file
+```
+---
+
+# Job scripts (packed jobs)
+
+Several short jobs can be packed together into a single job where they run serially
+
+```
+#!/bin/bash -l
+#SBATCH -A project
+#SBATCH -N 1
+#SBATCH -p main
+#SBATCH -t 00:10:00
+
+for arg in "$@"; do
+        srun -n 1 myprog $arg
+done
+```
+
+The job is submitted with:
+```
+sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
+```
+
+
+---
+
+# Submitting job to the queue
+
+
+```
+sbatch  <script_name>
+```
+
+### Check status of your pending/running
+```
+squeue -u <username> or squeue --me
+```
+
+### Cancel your job:
+```
+scancel <job-id>
+```
+
+### SSH to a compute node
+
+```
+ssh nid<XXXXXX>
+```
 ---
 
 # Interactive jobs
@@ -167,9 +304,10 @@ Request an interactive allocation
 salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes> -n <cores>
 ```
 
-Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session)
+Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session).
+**You will still be on the login node**. Make sure you use srun to launch your job.
 ```
-srun -n <number-of-processes> ./mybinary.x
+srun -n <number-of-MPI tasks> ./mybinary.x
 ```
 It is also possible to ssh into one of the allocated nodes.
 
@@ -180,13 +318,124 @@ It is also possible to ssh into one of the allocated nodes.
 We can check what nodes have been granted with:
 
   ```
-  squeue -u $USER
+  squeue -u $USER or squeue --me
   ```
 
   or inspecting the environment variable:
   ```
-  SLURM_NODELIST
+  echo  $SLURM_NODELIST
   ```
+---
+
+# SLURM advanced commands
+
+<!-- ### To get further information about a job:
+```
+scontrol show job <jobid>
+```
+-->
+
+### Get detailed information of a running job:
+```
+sstat --jobs=<your_job-id>
+```
+
+### Filter the information provided by sstat
+```
+sstat --jobs=your_job-id --format=jobid,maxrss,maxrssnode,ntasks
+```
+
+**Tip:** Use *sstat -e* to see all possible fields for the *format* flag
+
+
+---
+# SLURM advanced commands
+
+### Get information about finished/failed jobs:
+```
+sacct
+```
+
+### Get detailed information of a certain job:
+```
+sacct --jobs=<your_job-id> --starttime=YYYY-MM-DD
+```
+```
+sacct --starttime=2019-06-23 --format=jobid,jobname,nodelist,maxrss,stat,exitcode
+```
+
+**Tip:** Use *sacct -e* to see all possible fields for the *format* flag
+
+---
+
+# SLURM advanced commands
+
+### Quick performance summary for a finished job:
+```
+seff <jobid>
+```
+**important note** due to multi-threaded feature of Dardel CPUs, the meximum CPU efficiency is 50%
+
+---
+
+# SLURM good practices
+
+* Avoid too many short jobs
+* Avoid massive output to STDOUT
+* Try to provide a good estimate of the job duration before submitting
+* For very long jobs use checpoints to restart the simulation
+
+---
+# Common reasons for inefficient jobs
+
+* Not all nodes allocated are used
+* Not all cores within a node are used (if it's not intentional)
+* Many more cores than the available are used
+* Inefficient use of the file system
+
+---
+
+# Using fewer cores
+
+Reduce the number of cores used per job and run multiple instances of the job in a single node
+
+```
+#!/bin/bash -l
+#SBATCH -A project
+#SBATCH -N 1
+#SBATCH -p main
+#SBATCH -t 00:01:00
+
+export OMP_NUM_THREADS=32
+
+srun myprog $1
+```
+
+---
+
+# Using fewer cores
+
+```
+#!/bin/bash -l
+#SBATCH -A project
+#SBATCH -N 1
+#SBATCH -p main
+#SBATCH -t 00:08:00
+
+export OMP_NUM_THREADS=4
+
+srun ./inner.sh "$@"
+```
+
+```
+#!/bin/bash
+
+for arg in "$@"; do
+        myprog $arg &
+done
+
+wait
+```
 
 ---
 
@@ -287,63 +536,6 @@ However, we don't need to specify those flags because SLURM takes the *-N* and *
 
 ---
 
-# SLURM advanced commands
-
-<!-- ### To get further information about a job:
-```
-scontrol show job <jobid>
-```
--->
-
-### Get detailed information of a running job:
-```
-sstat --jobs=<your_job-id>
-```
-
-### Filter the information provided by sstat
-```
-sstat --jobs=your_job-id --format=JobID,aveCPU,MaxRRS,NTasks
-```
-
-**Tip:** Use *sstat -e* to see all possible fields for the *format* flag
-
----
-
-# SLURM advanced commands
-
-### To get information on past jobs:
-```
-sacct
-```
-
-### Get detailed information of a certain job:
-```
-sacct --jobs=<your_job-id> --starttime=YYYY-MM-DD
-```
-```
-sacct --starttime=2019-06-23 --format=JobName,CPUTime,NNodes,MaxRSS,Elapsed
-```
-
----
-
-# SLURM advanced commands
-
-### Quick performance summary for a finished job:
-```
-seff <jobid>
-```
-
----
-
-# Common reasons for inefficient jobs
-
-* Not all nodes allocated are used
-* Not all cores within a node are used (if it's not intentional)
-* Many more cores than the available are used
-* Inefficient use of the file system
-
----
-
 # Exercise 2
 
 * In this exercise we are going to use some more advanced SLURM commands to explore job performance.
@@ -395,77 +587,5 @@ seff <jobid>
    Memory Utilized: 549.25 MB (estimated maximum)
    Memory Efficiency: 7.73% of 6.94 GB (888.00 MB/core)
    ```
-
-
----
-
-# SLURM good practices
-
-* Avoid too many short jobs
-* Avoid massive output to STDOUT
-* Try to provide a good estimate of the job duration before submitting
-
----
-
-# Packing short jobs
-
-Several short jobs can be packed together into a single job where they run serially
-
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -t 00:10:00
-
-for arg in "$@"; do
-        srun -n 1 myprog $arg
-done
-```
-
-The job is submitted with:
-```
-sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
-```
-
----
-# Using fewer cores
-
-Reduce the number of cores used per job and run multiple instances of the job in a single node
-
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -t 00:01:00
-
-export OMP_NUM_THREADS=32
-
-srun myprog $1
-```
-
----
-
-# Using fewer cores
-
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -t 00:08:00
-
-export OMP_NUM_THREADS=4
-
-srun ./inner.sh "$@"
-```
-
-```
-#!/bin/bash
-
-for arg in "$@"; do
-        myprog $arg &
-done
-
-wait
-```
 
 ---
