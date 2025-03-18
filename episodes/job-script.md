@@ -1,4 +1,29 @@
 ---
+marp: true
+style: |
+  section h1 {
+    text-align: center;
+    }
+  .column {
+    float: left;
+    width: 50%;
+    outline: 20px solid #FFF;
+    border: 20px solid #AAF;
+    background-color: #AAF;
+    }
+  .row:after {
+    display: table;
+    clear: both;
+    }
+  .attention {
+    border: 10px solid #dcd8c8;
+    background-color: #dcd8c8;
+    box-shadow: 10px 10px 10px #888888;
+    color: red;
+    margin-top: 10px;
+    }
+
+---
 
 <!-- Section: Job script for efficient utilization of hardware -->
 
@@ -165,7 +190,7 @@ srun ./myexe > my_output_file
 
 # Required memory
 
-#SBATCH --mem 494G
+#SBATCH --mem 480G
 
 # 7 days time will be given to this job
 #SBATCH -t 7-00:00:00
