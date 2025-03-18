@@ -1,29 +1,4 @@
 ---
-marp: true
-style: |
-  section h1 {
-    text-align: center;
-    }
-  .column {
-    float: left;
-    width: 50%;
-    outline: 20px solid #FFF;
-    border: 20px solid #AAF;
-    background-color: #AAF;
-    }
-  .row:after {
-    display: table;
-    clear: both;
-    }
-  .attention {
-    border: 10px solid #dcd8c8;
-    background-color: #dcd8c8;
-    box-shadow: 10px 10px 10px #888888;
-    color: red;
-    margin-top: 10px;
-    }
-
----
 
 <!-- Section: Job script for efficient utilization of hardware -->
 
@@ -69,7 +44,7 @@ On the login node you:
 * **Batch jobs**
   - the user writes a job script indicating the number of nodes, cores, time needed, etc.
   - the script is submitted to the batch queue
-  - The user retrieves the output files once the job is finished
+  - The user can monitor the output files during the runtime
 * **Interactive jobs:**
   - the user runs a command that allocates interactive resources on a number of cores
   - this creates an interactive job that awaits in the queue as any other job
@@ -305,7 +280,7 @@ sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
 sbatch  <script_name>
 ```
 
-### Check status of your pending/running
+### Check status of your pending/running job
 ```
 squeue -u <username> or squeue --me
 ```
@@ -433,7 +408,9 @@ Reduce the number of cores used per job and run multiple instances of the job in
 
 export OMP_NUM_THREADS=32
 
-srun myprog $1
+export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
+
+srun --hint=nomultithread myprog $1
 ```
 
 ---
@@ -449,7 +426,9 @@ srun myprog $1
 
 export OMP_NUM_THREADS=4
 
-srun ./inner.sh "$@"
+export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
+
+srun --hint=nomultithread ./inner.sh "$@"
 ```
 
 ```
