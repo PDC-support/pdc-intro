@@ -135,7 +135,7 @@ Create a file so called "job script" containing all the required information for
 
 #SBATCH -J myjob 
 
-#SBATCH -A edu25.intro
+#SBATCH -A edu25.intropdc
 
 #SBATCH -p shared
 
