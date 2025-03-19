@@ -274,6 +274,7 @@ sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
 
 # Job scripts (GPU)
 
+```
 #!/bin/bash -l
 # The -l above is required to get the full environment with modules
 
@@ -303,7 +304,7 @@ module load craype-accel-amd-gfx90a
 
 # Run the executable named myexe
 srun ./myexe > my_output_file
-
+```
 ---
 
 # Submitting job to the queue
