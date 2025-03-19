@@ -270,6 +270,39 @@ The job is submitted with:
 sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
 ```
 
+---
+
+# Job scripts (GPU)
+
+#!/bin/bash -l
+# The -l above is required to get the full environment with modules
+
+# The name of the job is myjob
+#SBATCH -J myjob
+
+# Set the allocation to be charged for this job
+#SBATCH -A naissYYYY-X-XX
+
+# Number of nodes
+
+#SBATCH --nodes=1
+
+# Number of MPI tasks per node
+
+#SBATCH --ntasks-per-node=1
+
+# The partition
+#SBATCH -p gpu
+
+# 10 hours wall-clock time will be given to this job
+#SBATCH -t 10:00:00
+
+module load rocm/5.7.0
+module load craype-accel-amd-gfx90a
+
+
+# Run the executable named myexe
+srun ./myexe > my_output_file
 
 ---
 
