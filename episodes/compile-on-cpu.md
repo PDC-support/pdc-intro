@@ -4,7 +4,7 @@
 
 # Compiling and running code on CPU nodes
 
-### Xin Li
+### Xin Li, Johan Hellsvik
 
 ---
 
