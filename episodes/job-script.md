@@ -408,7 +408,7 @@ sacct --starttime=2019-06-23 --format=jobid,jobname,nodelist,maxrss,stat,exitcod
 ```
 seff <jobid>
 ```
-**important note** due to multi-threaded feature of Dardel CPUs, the meximum CPU efficiency is 50%
+**Important note:** due to multi-threaded feature of Dardel CPUs, the number for CPU efficiency should be multiplied by 2 to get the real one
 
 ---
 
