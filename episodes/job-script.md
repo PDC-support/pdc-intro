@@ -135,7 +135,7 @@ Create a file so called "job script" containing all the required information for
 
 #SBATCH -J myjob 
 
-#SBATCH -A edu25.intropdc
+#SBATCH -A edu2503.intropdc
 
 #SBATCH -p shared
 
@@ -241,8 +241,6 @@ srun --hint=nomultithread ./myexe > my_output_file
 
 # 10 hours wall-clock time will be given to this job
 #SBATCH -t 10:00:00
-
-export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
 
 # Run the executable named myexe
 srun -n 256 ./myexe > my_output_file
@@ -416,7 +414,7 @@ seff <jobid>
 * Avoid too many short jobs
 * Avoid massive output to STDOUT
 * Try to provide a good estimate of the job duration before submitting
-* For very long jobs use checpoints to restart the simulation
+* For very long jobs use checkpoints to restart the simulation
 
 ---
 # Common reasons for inefficient jobs
