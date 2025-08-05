@@ -3,10 +3,10 @@
 
 # Set the allocation to be charged for this job
 # not required if you have set a default allocation
-#SBATCH -A edu2304.intropdc
+#SBATCH -A edu25.summer
 
 # Reservation for today
-#SBATCH --reservation=intropdc-cpu-2023-04-13
+#SBATCH --reservation=lab25-08-15
 
 # The name of the script is myjob
 #SBATCH -J hello_world
@@ -18,10 +18,10 @@
 #SBATCH -t 00:05:00
 
 # Number of nodes
-#SBATCH --nodes=X
+#SBATCH -N 1
 
-# Number of MPI processes per node
-#SBATCH --ntasks-per-node=Y
+# Number of MPI processes
+#SBATCH -n 4
 
 # Run the executable
 # and write the output into my_output_file
