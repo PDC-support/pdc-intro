@@ -33,13 +33,13 @@ PDC staff
 * [Accounts, login, and file system](#18)
 * [Using Bash shell](#31)
 * [Compiling and running code on CPU nodes](#64)
-* [Job script for efficient utilization of hardware](#86)
-* [Using ThinLinc](#122)
-* [Compiling and running code on GPU nodes](#123)
-* [Using Singularity](#139)
-* [Using Matlab](#140)
-* [Materials theory codes](#152)
-* [Using Python virtual environment](#165)
+* [Job script for efficient utilization of hardware](#79)
+* [Using ThinLinc](#116)
+* [Compiling and running code on GPU nodes](#117)
+* [Using Singularity](#133)
+* [Using Matlab](#134)
+* [Materials theory codes](#146)
+* [Using Python virtual environment](#159)
 
 ---
 
@@ -901,22 +901,22 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 
 # Compiling and running code on CPU nodes
 
-### Xin Li, Johan Hellsvik
+### Johan Hellsvik
 
 ---
 
 # Cray programming environment (CPE)
 
-Reference page: [Compilers and libraries](https://www.pdc.kth.se/support/documents/software_development/development.html)
+Reference page: [Compilers and libraries](https://support.pdc.kth.se/doc/software_development/development/)
 
 The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
 
 * In practice, we recommend
-    - ``ml cpeCray/23.12``
-    - ``ml cpeGNU/23.12``
-    - ``ml cpeAOCC/23.12``
+    - ``ml cpeCray/24.11``
+    - ``ml cpeGNU/24.11``
+    - ``ml cpeAOCC/24.11``
 
-* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/23.12``
+* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/24.11``
 
 * No need to ``module swap`` or ``module unload``
 
@@ -991,7 +991,7 @@ user@uan01:> srun -n 8 ./hello_world_mpi.x
 Use cray-libsci
 
 ```
-ml PDC/23.12 cpeGNU/23.12
+ml PDC/24.11 cpeGNU/24.11
 ```
 
 ```
@@ -1005,7 +1005,7 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 Use openblas
 
 ```
-ml PDC/23.12 openblas/0.3.28-cpeGNU-23.12
+ml PDC/24.11 openblas/0.3.29-cpeGNU-24.11
 ```
 
 ```
@@ -1013,11 +1013,12 @@ cc dgemm_test.c -o dgemm_test_openblas.x -I$EBROOTOPENBLAS/include -L$EBROOTOPEN
 ```
 where the environment variable `EBROOTOPENBLAS` had been set when loading the OpenBLAS module. Its module file includes a statement
 ```
-setenv("EBROOTOPENBLAS","/pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12")
+local root = "/pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11"
+setenv("EBROOTOPENBLAS", root)
 ```
 which corresponds to an export statement
 ```
-export EBROOTOPENBLAS=/pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12
+export EBROOTOPENBLAS=/pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11
 ```
 
 ---
@@ -1048,7 +1049,7 @@ libsci_cray.so.6 => /opt/cray/pe/lib64/libsci_cray.so.6
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12/lib/libopenblas.so.0
+libopenblas.so.0 => /pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11/lib/libopenblas.so.0
 ...
 ```
 
@@ -1076,7 +1077,7 @@ libopenblas.so.0 => /pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12
 # Exercise: Compile and run ``fftw_test`` code
 
 ```
-ml cray-fftw/3.3.10.6
+ml cray-fftw/3.3.10.9
 
 wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
 
@@ -1088,12 +1089,6 @@ ldd fftw_test.x
 salloc -n 1 -t 10 -p shared -A <name-of-allocation>
 srun -n 1 ./fftw_test.x
 ```
-
----
-
-# Compilation of large program
-
-* Examples at https://www.pdc.kth.se/software
 
 ---
 
@@ -1118,16 +1113,16 @@ srun -n 1 ./fftw_test.x
 # What happens when loading a module
 
 ```
-ml show elpa/2023.05.001-cpeGNU-23.12
+ml show elpa/2025.01.001-cpeGNU-24.11
 ```
 
 ```
 whatis("Description: ELPA - Eigenvalue SoLvers for Petaflop-Applications")
-prepend_path("CMAKE_PREFIX_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12")
-prepend_path("LD_LIBRARY_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib")
-prepend_path("LIBRARY_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib")
-prepend_path("PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/bin")
-prepend_path("PKG_CONFIG_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib/pkgconfig")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib")
+prepend_path("LIBRARY_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib")
+prepend_path("PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/bin")
+prepend_path("PKG_CONFIG_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib/pkgconfig")
 ...
 ```
 
@@ -1139,105 +1134,6 @@ prepend_path("PKG_CONFIG_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001
 * Load correct dependencies (e.g. ``openblas`` if your code depends on it)
 * Properly prepend to environment variables (e.g. ``PATH``, ``LD_LIBRARY_PATH``)
 * Choose correct SLURM settings
-
----
-
-# SLURM settings for hybrid MPI/OpenMP code
-
-* ``--nodes`` number of nodes
-* ``--ntasks-per-node`` number of MPI processes
-* ``--cpus-per-task`` 2 x number of OpenMP threads (because of SMT)
-
-* ``OMP_NUM_THREADS`` number of OpenMP threads
-* ``OMP_PLACES`` cores
-
----
-
-# Example job script
-
-* 64 MPI x 2 OMP per node (main parition)
-  ```
-  #!/bin/bash
-
-  #SBATCH -A ...
-  #SBATCH -J my_job
-  #SBATCH -t 01:00:00
-  #SBATCH -p main
-
-  #SBATCH --nodes=2
-  #SBATCH --ntasks-per-node=64
-  #SBATCH --cpus-per-task=4
-
-  module load ...
-
-  export OMP_NUM_THREADS=2
-  export OMP_PLACES=cores
-
-  srun ...
-  ```
-
----
-
-# Example job script
-
-* 2 MPI x 2 OMP per node (shared partition)
-  ```
-  #!/bin/bash
-
-  #SBATCH -A ...
-  #SBATCH -J my_job
-  #SBATCH -t 01:00:00
-  #SBATCH -p shared
-
-  #SBATCH --ntasks=2
-  #SBATCH --cpus-per-task=4
-
-  module load ...
-
-  export OMP_NUM_THREADS=2
-  export OMP_PLACES=cores
-
-  srun ...
-  ```
-
----
-
-# Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
-
-* Preparation
-
-  ```
-  mkdir -p matmul_test && cd matmul_test
-  ```
-
-* Copy python code [matmul_mpi_omp_test.py](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/matmul_mpi_omp_test.py) to the same folder
-
----
-
-# Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
-
-* Copy job script [job-n1.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n1.sh)
-    - for running on 1 MPI processes with different number of OpenMP threads
-
-* Copy job script [job-n2.sh](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/job-n2.sh)
-    - for running on 2 MPI processes with different number of OpenMP threads
-
-* Submit two jobs
-
----
-
-# Exercise: Hybrid MPI/OpenMP code for matrix-matrix multiplication
-
-* Result
-
-  | Setting | Timing |
-  | --- | --- |
-  | 1 MPI x 16 OMP | Time spent in matmul: 2.307 sec|
-  | 1 MPI x  8 OMP | Time spent in matmul: 3.924 sec|
-  | 1 MPI x  4 OMP | Time spent in matmul: 6.626 sec|
-  | 2 MPI x  8 OMP | Time spent in matmul: 2.034 sec|
-  | 2 MPI x  4 OMP | Time spent in matmul: 3.287 sec|
-  | 2 MPI x  2 OMP | Time spent in matmul: 6.188 sec|
 ---
 
 <!-- Section: Job script for efficient utilization of hardware -->
@@ -1375,7 +1271,7 @@ Create a file so called "job script" containing all the required information for
 
 #SBATCH -J myjob 
 
-#SBATCH -A edu25.intropdc
+#SBATCH -A edu2503.intropdc
 
 #SBATCH -p shared
 
@@ -1482,8 +1378,6 @@ srun --hint=nomultithread ./myexe > my_output_file
 # 10 hours wall-clock time will be given to this job
 #SBATCH -t 10:00:00
 
-export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
-
 # Run the executable named myexe
 srun -n 256 ./myexe > my_output_file
 ```
@@ -1509,8 +1403,41 @@ The job is submitted with:
 ```
 sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
 ```
+---
+
+# Job scripts (GPU)
+
+```
+#!/bin/bash -l
+# The -l above is required to get the full environment with modules
+
+# The name of the job is myjob
+#SBATCH -J myjob
+
+# Set the allocation to be charged for this job
+#SBATCH -A naissYYYY-X-XX
+
+# Number of nodes
+
+#SBATCH --nodes=1
+
+# Number of MPI tasks per node
+
+#SBATCH --ntasks-per-node=1
+
+# The partition
+#SBATCH -p gpu
+
+# 10 hours wall-clock time will be given to this job
+#SBATCH -t 10:00:00
+
+module load rocm/5.7.0
+module load craype-accel-amd-gfx90a
 
 
+# Run the executable named myexe
+srun ./myexe > my_output_file
+```
 ---
 
 # Submitting job to the queue
@@ -1614,7 +1541,7 @@ sacct --starttime=2019-06-23 --format=jobid,jobname,nodelist,maxrss,stat,exitcod
 ```
 seff <jobid>
 ```
-**important note** due to multi-threaded feature of Dardel CPUs, the meximum CPU efficiency is 50%
+**Important note:** due to multi-threaded feature of Dardel CPUs, the number for CPU efficiency should be multiplied by 2 to get the real one
 
 ---
 
@@ -1623,7 +1550,7 @@ seff <jobid>
 * Avoid too many short jobs
 * Avoid massive output to STDOUT
 * Try to provide a good estimate of the job duration before submitting
-* For very long jobs use checpoints to restart the simulation
+* For very long jobs use checkpoints to restart the simulation
 
 ---
 # Common reasons for inefficient jobs
@@ -1677,7 +1604,6 @@ srun --hint=nomultithread ./inner.sh "$@"
 for arg in "$@"; do
         myprog $arg &
 done
-
 wait
 ```
 
@@ -1852,7 +1778,7 @@ Link to download the slides: [ThinLinc_Tutorial.pdf](https://github.com/PDC-supp
 ### Johan Hellsvik
 
 Reference pages:
-[Building for AMD GPUs](https://www.pdc.kth.se/support/documents/software_development/development_gpu.html)
+[Building for AMD GPUs](https://support.pdc.kth.se/doc/software_development/development_gpu/
 [Introduction to GPUs course, September and October 2023](https://github.com/PDC-support/introduction-to-gpu)
 
 ---
@@ -1871,7 +1797,7 @@ Central processing units (CPU) and graphics processing units (GPU) do different 
 
 # Dardel GPU nodes
 
-Dardel has 56 GPU nodes, each of which is equipped with
+Dardel has 62 GPU nodes, each of which is equipped with
 
 - One AMD EPYC™ processor with 64 cores
 
@@ -1898,17 +1824,17 @@ The AMD Radeon Open Compute (ROCm) platform is a software stack for programming 
 
 # Setting up a GPU build environment
 
-- Load the PDC/23.12 module and version 5.7.0 of ROCm with
-    - ``ml PDC/23.12``
-    - ``ml rocm/5.7.0``
+- Load the PDC/24.11 module and version 6.3.3 of ROCm with
+    - ``ml PDC/24.11``
+    - ``ml rocm/6.3.3``
 
 - Set the accelerator target to **amd-gfx90a** (AMD MI250X GPU)
     - ``ml craype-accel-amd-gfx90a``
 
-- Choose one of the available toolchains (Cray, Gnu, AOCC)
-    - ``ml cpeCray/23.12``
-    - ``ml cpeGNU/23.12``
-    - ``ml cpeAOCC/23.12``
+- Choose one of the available toolchains (Cray, Gnu, AMD)
+    - ``ml cpeCray/24.11``
+    - ``ml cpeGNU/24.11``
+    - ``ml cpeAMD/24.11``
 
 ---
 
@@ -2023,7 +1949,7 @@ Build and test run a Hello World C++ code which offloads to GPU via HIP.
    - ``wget https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp``
 
 - Load the ROCm module and set the accelerator target to amd-gfx90a (AMD MI250X GPU)
-   - ``ml rocm/5.7.0``
+   - ``ml rocm/6.3.3``
    - ``ml craype-accel-amd-gfx90a``
 
 - Compile the code with the AMD hipcc compiler on the login node
@@ -2057,7 +1983,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
     - ``wget https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90``
 
 - Load the ROCm module and set the accelerator target to amd-gfx90a
-    - ``ml rocm/5.7.0 craype-accel-amd-gfx90a``
+    - ``ml rocm/6.3.3 craype-accel-amd-gfx90a``
 
 - Compile the code on the login node
     - ``ftn -fopenmp ex04.F90 -o ex04.x``
@@ -2089,7 +2015,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
 - Alternatively, login to the reserved GPU node (here nid002792) ``ssh nid002792``.
 
 - Load ROCm, activate verbose runtime information, and run the program
-    - ``ml rocm/5.7.0``
+    - ``ml rocm/6.3.3``
     - ``export CRAY_ACC_DEBUG=3``
     - ``./ex04.x``
 
