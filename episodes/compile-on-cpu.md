@@ -4,22 +4,22 @@
 
 # Compiling and running code on CPU nodes
 
-### Xin Li, Johan Hellsvik
+### Johan Hellsvik
 
 ---
 
 # Cray programming environment (CPE)
 
-Reference page: [Compilers and libraries](https://www.pdc.kth.se/support/documents/software_development/development.html)
+Reference page: [Compilers and libraries](https://support.pdc.kth.se/doc/software_development/development/)
 
 The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
 
 * In practice, we recommend
-    - ``ml cpeCray/23.12``
-    - ``ml cpeGNU/23.12``
-    - ``ml cpeAOCC/23.12``
+    - ``ml cpeCray/24.11``
+    - ``ml cpeGNU/24.11``
+    - ``ml cpeAOCC/24.11``
 
-* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/23.12``
+* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/24.11``
 
 * No need to ``module swap`` or ``module unload``
 
@@ -94,7 +94,7 @@ user@uan01:> srun -n 8 ./hello_world_mpi.x
 Use cray-libsci
 
 ```
-ml PDC/23.12 cpeGNU/23.12
+ml PDC/24.11 cpeGNU/24.11
 ```
 
 ```
@@ -108,7 +108,7 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 Use openblas
 
 ```
-ml PDC/23.12 openblas/0.3.28-cpeGNU-23.12
+ml PDC/24.11 openblas/0.3.29-cpeGNU-24.11
 ```
 
 ```
@@ -116,11 +116,12 @@ cc dgemm_test.c -o dgemm_test_openblas.x -I$EBROOTOPENBLAS/include -L$EBROOTOPEN
 ```
 where the environment variable `EBROOTOPENBLAS` had been set when loading the OpenBLAS module. Its module file includes a statement
 ```
-setenv("EBROOTOPENBLAS","/pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12")
+local root = "/pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11"
+setenv("EBROOTOPENBLAS", root)
 ```
 which corresponds to an export statement
 ```
-export EBROOTOPENBLAS=/pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12
+export EBROOTOPENBLAS=/pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11
 ```
 
 ---
@@ -151,7 +152,7 @@ libsci_cray.so.6 => /opt/cray/pe/lib64/libsci_cray.so.6
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12/lib/libopenblas.so.0
+libopenblas.so.0 => /pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11/lib/libopenblas.so.0
 ...
 ```
 
@@ -179,7 +180,7 @@ libopenblas.so.0 => /pdc/software/23.12/eb/software/openblas/0.3.28-cpeGNU-23.12
 # Exercise: Compile and run ``fftw_test`` code
 
 ```
-ml cray-fftw/3.3.10.6
+ml cray-fftw/3.3.10.9
 
 wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
 
@@ -191,12 +192,6 @@ ldd fftw_test.x
 salloc -n 1 -t 10 -p shared -A <name-of-allocation>
 srun -n 1 ./fftw_test.x
 ```
-
----
-
-# Compilation of large program
-
-* Examples at https://www.pdc.kth.se/software
 
 ---
 
@@ -221,16 +216,16 @@ srun -n 1 ./fftw_test.x
 # What happens when loading a module
 
 ```
-ml show elpa/2023.05.001-cpeGNU-23.12
+ml show elpa/2025.01.001-cpeGNU-24.11
 ```
 
 ```
 whatis("Description: ELPA - Eigenvalue SoLvers for Petaflop-Applications")
-prepend_path("CMAKE_PREFIX_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12")
-prepend_path("LD_LIBRARY_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib")
-prepend_path("LIBRARY_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib")
-prepend_path("PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/bin")
-prepend_path("PKG_CONFIG_PATH","/pdc/software/23.12/eb/software/elpa/2023.05.001-cpeGNU-23.12/lib/pkgconfig")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib")
+prepend_path("LIBRARY_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib")
+prepend_path("PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/bin")
+prepend_path("PKG_CONFIG_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib/pkgconfig")
 ...
 ```
 
