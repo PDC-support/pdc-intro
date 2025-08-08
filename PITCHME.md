@@ -1778,7 +1778,7 @@ Link to download the slides: [ThinLinc_Tutorial.pdf](https://github.com/PDC-supp
 ### Johan Hellsvik
 
 Reference pages:
-[Building for AMD GPUs](https://support.pdc.kth.se/doc/software_development/development_gpu/
+[Building for AMD GPUs](https://support.pdc.kth.se/doc/software_development/development_gpu/)
 [Introduction to GPUs course, September and October 2023](https://github.com/PDC-support/introduction-to-gpu)
 
 ---
