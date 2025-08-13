@@ -10,7 +10,7 @@
 
 # Cray programming environment (CPE)
 
-Reference page: [Compilers and libraries](https://support.pdc.kth.se/doc/software_development/development/)
+Reference pages: [Compilers and libraries](https://support.pdc.kth.se/doc/software_development/development/), [Build systems course](https://github.com/PDC-support/build-systems-course)
 
 The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
 

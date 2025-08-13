@@ -907,7 +907,7 @@ tar -xaf archive_name.tar.gz -C /path/to/directory
 
 # Cray programming environment (CPE)
 
-Reference page: [Compilers and libraries](https://support.pdc.kth.se/doc/software_development/development/)
+Reference pages: [Compilers and libraries](https://support.pdc.kth.se/doc/software_development/development/), [Build systems course](https://github.com/PDC-support/build-systems-course)
 
 The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
 
@@ -1779,7 +1779,7 @@ Link to download the slides: [ThinLinc_Tutorial.pdf](https://github.com/PDC-supp
 
 Reference pages:
 [Building for AMD GPUs](https://support.pdc.kth.se/doc/software_development/development_gpu/)
-[Introduction to GPUs course, September and October 2023](https://github.com/PDC-support/introduction-to-gpu)
+[Introduction to GPUs course](https://github.com/PDC-support/introduction-to-gpu)
 
 ---
 
