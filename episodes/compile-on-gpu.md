@@ -61,9 +61,9 @@ The AMD Radeon Open Compute (ROCm) platform is a software stack for programming 
     - ``ml craype-accel-amd-gfx90a``
 
 - Choose one of the available toolchains (Cray, Gnu, AMD)
-    - ``ml cpeCray/24.11``
-    - ``ml cpeGNU/24.11``
-    - ``ml cpeAMD/24.11``
+    - ``ml PrgEnv-cray`` The Cray Compiler Environment
+    - ``ml PrgEnv-gnu`` The GNU Compiler Collection
+    - ``ml PrgEnv-amd`` AMD Compiler Environment for GPU
 
 ---
 
@@ -157,7 +157,7 @@ do i = 1, nx
 end do
 ```
 
-Implement OpenMP offloading by inserting OpenMP directives. In Fortran the directives starts with ``!$omp``
+Implement OpenMP offloading by inserting OpenMP directives. In Fortran ``!$omp``
 
 ```
 ! Dot product of two vectors

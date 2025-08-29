@@ -14,14 +14,14 @@ Reference pages: [Compilers and libraries](https://support.pdc.kth.se/doc/softwa
 
 The Cray Programming Environment (CPE) provides consistent interface to multiple compilers and libraries.
 
-* In practice, we recommend
-    - ``ml cpeCray/24.11``
-    - ``ml cpeGNU/24.11``
-    - ``ml cpeAOCC/24.11``
+* For building on CPU nodes, we recommend use of one the toolchains
+  - ``ml PrgEnv-cray`` The Cray Compiler Environment
+  - ``ml PrgEnv-gnu`` The GNU Compiler Collection
+  - ``ml PrgEnv-aocc`` AMD Optimizing C/C++ and Fortran compilers
 
-* The ``cpeCray``, ``cpeGNU`` and ``cpeAOCC`` modules are available after ``ml PDC/24.11``
+* The ``PrgEnv-cray`` is the default toolchain
 
-* No need to ``module swap`` or ``module unload``
+* Load a PDC module to make available a large set of programs and libraries. Most recent version is currently 24.11. ``ml PDC/24.11``
 
 ---
 
@@ -71,8 +71,13 @@ The Cray Programming Environment (CPE) provides consistent interface to multiple
 
 ---
 
-# Compile a simple MPI code
+# Test run the hello world code
 
+Request 8 cores in the shared partition for interactive use
+```
+salloc -n 8 -t 10 -p shared -A <name-of-allocation> --reservation=<name of reservation>
+```
+Run on 8 cores in the ``shared`` partition
 ```
 user@uan01:> srun -n 8 ./hello_world_mpi.x
  Processor            4  of            8 : Hello World!
@@ -91,12 +96,12 @@ user@uan01:> srun -n 8 ./hello_world_mpi.x
 
 [Link to the code](https://github.com/PDC-support/pdc-intro/blob/master/COMPILE_exercises/dgemm_test.c)
 
-Use cray-libsci
+Use cray-libsci. This module is available by default. Load Gnu toolchain
 
 ```
-ml PDC/24.11 cpeGNU/24.11
+ml PrgEnv-gnu
 ```
-
+Build the code
 ```
 cc dgemm_test.c -o dgemm_test_craylibsci.x
 ```
@@ -105,7 +110,7 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 
 # Compile a simple linear algebra code
 
-Use openblas
+Use openblas. Load the PDC module and the openblas module.
 
 ```
 ml PDC/24.11 openblas/0.3.29-cpeGNU-24.11
