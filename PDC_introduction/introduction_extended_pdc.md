@@ -73,8 +73,8 @@ style: |
 #
 # Introduction to PDC
 ![bg](intro_pdc/img/first_slide.jpg)
-## Henric Zazzi
-## 2025-05-05
+## Johan Hellsvik
+## 2025-09-05
 
 ---
 
@@ -100,7 +100,7 @@ style: |
 <div class="row">
 <div class="column50">
 
-The National Academic Infrastructure for Supercomputing in Sweden (NAISS) is a infrastructure organization for high-performance computing in Sweden. NAISS is hosted by Linköping University but acts independently with a national perspective and responsibility. NAISS main funding is provided by the Swedish Research council (VR) while the user support is built up in partnership with several Swedish universities.
+The National Academic Infrastructure for Supercomputing in Sweden (NAISS) is an infrastructure organization for high-performance computing. NAISS is hosted by Linköping University but acts independently with a national perspective and responsibility. NAISS main funding is provided by the Swedish Research council while the user support is built up in partnership with several Swedish universities.
 
 </div>
 <div class="column50">
@@ -112,17 +112,7 @@ The National Academic Infrastructure for Supercomputing in Sweden (NAISS) is a i
 
 ---
 
-<!-- _hide: true -->
-
-# Research areas at PDC
-
-![height:450px center](intro_pdc/img/beskow_statistics.jpeg)
-
-*Usage of beskow, march 2017*
-
----
-
-# PDC offers...
+# PDC offers
 
 <div class="columnlightblue">
 
@@ -402,7 +392,7 @@ You must be a member of an allocation in SUPR
 
 <div class="information">
 
-https://support.pdc.kth.se/doc/support-docs/login/ssh_keys/
+https://support.pdc.kth.se/doc/login/ssh_keys/
 </div>
 
 ---
@@ -429,7 +419,7 @@ By default PIs, staff and administrators will be asked to authenticate themselve
 
 <div class="information">
 
-https://support.pdc.kth.se/doc/support-docs/login/ssh_login/
+https://support.pdc.kth.se/doc/login/ssh_login/
 </div>
 
 ---
@@ -462,7 +452,7 @@ Tickets should always be created on your local computer
 
 <div class="information">
 
-https://support.pdc.kth.se/doc/support-docs/login/kerberos_login/
+https://support.pdc.kth.se/doc/login/kerberos_login/
 </div>
 
 ---
@@ -515,7 +505,7 @@ Mar 25 09:45 Mar 25 19:45 FI krbtgt/NADA.KTH.SE@NADA.KTH.SE
 
 <div class="information">
 
-https://support.pdc.kth.se/doc/support-docs/login/interactive_hpc/
+https://support.pdc.kth.se/doc/login/interactive_hpc/
 </div>
 
 </div>
@@ -578,7 +568,7 @@ scp file.txt [username]@dardel.pdc.kth.se:/cfs/klemming/scratch/[u]/[username]
 
 <div class="information">
 
-https://support.pdc.kth.se/doc/support-docs/data_management/data_management/
+https://support.pdc.kth.se/doc/data_management/data_management/
 </div>
 
 ---
@@ -760,8 +750,8 @@ Usage: projinfo [-u <username>] [-c <clustername>] [-a] [-o] [-m] [-c <cluster>]
 Shows information about membership, allocation use, storage paths, and stored quota
 </div>
 
-Usage statistics for every allocation are also available at… 
-https://support.pdc.kth.se/doc/stats
+Usage statistics for every allocation are also available at
+https://pdc-web.eecs.kth.se/cluster_usage/
 
 ---
 
@@ -950,7 +940,7 @@ $ scancel [jobID]
   $ ml cray-fftw
   ```
 * Other libraries are lapack, blas scalapack, blacs,...
-  https://support.pdc.kth.se/doc/support-docs/software_development/development/
+https://support.pdc.kth.se/doc/software_development/development/
 
 ---
 
@@ -983,9 +973,7 @@ $ ml craype-accel-amd-gfx90a
 $ hipcc --offload-arch=gfx90a MyPrgm.cpp -o MyPrgm
 ```
 <div class="information">
-
-https://support.pdc.kth.se/doc/support-docs/software_development/development_gpu/
-
+https://support.pdc.kth.se/doc/software_development/development_gpu/
 </div>
 
 ---
@@ -993,7 +981,7 @@ https://support.pdc.kth.se/doc/support-docs/software_development/development_gpu
 # PDC Support
 
 1. A lot of question can be answered via our web https://support.pdc.kth.se/doc
-1. The best way to contact us is via our ticketing system https://support.pdc.kth.se/doc/support-docs/contact/contact_support/
+1. The best way to contact us is via our ticketing system https://support.pdc.kth.se/doc/contact/contact_support/
 1. The support request will be tracked
 1. Use a descriptive subject
 1. Provide your PDC user name.
