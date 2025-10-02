@@ -66,9 +66,12 @@ Dardel also has 8 GPU nodes using NVIDIA Grace Hopper superchips. Each node is e
 Nodes are currently working, but software stack is not fully set up. If you are interested in using the nodes contact support.
 
 ---
-# Grace Hopper node architecture
 
-![bg right:45% width:100%](https://github.com/PDC-support/pdc-intro/blob/master/assets/GHschematics.png)
+# NVIDIA Grace Hopper node architecture
+
+Schematic architecture displaying node intraconnections and node interconnections
+
+![bg right:45% width:100%](./GHschematics.png)
 
 ---
 
