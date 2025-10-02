@@ -14,7 +14,9 @@ style: |
   .row:after {
     display: table;
     clear: both;
-    }---
+    }
+
+---
 
 <!-- Section: Compiling and running code on GPU nodes -->
 
