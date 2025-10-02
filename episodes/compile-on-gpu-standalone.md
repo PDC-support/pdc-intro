@@ -22,7 +22,7 @@ style: |
 
 # Compiling and running code on GPU nodes
 
-### Johan Hellsvik
+### Jonathan Vincent
 
 Reference pages:
 [Building for AMD GPUs](https://support.pdc.kth.se/doc/software_development/development_gpu/)
@@ -42,9 +42,9 @@ Central processing units (CPU) and graphics processing units (GPU) do different 
 
 ---
 
-# Dardel GPU nodes
+# Dardel AMD GPU nodes
 
-Dardel has 62 GPU nodes, each of which is equipped with
+Dardel has 62 GPU nodes with AMD hardware, each of which is equipped with
 
 - One AMD EPYC™ processor with 64 cores
 
@@ -53,6 +53,17 @@ Dardel has 62 GPU nodes, each of which is equipped with
 - Four AMD Instinct™ MI250X GPUs (with an impressive performance of up to 95.7 TFLOPS in double precision when using special matrix operations)
 
 ![bg right:45% width:100%](https://www.pdc.kth.se/polopoly_fs/1.1242679.1679986622!/image/MI200_hpc_architecture_1000pW_heading_cut.png)
+
+---
+# Dardel NVIDIA GPU nodes
+
+Dardel also has 8 GPU nodes using NVIDIA Grace Hopper superchips. Each node is equiped with
+
+- Four Arm Neoverse processors with 144 cores (aka Grace chip)
+
+- 4 NVIDIA Hopper GPUs with 96 GB HBM3
+
+Nodes are currently working, but software stack is not fully set up. If you are interested in using the nodes contact support.
 
 ---
 
