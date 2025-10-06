@@ -155,7 +155,7 @@ https://support.pdc.kth.se/doc/stats
  If requesting number of cores without any memory specification:
 
  - Memory is allocated proportional to the requested cores
- - Maximum allocated memory is 111G (~ half half of available memory on a node)
+ - Maximum allocated memory is 111G (~ half of available memory on a node)
  - For example if requesting 64 cores, you will get around 115G memory
 
  If requesting specific amount of memory without specifying number of cores:
