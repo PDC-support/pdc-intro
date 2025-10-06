@@ -162,8 +162,8 @@ https://support.pdc.kth.se/doc/stats
 
  - The cores are allocated based on the **half of available memory on a node**
  - For example if requesting 55G, you will be given 64 cores
- - If requesting 110G, you will be given 128 cores (the entire node)
- - If requesting >110G, you will be given 128 cores (the entire node)
+ - If requesting 111G, you will be given 128 cores (the entire node)
+ - If requesting >111G, you will be given 128 cores (the entire node)
 ---
 
 # Job submission with job scripts
