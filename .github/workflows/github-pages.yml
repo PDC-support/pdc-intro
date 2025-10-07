@@ -16,11 +16,11 @@ jobs:
         run: echo "::set-output name=nvmrc::$(cat .nvmrc)"
 
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ steps.node_version.outputs.nvmrc }}
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
