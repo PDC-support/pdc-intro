@@ -13,7 +13,7 @@ jobs:
 
       - name: Detect Node version from .nvmrc
         id: node_version
-        run: echo "::set-output name=nvmrc::$(cat .nvmrc)"
+        run: echo "nvmrc=$(cat .nvmrc)" >> $GITHUB_OUTPUT
 
       - name: Install Node.js
         uses: actions/setup-node@v5
