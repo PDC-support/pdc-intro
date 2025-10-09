@@ -43,11 +43,12 @@ style: |
 ---
 <!-- paginate: true -->
 
-# Introduction to Singularity
+# Introduction to containers
 
 ## Henric Zazzi
-## 2024-09-27
-![height:200px center](img/singularity/SingularityLogos_CE.png)
+## 2025-10-06
+![height:100px center](img/singularity/SingularityLogos_CE.png)
+![height:100px center](https://apptainer.org/docs/admin/main/_static/logo.png)
 
 ---
 
@@ -55,13 +56,14 @@ style: |
 
 - What are containers
 - Docker, the most popular container
-- Singularity: Containers for the HPC environment
-- installation of singularity
+- Containers for the HPC environment
+- installation of singularity/AppTainer
 - How to build containers
 - Installing software in container
 - Running your container in an HPC environment
-- Creating recipes for singularity
+- Creating recipes for singularity or AppTainer
 
+Singularity and AppTainer will be presented but commands are interchangeable
 ---
 
 # What are containers
@@ -89,19 +91,13 @@ A container image is a lightweight, standalone, executable package of software t
 
 # Containers: How are they useful
 
-- Reproducibility
-- Portability
-- Depending on application and use-case, simple extreme scalability
 - Next logical progession from virtual machines
-
----
-
-# Why do we want containers in HPC?
-
+- Reproducibility
+  - Local and remote code works identically every time
+- Portability
+  - One file contains everything and can be moved anywhere
+  - Load fewer modules
 - Escape “dependency hell”
-- Load fewer modules
-- Local and remote code works identically every time
-- One file contains everything and can be moved anywhere
 
 ---
 
@@ -130,7 +126,9 @@ A container image is a lightweight, standalone, executable package of software t
 
 ---
 
-# Singularity: Containers for the HPC environment
+# Containers for the HPC environment
+
+# **SingularityCE** and **AppTainer**
 
 - Package software and dependencies in one file
 - Use same container in different SNIC clusters
@@ -161,11 +159,11 @@ https://singularity-hub.org/
 
 ### singularityCE (Community Edition)
 
-- Installed on Dardel: 4.1.1
+- Installed on Dardel: 4.2.0
 
 ### AppTainer
 
-- Installed on Dardel: 1.3.0
+- Installed on Dardel: 1.4.0
 
 ---
 
@@ -188,6 +186,7 @@ https://singularity-hub.org/
 ### HPC Cluster
 *User access*
 
+1. *singularity build* (Only from other builts)
 1. *singularity shell*
 1. *singularity exec*
 1. *singularity help*
@@ -197,30 +196,21 @@ https://singularity-hub.org/
 
 ---
 
-# Install singularity on your computer
+# Install singularity/apptainer on your computer
 
 ### You need a local installed copy of singularity to create your container
 
-```
-$ sudo apt-get update && sudo apt-get install -y \
-    build-essential libssl-dev uuid-dev libgpgme11-dev \
-    squashfs-tools libseccomp-dev pkg-config \
-    libglib2.0-dev
-# Google GO language is needed
-$ sudo apt install golang
-$ git clone --recurse-submodules https://github.com/sylabs/singularity/
-$ cd singularity
-$ ./mconfig && make -C ./builddir && sudo make -C ./builddir install
-```
-
-More information at ...
+## Install singularityCE
 https://docs.sylabs.io/guides/3.0/user-guide/installation.html
+
+## Install AppTainer
+https://apptainer.org/docs/admin/main/installation.html
 
 ---
 
 # Launching a container
 
-- Singularity sets up the container environment and creates the necessary
+- Singularity/AppTainer sets up the container environment and creates the necessary
   namespaces.
 - Directories, files and other resources are shared from the host into the
   container.
@@ -301,7 +291,8 @@ To be root in the singularity image you must be root on the computer
 # Build a writeable image
 
 Since there are memory limitation on writing directly to image file,
-it is better to create a sandbox
+and a new image file is created for each MPI process,
+it is better to create a sandbox that does not have this limitation.
 
 ```
 $ sudo singularity build --sandbox my_sandbox my_image.sif
@@ -449,7 +440,7 @@ This is a text file
 
 ---
 
-# Creating recipes for singularity
+# Creating recipes for singularity or AppTainer
 
 ---
 
@@ -461,7 +452,7 @@ software, environment variables, files to add, and container metadata
 
 ---
 
-# How to build from a recipe
+# How to build a container locally from a recipe
 
 A recipe is a textfile explaining what should be put into the container
 
@@ -473,30 +464,20 @@ Recipes for images that can be used on PDC clusters can be found at https://gith
 
 ---
 
-# How to build from a recipe on Dardel
+# How to build a container remotely from a recipe
 
-#### Create sylabs token
-1. Login into sylabs https://cloud.sylabs.io/builder
-1. Press USERNAME -> Access tokens
-1. Enter a name for your token and press Create Access Token
-1. Copy or download the token.
+Dardel has a remote building pipeline that is accessible **ONLY** for
+dardel users.
 
-<div class="row">
-<div class="column50">
-
+#### How to buld a remote container
 ```
-ml PDC singularity
-singularity remote login
+ml PDC singularity/apptainer
+build_container [recipe].def
 ```
 
-</div><div class="column50">
-
-The first time you run this command on the cluster, it will save your access token to your profile.
-
-</div></div>
-
+#### For more information...
 ```
-singularity build --remote --sandbox <sandbox name> <recipe name>
+build_container --help
 ```
 
 ---
@@ -605,23 +586,13 @@ What should be executed with the run command.
 # Requirements
 
 - OpenMPI version must be the same in container and cluster
-- Compiler and version must be the same in container and cluster
+- Compiler must be the same in container and cluster
 - You need to bind to the LUSTRE file system at PDC so it can be detected
-- You can use *build* but only from other images and only sandboxes
+- You can use *build* but only from other images or sandboxes
 - You can **ONLY** run *sandbox* and not *SIF* files
   - A singularity file is copied to all nodes whereas a *sandbox* folder structure is not
 
 ---
-
-# Transfer of sandbox file
-
-```
-# On local computer
-sudo tar czf <sandbox name>.tar.gz <sandbox name>
-scp <sandbox name>.tar.gz <username>@dardel.pdc.kth.se:/cfs/klemming/home/<u>/<username>
-# On Dardel
-tar xfp <sandbox name>.tar.gz
-```
 
 # Transfer a SIF file
 
@@ -639,7 +610,7 @@ singularity build --sandbox <sandbox name> <SIF file>
 
 ```
 ml PDC
-ml singularity
+ml singularity or apptainer
 ```
 
 * In folder *$PDC_SHUB* you can find already built images at PDC
@@ -670,7 +641,7 @@ srun -n 24 --mpi=pmi2 singularity exec <sandbox folder> <myexe>
 
 ---
 
-# Executes GPU enabled code with singularity
+# Executes AMD GPU enabled code with singularity
 
 ```
 #!/bin/bash -l
@@ -697,4 +668,4 @@ srun -n 1 singularity exec --rocm -B /cfs/klemming <sandbox folder> <myexe>
 
 * https://www.pdc.kth.se/support/documents/software/singularity.html
 * https://github.com/PDC-support/PDC-SoftwareStack/tree/master/other/singularity
-* https://sylabs.io/docs/
+
