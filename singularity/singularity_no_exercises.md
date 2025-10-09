@@ -668,4 +668,3 @@ srun -n 1 singularity exec --rocm -B /cfs/klemming <sandbox folder> <myexe>
 
 * https://www.pdc.kth.se/support/documents/software/singularity.html
 * https://github.com/PDC-support/PDC-SoftwareStack/tree/master/other/singularity
-
