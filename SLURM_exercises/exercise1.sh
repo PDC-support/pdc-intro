@@ -3,7 +3,7 @@
 
 # Set the allocation to be charged for this job
 # not required if you have set a default allocation
-#SBATCH -A edu25.summer
+#SBATCH -A edu26.summer
 
 # Reservation for today
 #SBATCH --reservation=lab25-08-15
