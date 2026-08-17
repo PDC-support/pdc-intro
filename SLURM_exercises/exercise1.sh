@@ -17,12 +17,6 @@
 # 5 minutes wall-clock time will be given to this job
 #SBATCH -t 00:05:00
 
-# Number of nodes
-#SBATCH -N 1
-
-# Number of MPI processes
-#SBATCH -n 4
-
 # Run the executable
 # and write the output into my_output_file
 srun ./hello_mpi.x > my_output_file
