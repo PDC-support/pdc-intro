@@ -6,7 +6,7 @@
 #SBATCH -A edu26.summer
 
 # Reservation for today
-#SBATCH --reservation=lab25-08-15
+#SBATCH --reservation=edu26-08-21
 
 # The name of the script is myjob
 #SBATCH -J hello_world
