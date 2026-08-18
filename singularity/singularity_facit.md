@@ -40,13 +40,21 @@ style: |
     display: block;
     margin: 0 auto;
     }
+  .warning {
+    color: red;
+    }
+  .tip {
+    color: green;
+    }
 ---
 <!-- paginate: true -->
 
 # Singularity exercises
 
 # Henric Zazzi
-![height:200px center](img/singularity/SingularityLogos_CE.png)
+![height:200 center](img/singularity/SingularityLogos_CE.png)
+
+![height:200px center](https://apptainer.org/apptainer.svg)
 
 ---
 
@@ -96,7 +104,7 @@ Singularity> exit
 1. Create a help file
 1. Create/Edit the runscript printing *Hello world!*
 
-<span style="color:red;">**Tip:** You can use an editor in your VM or create it and then transfer the file</span>
+<span class="tip">**Tip:** You can use an editor in your VM or create it and then transfer the file</span>
 
 ---
 
@@ -127,7 +135,7 @@ Singularity> exit
 1. Create a runscript
 1. Run the recipe
 
-<span style="color:red;">**Tip:** You can use the editor in your VM and then transfer the file</span>
+<span class="tip">**Tip:** You can use the editor in your VM and then transfer the file</span>
 
 ---
 
@@ -148,7 +156,7 @@ sudo singularity build --sandbox [sandbox name] [recipe name]
 1. send in a job for the hello-world sandbox
 1. Use the hello_world in PDCs singularity repository
 
-<span style="color:red;">**Tip:** With the singularity module use the **Path:** $PDC_SHUB</span>
+<span class="tip">**Tip:** With the singularity module use the **Path:** $PDC_SHUB</span>
 
 ---
 

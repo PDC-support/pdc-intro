@@ -40,13 +40,21 @@ style: |
     display: block;
     margin: 0 auto;
     }
+  .warning {
+    color: red;
+    }
+  .tip {
+    color: green;
+    }
 ---
 <!-- paginate: true -->
 
-# Introduction to Singularity
+# Introduction to Containers
 
 # Henric Zazzi
-![height:200px center](img/singularity/SingularityLogos_CE.png)
+![height:200 center](img/singularity/SingularityLogos_CE.png)
+
+![height:200px center](https://apptainer.org/apptainer.svg)
 
 ---
 
@@ -54,12 +62,12 @@ style: |
 
 - What are containers
 - Docker, the most popular container
-- Singularity: Containers for the HPC environment
-- installation of singularity
+- Singularity & AppTainer: Containers for the HPC environment
+- installation of singularity & apptainer
 - How to build containers
-- Installing software in container
+- Installing software in a container
 - Running your container in an HPC environment
-- Creating recipes for singularity
+- Creating recipes for singularity & apptainer
 
 ---
 
@@ -69,7 +77,7 @@ style: |
 
 ---
 
-A container image is a lightweight, standalone, executable package of software that includes everything needed to run an application.
+### A container image is a lightweight, standalone, executable package of software that includes everything needed to run an application.
 
 <div class="row">
 <div class="column50">
@@ -97,7 +105,7 @@ A container image is a lightweight, standalone, executable package of software t
 
 # Why do we want containers in HPC?
 
-- Escape “dependency hell”
+- Escape "dependency hell"
 - Load fewer modules
 - Local and remote code works identically every time
 - One file contains everything and can be moved anywhere
@@ -125,18 +133,18 @@ A container image is a lightweight, standalone, executable package of software t
 - No support for MPI
 - No native GPU support
 - Docker users can escalate to root access on the cluster
-- <span style="color:red;">Not allowed on HPC clusters</span>
+- <span class="warning">Not allowed on HPC clusters</span>
 
 ---
 
-# Singularity: Containers for the HPC environment
+# Singularity & AppTainer: Containers for the HPC environment
 
 - Package software and dependencies in one file
-- Use same container in different SNIC clusters
+- Use same container in different HPC clusters
 - Limits user’s	privileges,	better security
 - Same user inside container as on host
 - No need for most modules
-- <span style="color:red;">Negligable performance decrease</span>
+- <span class="tip">Negligable performance decrease</span>
 
 ---
 
@@ -144,7 +152,7 @@ A container image is a lightweight, standalone, executable package of software t
 
 - Works great for local and private resources.
 - No HPC centra will install docker for you
-- <span style="color:red;">Singularity can import Docker images</span>
+- <span class="tip">We can import Docker images</span>
 
 ---
 
@@ -156,19 +164,21 @@ https://singularity-hub.org/
 
 ---
 
-# Singularity Versions
+# Versions
 
 ### singularityCE (Community Edition)
 
-- Installed on Dardel: 4.1.1
+- Installed on Dardel: 4.4.2
 
 ### AppTainer
 
-- Installed on Dardel: 1.2.5
+- Installed on Dardel: 1.5.1
+
+<span class="tip">Singularity and AppTainer are interchangeable</span>
 
 ---
 
-# Singularity workflow
+# Workflow
 
 <div class="row">
 <div class="column50 columnlightblue">
@@ -196,30 +206,23 @@ https://singularity-hub.org/
 
 ---
 
-# Install singularity on your computer
+# Install singularity or apptainer on your computer
 
-### You need a local installed copy of singularity to create your container
+### You need a local installed copy of singularity to write within your container
 
-```
-$ sudo apt-get update && sudo apt-get install -y \
-    build-essential libssl-dev uuid-dev libgpgme11-dev \
-    squashfs-tools libseccomp-dev pkg-config \
-    libglib2.0-dev
-# Google GO language is needed
-$ sudo apt install golang
-$ git clone --recurse-submodules https://github.com/sylabs/singularity/
-$ cd singularity
-$ ./mconfig && make -C ./builddir && sudo make -C ./builddir install
-```
+#### Singularity Community Edition
 
-More information at ...
 https://docs.sylabs.io/guides/3.0/user-guide/installation.html
+
+#### Apptainer
+
+https://apptainer.org/docs/admin/main/installation.html
 
 ---
 
 # Launching a container
 
-- Singularity sets up the container environment and creates the necessary
+- Sets up the container environment and creates the necessary
   namespaces.
 - Directories, files and other resources are shared from the host into the
   container.
@@ -239,7 +242,7 @@ https://docs.sylabs.io/guides/3.0/user-guide/installation.html
 Download and test the latest UBUNTU image from docker hub
 
 ```
-$ sudo singularity build my_image.sif docker://ubuntu:latest
+$ singularity build my_image.sif docker://ubuntu:latest
 INFO:    Starting build...
 Getting image source signatures
 ...
@@ -261,17 +264,17 @@ Singularity> exit
 singularity build [image].sif [name]
 ```
 
-| From | Path |
-| --- | --- |
-| Singularity hub | shub://[name] |
-| Docker hub | docker://[name] |
-| Local | [name] |
-| Sandbox | [Sandox folder name] |
-| Recipe | [recipe name] |
+| From | Path | Access |
+| --- | --- | --- |
+| Singularity hub | shub://[name] | Default |
+| Docker hub | docker://[name] | Default |
+| Local | [name] | Default |
+| Sandbox | [Sandox folder name] | Default |
+| Recipe | [recipe name] | Root |
 
 ---
 
-# How do I execute commands in singularity
+# How do I execute commands
 
 Commands in the container can be given as normal.
 
@@ -285,41 +288,25 @@ Singularity> ls
 
 ---
 
-# Exercise 1: Download a container
-
-1. Go to singularity hub and find the hello-world container (https://singularityhub.github.io/singularityhub-archive/)
-1. build the container using singularity
-1. Use the container shell and get acquainted with it 
-
----
-
 # Installing software in container
 
 ---
 
-# Why must I be root?
+# Write within a container
 
-Same permissions in the container as outside...
-
-To be root in the singularity image you must be root on the computer
+1. In order to write in a container you must be root
+1. Same permissions in the container as outside...
+1. To be root in a container you must be root on the computer
 
 ---
 
-# Build a writeable image
+# Read and write modes
 
-Since there are memory limitation on writing directly to image file,
-it is better to create a sandbox
+**Read mode:** You can read/write to file system outside container and read inside container.
 
-```
-$ sudo singularity build --sandbox my_sandbox my_image.sif
-INFO:    Starting build...
-INFO:    Verifying bootstrap image my_image.sif
-...
-INFO:    Creating sandbox directory...
-INFO:    Build complete: my_sandbox
-$ singularity shell my_sandbox
-Singularity>
-```
+**write mode:** You can read/write inside container.
+
+<span class="warning">**Remember:** In write mode you are user ROOT, home folder: /root</span>
 
 ---
 
@@ -331,18 +318,7 @@ When opening a container for write you can install software in the container.
 $ sudo singularity shell -w my_sandbox
 Singularity> apt-get update
 ```
-<span style="color:red;">**Tip:** No root is needed for *update* as we are already root</span>
-
----
-
-# Transfer files into container
-
-**Read mode:** You can read/write to file system outside container and
-read inside container.
-
-**write mode:** You can read/write inside container.
-
-<span style="color:red;">Remember: In write mode you are user ROOT, home folder: /root</span>
+<span class="tip">**Tip:** No root is needed for *update* as we are already root</span>
 
 ---
 
@@ -361,17 +337,13 @@ read inside container.
 
 # How to use binding to run local scripts
 
-1. Create local folder and internal singularity folder 
+1. Create local folder and internal singularity folder as **root**
    ```
    $ mkdir my_folder
    $ sudo singularity exec -w my_sandbox mkdir /usr/local/sing
    ```
 1. Starting container and bind folders
-   The file *myscript*, residing in my_folder, will be executed as within the container
-   ```
-   $ singularity exec -B my_folder:/usr/local/sing -w my_sandbox /usr/local/sing/myscript
-   ```
-1. Obscuring container folder */opt*
+   The file *myscript*, residing in my_folder, will be executed as within the container but we are also obscuring container folder */opt*
    ```
    $ singularity exec -B my_folder:/opt my_sandbox /opt/myscript
    ```
@@ -380,30 +352,18 @@ read inside container.
 
 # Example on how to transfer files into the container
 
-1. Create local folder and internal singularity folder 
+1. Create local folder
    ```
    $ mkdir my_folder
-   $ sudo singularity exec -w my_sandbox mkdir singularity_folder
    ```
 1. Starting container as *root* and bind folders
    ```
-   $ sudo singularity shell -B my_folder:/root/singularity_folder -w my_sandbox
+   $ sudo singularity shell -B my_folder:/opt -w my_sandbox
    ```
 1. Copy *file1* to container folder
    ```   
-   Singularity> cp singularity_folder/file1 .
+   Singularity> cp /opt/file1 .
    ```
-
----
-
-# Exercise 2: Create your own container
-
-1. Go to docker hub and find the official latest ubuntu
-1. build the container using singularity
-1. Build a writeable sandbox
-1. Install necessary tools into the container (Compiler etc...)
-   1. apt-get update
-   1. apt-get install build-essential
 
 ---
 
@@ -427,7 +387,7 @@ drwxr-xr-x 2 root root 4096 Feb 17 09:27 libs
 -rwxr-xr-x 1 root root   10 Feb 17 09:27 startscript
 ```
 
-<span style="color:red;">Important: The files must be executable and owned by root</span>
+<span class="warning">**Important:** The files must be executable and owned by root</span>
 
 ---
 
@@ -467,25 +427,14 @@ This is a text file
 
 ---
 
-# Exercise 3: Edit your own container
-
-1. Create a help file
-1. Create/Edit the runscript printing *Hello world!*
-
-<span style="color:red;">**Tip:** You can use an editor in your VM or create it and then transfer the file</span>
-
----
-
-
-# Creating recipes for singularity
+# Creating recipes
 
 ---
 
 # Singularity Recipes
 
-A Singularity Recipe is the driver of a custom build, and the starting point
-for designing any custom container. It includes specifics about installation
-software, environment variables, files to add, and container metadata
+- A recipe is the driver of a custom build, and the starting point for designing any custom container.
+- It includes specifics about installation software, environment variables, files to add, and container metadata
 
 ---
 
@@ -501,7 +450,32 @@ Recipes for images that can be used on PDC clusters can be found at https://gith
 
 ---
 
+# Printing how a container was built
+
+```
+singularity inspect --deffile [container]
+```
+
+---
+
 # How to build from a recipe on Dardel
+
+#### This command will remotely build a sandboxed container remotely
+```
+ml PDC singularity
+build_container [recipe].def
+```
+
+<span class="tip">**Tip:** You can also build containers for ARM nodes using **--arm**</span>
+
+See more parameters with...
+```
+build_container --help
+```
+
+---
+
+# How to build from a recipe on Dardel via sylabs
 
 #### Create sylabs token
 1. Login into sylabs https://cloud.sylabs.io/builder
@@ -509,30 +483,15 @@ Recipes for images that can be used on PDC clusters can be found at https://gith
 1. Enter a name for your token and press Create Access Token
 1. Copy or download the token.
 
-<div class="row">
-<div class="column50">
-
 ```
 ml PDC singularity
 singularity remote login
 ```
 
-</div><div class="column50">
-
-The first time you run this command on the cluster, it will save your access token to your profile.
-
-</div></div>
+When you run this command on the cluster, it will save your access token
 
 ```
 singularity build --remote --sandbox <sandbox name> <recipe name>
-```
-
----
-
-# Printing how a container was built
-
-```
-singularity inspect --deffile [container]
 ```
 
 ---
@@ -564,7 +523,7 @@ What image should we start with?
 - *Bootstrap:*
   - shub
   - docker
-  - localimage
+  - localimage <span class="warning">Not possible for remote builds</span>
 - *From:*
   - The name of the container
 ```
@@ -598,8 +557,8 @@ What softwares should be installed in my container.
     apt-get install -y build-essential
 ```
 
-<span style="color:red;">No interaction in the scripts</span>
-<span style="color:red;">We do not need sudo in the container</span>
+1. You cannot interact during execution of the scripts
+1. We do not need *sudo* in the container
 
 ---
 
@@ -612,6 +571,8 @@ What local files should be copied into my container
     <local filename> <singularity path>
 ```
 
+<span class="warning">Not possible for remote builds</span>
+
 ---
 
 # Section: %runscript
@@ -621,20 +582,7 @@ What should be executed with the run command.
 ```
 %runscript
     <software executable> -<parameter1>
-    
 ```
-
----
-
-# Exercise 4: Create a recipe
-
-1. Based on UBUNTU
-1. Install compilers
-1. Create a help text
-1. Create a runscript
-1. Run the recipe
-
-<span style="color:red;">**Tip:** You can use the editor in your VM and then transfer the file</span>
 
 ---
 
@@ -644,24 +592,12 @@ What should be executed with the run command.
 
 # Requirements
 
-- OpenMPI version must be the same in container and cluster
-- Compiler and version must be the same in container and cluster
-- You need to bind to the LUSTRE file system at PDC so it can be detected
-- You can use *build* but only from other images and only sandboxes
-- You can **ONLY** run *sandbox* and not *SIF* files
-  - A singularity file is copied to all nodes whereas a *sandbox* folder structure is not
-
+1. OpenMPI version must be the same in container and cluster
+1. You need to bind to the klemming LUSTRE file system so it can be detected
+1. You can use *build* but only from other images and only sandboxes
+1. You can **ONLY** run *sandbox* and not *SIF* files
+   1. A singularity file is copied to all processes whereas a *sandbox* folder structure is not
 ---
-
-# Transfer of sandbox file
-
-```
-# On local computer
-sudo tar czf <sandbox name>.tar.gz <sandbox name>
-scp <sandbox name>.tar.gz <username>@dardel.pdc.kth.se:/cfs/klemming/home/<u>/<username>
-# On Dardel
-tar xfp <sandbox name>.tar.gz
-```
 
 # Transfer a SIF file
 
@@ -682,11 +618,11 @@ ml PDC
 ml singularity
 ```
 
-* In folder *$PDC_SHUB* you can find already built images at PDC
+In folder *$PDC_SHUB* you can find already built images at PDC
 
 ---
 
-# Executes singularity on 2 nodes
+# Executes a container on 2 nodes
 
 ```
 #!/bin/bash -l
@@ -710,13 +646,12 @@ srun -n 24 --mpi=pmi2 singularity exec <sandbox folder> <myexe>
 
 ---
 
-# Executes GPU enabled code with singularity
+# Executes GPU enabled code with containers
 
 ```
 #!/bin/bash -l
 # The -l above is required to get the full environment with modules
 # Set the allocation to be charged for this job
-# not required if you have set a default allocation
 #SBATCH -A 201X-X-XX
 # The name of the script is myjob
 #SBATCH -J myjob
@@ -724,12 +659,67 @@ srun -n 24 --mpi=pmi2 singularity exec <sandbox folder> <myexe>
 #SBATCH -t 1:00:00
 # Number of nodes
 #SBATCH --nodes=1
-# Using the GPU partition which is at the moment is under testing
+# Using the GPU partition
 #SBATCH -p gpu
 # Run the executable named myexe
 ml PDC singularity
 srun -n 1 singularity exec --rocm -B /cfs/klemming <sandbox folder> <myexe>
 ```
+
+<span class="tip">**Tip:** Using flag **--nv** enables you to run the container on NVIDIA GPU</span>
+
+---
+
+# Useful links
+
+* https://www.pdc.kth.se/support/documents/software/singularity.html
+* https://github.com/PDC-support/PDC-SoftwareStack/tree/master/other/singularity
+* https://sylabs.io/docs/
+* https://apptainer.org/
+
+---
+
+# Exercizes
+
+Exercise 2 and 3 crave root access and need an installation of AppTainer or Singularity on your laptop
+
+---
+
+# Exercise 1: Download a container
+
+1. Go to singularity hub and find the hello-world container (https://singularityhub.github.io/singularityhub-archive/)
+1. build the container using singularity
+1. Use the container shell and get acquainted with it 
+
+---
+
+# Exercise 2: Create your own container as root
+
+1. Go to docker hub and find the official latest ubuntu
+1. build the container using singularity
+1. Build a writeable sandbox
+1. Install necessary tools into the container (Compiler etc...)
+   1. apt-get update
+   1. apt-get install build-essential
+
+---
+
+# Exercise 3: Edit your own container as root
+
+1. Create a help file
+1. Create/Edit the runscript printing *Hello world!*
+
+<span class="tip">**Tip:** You can use an editor in your VM or create it and then transfer the file</span>
+
+---
+
+# Exercise 4: Create a recipe
+
+1. Based on UBUNTU
+1. Install compilers
+1. Create a help text
+1. Create a runscript
+1. Run the recipe
 
 ---
 
@@ -739,12 +729,6 @@ srun -n 1 singularity exec --rocm -B /cfs/klemming <sandbox folder> <myexe>
 1. send in a job for the hello-world sandbox
 1. Use the hello_world in PDCs singularity repository
 
-<span style="color:red;">**Tip:** With the singularity module use the **Path:** $PDC_SHUB</span>
+<span class="tip">**Tip:** With the singularity module use the path *$PDC_SHUB*</span>
 
 ---
-
-# Useful links
-
-* https://www.pdc.kth.se/support/documents/software/singularity.html
-* https://github.com/PDC-support/PDC-SoftwareStack/tree/master/other/singularity
-* https://sylabs.io/docs/

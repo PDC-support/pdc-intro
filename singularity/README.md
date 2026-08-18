@@ -6,13 +6,11 @@ and HTML for graphic effects.
 
 ## Building presentation
 
-Use marp to build your presentation in HTML
+Use marp to build your presentation in PDF
 
 ```
-marp --html introduction_pdc.md
+marp --pdf --allow-local-files singularity.md 
 ```
-
-Your presentation can then be used in your installed browser, or within the browser you can convert your presentation to PDF
 
 ## Examining presentation
 
