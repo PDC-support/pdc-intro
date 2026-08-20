@@ -21,7 +21,7 @@ The Cray Programming Environment (CPE) provides consistent interface to multiple
 
 * The ``PrgEnv-cray`` is the default toolchain
 
-* Load a PDC module to make available a large set of programs and libraries. Most recent version is currently 24.11. ``ml PDC/24.11``
+* Load a PDC module to make available a large set of programs and libraries. Most recent version is currently 26.03. ``ml PDC/26.03``
 
 ---
 
@@ -110,23 +110,20 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 
 # Compile a simple linear algebra code
 
-Use openblas. Load the PDC module and the openblas module.
+Use OpenBLAS. Load the PDC module and the openblas module.
 
 ```
-ml PDC/24.11 openblas/0.3.29-cpeGNU-24.11
+ml PDC/26.03 openblas/0.3.34-cpeGNU-26.03
 ```
 
+When loading the OpenBLAS module,
+
+- `/pdc/software/26.03/eb/software/openblas/0.3.34-cpeGNU-26.03/lib` is prepended to `LIBRARY_PATH`
+- `/pdc/software/26.03/eb/software/openblas/0.3.34-cpeGNU-26.03/include` is prepended to `CPATH`
+
+Compile the code with linking to OpenBLAS
 ```
-cc dgemm_test.c -o dgemm_test_openblas.x -I$EBROOTOPENBLAS/include -L$EBROOTOPENBLAS/lib -lopenblas
-```
-where the environment variable `EBROOTOPENBLAS` had been set when loading the OpenBLAS module. Its module file includes a statement
-```
-local root = "/pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11"
-setenv("EBROOTOPENBLAS", root)
-```
-which corresponds to an export statement
-```
-export EBROOTOPENBLAS=/pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11
+cc dgemm_test.c -o dgemm_test_openblas.x -lopenblas
 ```
 
 ---
@@ -157,7 +154,7 @@ libsci_cray.so.6 => /opt/cray/pe/lib64/libsci_cray.so.6
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11/lib/libopenblas.so.0
+libopenblas.so.0 => /pdc/software/26.03/eb/software/openblas/0.3.34-cpeGNU-26.03/lib/libopenblas.so.0
 ...
 ```
 
@@ -185,7 +182,7 @@ libopenblas.so.0 => /pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11
 # Exercise: Compile and run ``fftw_test`` code
 
 ```
-ml cray-fftw/3.3.10.9
+ml cray-fftw/3.3.10.11
 
 wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
 
@@ -221,16 +218,16 @@ srun -n 1 ./fftw_test.x
 # What happens when loading a module
 
 ```
-ml show elpa/2025.01.001-cpeGNU-24.11
+ml show elpa/2026.02.01-cpeGNU-26.03
 ```
 
 ```
 whatis("Description: ELPA - Eigenvalue SoLvers for Petaflop-Applications")
-prepend_path("CMAKE_PREFIX_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11")
-prepend_path("LD_LIBRARY_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib")
-prepend_path("LIBRARY_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib")
-prepend_path("PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/bin")
-prepend_path("PKG_CONFIG_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib/pkgconfig")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/26.03/eb/software/elpa/2026.02.01-cpeGNU-26.03")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/26.03/eb/software/elpa/2026.02.01-cpeGNU-26.03/lib")
+prepend_path("LIBRARY_PATH","/pdc/software/26.03/eb/software/elpa/2026.02.01-cpeGNU-26.03/lib")
+prepend_path("PATH","/pdc/software/26.03/eb/software/elpa/2026.02.01-cpeGNU-26.03/bin")
+prepend_path("PKG_CONFIG_PATH","/pdc/software/26.03/eb/software/elpa/2026.02.01-cpeGNU-26.03/lib/pkgconfig")
 ...
 ```
 

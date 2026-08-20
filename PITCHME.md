@@ -19,7 +19,7 @@ style: |
 
 # <!--fit--> Introduction to PDC
 
-2025-03-20
+2026-08-20
 
 PDC staff
 
@@ -34,12 +34,12 @@ PDC staff
 * [Using Bash shell](#31)
 * [Compiling and running code on CPU nodes](#64)
 * [Job script for efficient utilization of hardware](#79)
-* [Using ThinLinc](#116)
-* [Compiling and running code on GPU nodes](#117)
-* [Using Singularity](#133)
-* [Using Matlab](#134)
-* [Materials theory codes](#146)
-* [Using Python virtual environment](#159)
+* [Using ThinLinc](#118)
+* [Compiling and running code on GPU nodes](#119)
+* [Using Singularity](#135)
+* [Using Matlab](#136)
+* [Materials theory codes](#148)
+* [Using Python virtual environment](#161)
 
 ---
 
@@ -918,7 +918,7 @@ The Cray Programming Environment (CPE) provides consistent interface to multiple
 
 * The ``PrgEnv-cray`` is the default toolchain
 
-* Load a PDC module to make available a large set of programs and libraries. Most recent version is currently 24.11. ``ml PDC/24.11``
+* Load a PDC module to make available a large set of programs and libraries. Most recent version is currently 26.03. ``ml PDC/26.03``
 
 ---
 
@@ -1007,23 +1007,20 @@ cc dgemm_test.c -o dgemm_test_craylibsci.x
 
 # Compile a simple linear algebra code
 
-Use openblas. Load the PDC module and the openblas module.
+Use OpenBLAS. Load the PDC module and the openblas module.
 
 ```
-ml PDC/24.11 openblas/0.3.29-cpeGNU-24.11
+ml PDC/26.03 openblas/0.3.34-cpeGNU-26.03
 ```
 
+When loading the OpenBLAS module,
+
+- `/pdc/software/26.03/eb/software/openblas/0.3.34-cpeGNU-26.03/lib` is prepended to `LIBRARY_PATH`
+- `/pdc/software/26.03/eb/software/openblas/0.3.34-cpeGNU-26.03/include` is prepended to `CPATH`
+
+Compile the code with linking to OpenBLAS
 ```
-cc dgemm_test.c -o dgemm_test_openblas.x -I$EBROOTOPENBLAS/include -L$EBROOTOPENBLAS/lib -lopenblas
-```
-where the environment variable `EBROOTOPENBLAS` had been set when loading the OpenBLAS module. Its module file includes a statement
-```
-local root = "/pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11"
-setenv("EBROOTOPENBLAS", root)
-```
-which corresponds to an export statement
-```
-export EBROOTOPENBLAS=/pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11
+cc dgemm_test.c -o dgemm_test_openblas.x -lopenblas
 ```
 
 ---
@@ -1054,7 +1051,7 @@ libsci_cray.so.6 => /opt/cray/pe/lib64/libsci_cray.so.6
 ldd dgemm_test_openblas.x
 
 ...
-libopenblas.so.0 => /pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11/lib/libopenblas.so.0
+libopenblas.so.0 => /pdc/software/26.03/eb/software/openblas/0.3.34-cpeGNU-26.03/lib/libopenblas.so.0
 ...
 ```
 
@@ -1082,7 +1079,7 @@ libopenblas.so.0 => /pdc/software/24.11/eb/software/openblas/0.3.29-cpeGNU-24.11
 # Exercise: Compile and run ``fftw_test`` code
 
 ```
-ml cray-fftw/3.3.10.9
+ml cray-fftw/3.3.10.11
 
 wget https://people.math.sc.edu/Burkardt/c_src/fftw/fftw_test.c
 
@@ -1118,16 +1115,16 @@ srun -n 1 ./fftw_test.x
 # What happens when loading a module
 
 ```
-ml show elpa/2025.01.001-cpeGNU-24.11
+ml show elpa/2026.02.01-cpeGNU-26.03
 ```
 
 ```
 whatis("Description: ELPA - Eigenvalue SoLvers for Petaflop-Applications")
-prepend_path("CMAKE_PREFIX_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11")
-prepend_path("LD_LIBRARY_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib")
-prepend_path("LIBRARY_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib")
-prepend_path("PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/bin")
-prepend_path("PKG_CONFIG_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001-cpeGNU-24.11/lib/pkgconfig")
+prepend_path("CMAKE_PREFIX_PATH","/pdc/software/26.03/eb/software/elpa/2026.02.01-cpeGNU-26.03")
+prepend_path("LD_LIBRARY_PATH","/pdc/software/26.03/eb/software/elpa/2026.02.01-cpeGNU-26.03/lib")
+prepend_path("LIBRARY_PATH","/pdc/software/26.03/eb/software/elpa/2026.02.01-cpeGNU-26.03/lib")
+prepend_path("PATH","/pdc/software/26.03/eb/software/elpa/2026.02.01-cpeGNU-26.03/bin")
+prepend_path("PKG_CONFIG_PATH","/pdc/software/26.03/eb/software/elpa/2026.02.01-cpeGNU-26.03/lib/pkgconfig")
 ...
 ```
 
@@ -1139,6 +1136,31 @@ prepend_path("PKG_CONFIG_PATH","/pdc/software/24.11/eb/software/elpa/2025.01.001
 * Load correct dependencies (e.g. ``openblas`` if your code depends on it)
 * Properly prepend to environment variables (e.g. ``PATH``, ``LD_LIBRARY_PATH``)
 * Choose correct SLURM settings
+---
+marp: true
+style: |
+  section h1 {
+    text-align: center;
+    }
+  .column {
+    float: left;
+    width: 50%;
+    outline: 20px solid #FFF;
+    border: 20px solid #AAF;
+    background-color: #AAF;
+    }
+  .row:after {
+    display: table;
+    clear: both;
+    }
+  .attention {
+    border: 10px solid #dcd8c8;
+    background-color: #dcd8c8;
+    box-shadow: 10px 10px 10px #888888;
+    color: red;
+    margin-top: 10px;
+    }
+
 ---
 
 <!-- Section: Job script for efficient utilization of hardware -->
@@ -1171,11 +1193,11 @@ On the login node you:
   - Arbitrates contention for resources
 ---
 
-# How jobs are scheduled?
+# How jobs are prioritized?
 
 * **Age**: the time the job has been in the queue
 * **Job size**: number of nodes or cores requested
-* **Partition**: a factor associated with each node partition
+* **Partition**: a factor associated with each node configuration
 * **Fair-share**: the difference between the computing resources promissed and the amount of resources used
 
 ---
@@ -1189,7 +1211,7 @@ On the login node you:
 * **Interactive jobs:**
   - the user runs a command that allocates interactive resources on a number of cores
   - this creates an interactive job that awaits in the queue as any other job
-  - when the job reaches the front of the queue, the user gets access to the resources and can run commands there
+  - when the job reaches the front of the queue, the user gets access to the resources
 
 ---
 
@@ -1245,11 +1267,11 @@ https://support.pdc.kth.se/doc/stats
 
 * Nodes are logically grouped into partitions
 * There are several partitions that can be used on Dardel
-  - **main**: 256 GB -512 GB- 1 TB RAM, exclusive access, maximum job time 24 hours
-  - **long**: 256 GB - 512 GB RAM, exclusive access, maximum job time 7 days
-  - **shared**: 256 GB RAM, job shares node with other jobs, maximum job time 7 days
-  - **memory**: 512 GB - 1 TB - 2 TB RAM, exclusive access, maximum job time 7 days
-  - **gpu**: GPU nodes, 512 GB RAM, and 4 AMD MI250X GPU cards, exclusive access, maximum job time 24 hours
+  - **main**: 128 CPU cores, 256 GB -512 GB- 1 TB RAM, exclusive access, maximum job time 24 hours
+  - **long**: 128 CPU cores, 256 GB - 512 GB RAM, exclusive access, maximum job time 7 days
+  - **shared**: 128 CPU cores, 256 GB RAM, job shares node with other jobs, maximum job time 7 days
+  - **memory**: 128 CPU cores, 512 GB - 1 TB - 2 TB RAM, exclusive access, maximum job time 7 days
+  - **gpu**: 64 CPU cores, GPU nodes, 512 GB RAM, and 4 AMD MI250X GPU cards, exclusive access, maximum job time 24 hours
 
 
 ---
@@ -1266,17 +1288,32 @@ https://support.pdc.kth.se/doc/stats
  | 2 TB | 1760 GB |
 
 ---
+# Core/Memory allocation on the shared partition
+
+ If requesting number of cores without any memory specification:
+
+ - Memory is allocated proportional to the requested cores
+ - Maximum allocated memory is 111G (~ half of available memory on a node)
+ - For example if requesting 64 cores, you will get around 55G memory
+
+ If requesting specific amount of memory without specifying number of cores:
+
+ - The cores are allocated based on the **half of available memory on a node**
+ - For example if requesting 55G, you will be given 64 cores
+ - If requesting 111G, you will be given 128 cores (the entire node)
+ - If requesting >111G, you will be given 128 cores (the entire node)
+---
 
 # Job submission with job scripts
 
-Create a file so called "job script" containing all the required information for resource allocation and running job
+Create a file containing details of the resource allocation and running your software
 
 ```
 #!/bin/bash -l
 
 #SBATCH -J myjob 
 
-#SBATCH -A edu2503.intropdc
+#SBATCH -A naissXXXX-Y-ZZ
 
 #SBATCH -p shared
 
@@ -1285,7 +1322,10 @@ Create a file so called "job script" containing all the required information for
 module load X
 module load Y
 
-srun ./myexe > my_output_file
+srun myexe > my_output_file
+```
+```
+sbatch <name of the script>
 ```
 ---
 
@@ -1299,7 +1339,7 @@ srun ./myexe > my_output_file
 #SBATCH -J myjob
 
 # Set the allocation to be charged for this job
-#SBATCH -A naissYYYY-X-XX
+#SBATCH -A naissXXXX-Y-ZZ
 
 # The partition
 #SBATCH -p memory
@@ -1312,7 +1352,7 @@ srun ./myexe > my_output_file
 #SBATCH -t 7-00:00:00
 
 # Run the executable named myexe
-srun ./myexe > my_output_file
+srun myexe > my_output_file
 ```
 
 ---
@@ -1327,10 +1367,14 @@ srun ./myexe > my_output_file
 #SBATCH -J myjob
 
 # Set the allocation to be charged for this job
-#SBATCH -A naissYYYY-X-XX
+#SBATCH -A naissXXXX-Y-ZZ
 
 # Number of cores
 #SBATCH -c 10
+
+# binding threads to physical cores
+
+#SBATCH --hint=nomultithread
 
 # The partition
 #SBATCH -p shared
@@ -1345,7 +1389,7 @@ srun ./myexe > my_output_file
 export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
 
 # Run the executable named myexe
-srun --hint=nomultithread ./myexe > my_output_file
+srun myexe > my_output_file
 ```
 
 ---
@@ -1360,47 +1404,48 @@ srun --hint=nomultithread ./myexe > my_output_file
 #SBATCH -J myjob
 
 # Set the allocation to be charged for this job
-#SBATCH -A naissYYYY-X-XX
+#SBATCH -A naissXXXX-Y-ZZ
 
 # Number of nodes
 
 #SBATCH --nodes=4
 
 # Number of MPI tasks
-#SBATCH -n 256
+#SBATCH -n 512
 
 # Number of MPI tasks per node
 
-#SBATCH --ntasks-per-node=64
+#SBATCH --ntasks-per-node=128
 
 # The partition
 #SBATCH -p main
 
 # Required memory
 
-#SBATCH --mem 494G
+#SBATCH --mem 480G
 
 # 10 hours wall-clock time will be given to this job
 #SBATCH -t 10:00:00
 
 # Run the executable named myexe
-srun -n 256 ./myexe > my_output_file
+srun myexe > my_output_file
 ```
 ---
 
-# Job scripts (packed jobs)
+# Job scripts (packed jobs running serially)
 
 Several short jobs can be packed together into a single job where they run serially
 
 ```
 #!/bin/bash -l
-#SBATCH -A project
+#SBATCH -A naissXXXX-Y-ZZ
 #SBATCH -N 1
-#SBATCH -p main
+#SBATCH -n 4
+#SBATCH -p shared
 #SBATCH -t 00:10:00
 
 for arg in "$@"; do
-        srun -n 1 myprog $arg
+        srun myexe $arg
 done
 ```
 
@@ -1408,6 +1453,27 @@ The job is submitted with:
 ```
 sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
 ```
+---
+
+# Job scripts (packed jobs running in parallel)
+
+```
+#!/bin/bash -l
+#SBATCH -A naissXXXX-Y-ZZ
+#SBATCH -N 1
+#SBATCH -p main
+#SBATCH -t 00:08:00
+
+for arg in "$@"; do
+  srun -n 4 myexe $arg &
+done
+wait
+```
+The job is submitted with:
+```
+sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
+```
+
 ---
 
 # Job scripts (GPU)
@@ -1420,7 +1486,7 @@ sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
 #SBATCH -J myjob
 
 # Set the allocation to be charged for this job
-#SBATCH -A naissYYYY-X-XX
+#SBATCH -A naissXXXX-Y-ZZ
 
 # Number of nodes
 
@@ -1428,20 +1494,24 @@ sbatch packed_job.sh x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
 
 # Number of MPI tasks per node
 
-#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks-per-node=8
 
 # The partition
 #SBATCH -p gpu
 
+# GPUs per MPI task
+
+#SBATCH --gpus-per-task=1
+
 # 10 hours wall-clock time will be given to this job
 #SBATCH -t 10:00:00
 
-module load rocm/5.7.0
+module load rocm/6.0.0
 module load craype-accel-amd-gfx90a
 
 
 # Run the executable named myexe
-srun ./myexe > my_output_file
+srun myexe > my_output_file
 ```
 ---
 
@@ -1469,20 +1539,32 @@ ssh nid<XXXXXX>
 ```
 ---
 
-# Interactive jobs
+# Interactive jobs (MPI)
 
 Request an interactive allocation
 ```
-salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes> -n <cores>
+salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -N <nodes> -n <tasks>
 ```
 
 Once the allocation is granted, a new terminal session starts (typing exit will stop the interactive session).
 **You will still be on the login node**. Make sure you use srun to launch your job.
 ```
-srun -n <number-of-MPI tasks> ./mybinary.x
+srun mybinary.x
 ```
 It is also possible to ssh into one of the allocated nodes.
 
+---
+
+# Interactive jobs (OpenMP)
+
+Request an interactive allocation
+```
+salloc -A <allocation> -t <d-hh:mm:ss> -p <partition> -c <cores> --hint=nomultithread
+```
+
+```
+srun mybinary.x
+```
 ---
 
 # Interactive jobs
@@ -1490,7 +1572,7 @@ It is also possible to ssh into one of the allocated nodes.
 We can check what nodes have been granted with:
 
   ```
-  squeue -u $USER or squeue --me
+  squeue -u <username> or squeue --me
   ```
 
   or inspecting the environment variable:
@@ -1533,7 +1615,7 @@ sacct
 sacct --jobs=<your_job-id> --starttime=YYYY-MM-DD
 ```
 ```
-sacct --starttime=2019-06-23 --format=jobid,jobname,nodelist,maxrss,stat,exitcode
+sacct --starttime=2025-08-13 --format=jobid,jobname,nodelist,maxrss,stat,exitcode
 ```
 
 **Tip:** Use *sacct -e* to see all possible fields for the *format* flag
@@ -1567,56 +1649,9 @@ seff <jobid>
 
 ---
 
-# Using fewer cores
-
-Reduce the number of cores used per job and run multiple instances of the job in a single node
-
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -p main
-#SBATCH -t 00:01:00
-
-export OMP_NUM_THREADS=32
-
-export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
-
-srun --hint=nomultithread myprog $1
-```
-
----
-
-# Using fewer cores
-
-```
-#!/bin/bash -l
-#SBATCH -A project
-#SBATCH -N 1
-#SBATCH -p main
-#SBATCH -t 00:08:00
-
-export OMP_NUM_THREADS=4
-
-export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
-
-srun --hint=nomultithread ./inner.sh "$@"
-```
-
-```
-#!/bin/bash
-
-for arg in "$@"; do
-        myprog $arg &
-done
-wait
-```
-
----
-
 # Exercise 1: Basic SLURM commands
 
-* In this exercise we are going to test some basic SLURM commands.
+* In this exercise you are going to test some basic SLURM commands.
 
 * You will:
    - Create and compile a simple MPI program
@@ -1659,6 +1694,10 @@ int main(int argc, char** argv) {
 
 * Save the file on Dardel, compile the code and generate a binary called *hello_mpi.x*
 
+```
+cc -o hello_mpi.x hello_mpi.c
+````
+
 ---
 
 
@@ -1676,7 +1715,7 @@ int main(int argc, char** argv) {
 
 * Submit this script using **sbatch**
 
-* Check the queue using **squeue -u <your_username>**
+* Check the queue using **squeue --me**
    - What's the ID of the job?
    - Is it already running? If so, which node was allocated for the job?
 
@@ -1686,18 +1725,18 @@ int main(int argc, char** argv) {
 
 **Note**:
 
-Notice that we run our program with just:
+Notice that you run our program with just:
 
 ```
-srun ./hello_mpi.x
+srun hello_mpi.x
 ````
 
 It would be also possible to run our program with:
 ```
-srun -N 1 -n 4 ./hello_mpi.x
+srun -N 1 -n 4 hello_mpi.x
 ```
 
-However, we don't need to specify those flags because SLURM takes the *-N* and *-n* values from the *BATCH* directives in the script
+However, we don't need to specify those flags because SLURM takes the *-N* and *-n* values from the *#SBATCH* directives in the script
 
 ---
 
@@ -1734,12 +1773,12 @@ However, we don't need to specify those flags because SLURM takes the *-N* and *
 
 # Exercise 2
 
-* You can find the job script for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise-2.sh)
+* You can find the job script for this exercise [here](https://github.com/PDC-support/pdc-intro/blob/master/SLURM_exercises/exercise2.sh)
 
 * Save the script on Dardel and submit the job. Once the job finishes check its output.
 
 * Inspect the job performance data using **sacct**
-   - Use: -j <job-id> --format=JobID,JobName,Elapsed,ReqMem,MaxRSS
+   - Use: -j <job-id> --format=jobid,jobname,elapsed,reqmem,maxrss
 
      **Tip**: use flag "--unit=M" to see memory units in MB
 
@@ -1829,9 +1868,9 @@ The AMD Radeon Open Compute (ROCm) platform is a software stack for programming 
 
 # Setting up a GPU build environment
 
-- Load the PDC/24.11 module and version 6.3.3 of ROCm with
-    - ``ml PDC/24.11``
-    - ``ml rocm/6.3.3``
+- Load the PDC/26.03 module and version 7.2.1 of ROCm with
+    - ``ml PDC/26.03``
+    - ``ml rocm/7.2.1``
 
 - Set the accelerator target to **amd-gfx90a** (AMD MI250X GPU)
     - ``ml craype-accel-amd-gfx90a``
@@ -1954,7 +1993,7 @@ Build and test run a Hello World C++ code which offloads to GPU via HIP.
    - ``wget https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp``
 
 - Load the ROCm module and set the accelerator target to amd-gfx90a (AMD MI250X GPU)
-   - ``ml rocm/6.3.3``
+   - ``ml rocm/7.2.1``
    - ``ml craype-accel-amd-gfx90a``
 
 - Compile the code with the AMD hipcc compiler on the login node
@@ -1988,7 +2027,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
     - ``wget https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90``
 
 - Load the ROCm module and set the accelerator target to amd-gfx90a
-    - ``ml rocm/6.3.3 craype-accel-amd-gfx90a``
+    - ``ml rocm/7.2.1 craype-accel-amd-gfx90a``
 
 - Compile the code on the login node
     - ``ftn -fopenmp ex04.F90 -o ex04.x``
@@ -2020,7 +2059,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
 - Alternatively, login to the reserved GPU node (here nid002792) ``ssh nid002792``.
 
 - Load ROCm, activate verbose runtime information, and run the program
-    - ``ml rocm/6.3.3``
+    - ``ml rocm/7.2.1``
     - ``export CRAY_ACC_DEBUG=3``
     - ``./ex04.x``
 

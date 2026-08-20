@@ -53,9 +53,9 @@ The AMD Radeon Open Compute (ROCm) platform is a software stack for programming 
 
 # Setting up a GPU build environment
 
-- Load the PDC/24.11 module and version 6.3.3 of ROCm with
-    - ``ml PDC/24.11``
-    - ``ml rocm/6.3.3``
+- Load the PDC/26.03 module and version 7.2.1 of ROCm with
+    - ``ml PDC/26.03``
+    - ``ml rocm/7.2.1``
 
 - Set the accelerator target to **amd-gfx90a** (AMD MI250X GPU)
     - ``ml craype-accel-amd-gfx90a``
@@ -178,7 +178,7 @@ Build and test run a Hello World C++ code which offloads to GPU via HIP.
    - ``wget https://raw.githubusercontent.com/PDC-support/introduction-to-pdc/master/example/hello_world_gpu.cpp``
 
 - Load the ROCm module and set the accelerator target to amd-gfx90a (AMD MI250X GPU)
-   - ``ml rocm/6.3.3``
+   - ``ml rocm/7.2.1``
    - ``ml craype-accel-amd-gfx90a``
 
 - Compile the code with the AMD hipcc compiler on the login node
@@ -212,7 +212,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
     - ``wget https://github.com/ENCCS/openmp-gpu/raw/main/content/exercise/ex04/solution/ex04.F90``
 
 - Load the ROCm module and set the accelerator target to amd-gfx90a
-    - ``ml rocm/6.3.3 craype-accel-amd-gfx90a``
+    - ``ml rocm/7.2.1 craype-accel-amd-gfx90a``
 
 - Compile the code on the login node
     - ``ftn -fopenmp ex04.F90 -o ex04.x``
@@ -244,7 +244,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
 - Alternatively, login to the reserved GPU node (here nid002792) ``ssh nid002792``.
 
 - Load ROCm, activate verbose runtime information, and run the program
-    - ``ml rocm/6.3.3``
+    - ``ml rocm/7.2.1``
     - ``export CRAY_ACC_DEBUG=3``
     - ``./ex04.x``
 
