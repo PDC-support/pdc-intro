@@ -233,7 +233,7 @@ Build and test run a Fortran program that calculates the dot product of vectors.
 
 - First queue to get one GPU node reserved for 10 minutes
 
-    - ``salloc -N 1 -t 0:10:00 -A <project name> -p gpu``
+    - ``salloc -N 1 -t 0:10:00 -p gpu -A edu26.summer --reservation=edu26-08-20``
 
 - wait for a node, then run the program ``srun -n 1 ./ex04.x``
 

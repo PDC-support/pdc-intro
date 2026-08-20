@@ -75,7 +75,7 @@ The Cray Programming Environment (CPE) provides consistent interface to multiple
 
 Request 8 cores in the shared partition for interactive use
 ```
-salloc -n 8 -t 10 -p shared -A <name-of-allocation> --reservation=<name of reservation>
+salloc -n 8 -t 0:10:00 -p shared -A edu26.summer --reservation=edu26-08-20
 ```
 Run on 8 cores in the ``shared`` partition
 ```
@@ -164,7 +164,7 @@ libopenblas.so.0 => /pdc/software/26.03/eb/software/openblas/0.3.34-cpeGNU-26.03
 
 * Run on a single core in the ``shared`` partition
   ```
-  salloc -n 1 -t 10 -p shared -A <name-of-allocation>
+  salloc -n 1 -t 0:10:00 -p shared -A edu26.summer --reservation edu26-08-20
   srun -n 1 ./dgemm_test_craylibsci.x
   srun -n 1 ./dgemm_test_openblas.x
   exit
@@ -191,7 +191,7 @@ cc fftw_test.c -o fftw_test.x
 
 ldd fftw_test.x
 
-salloc -n 1 -t 10 -p shared -A <name-of-allocation>
+salloc -n 1 -t 0:10:00 -p shared -A edu26.summer --reservation edu26-08-20
 srun -n 1 ./fftw_test.x
 ```
 
